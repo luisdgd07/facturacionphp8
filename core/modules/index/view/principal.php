@@ -5,11 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <?php
-  //include_once "./config.php";
   $config = ConfigData::getAll();
   if (count($config) > 0) {
-    ?>
-    <?php
+
     foreach ($config as $configuracion) { ?>
       <title><?php echo $configuracion->texto1; ?></title>
       <?php
@@ -17,180 +15,11 @@
   } else {
   }
   ?>
-  <link rel="icon" type="icon" href="storage/iconos/7.png">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <script src="res/javi/JsBarcode.all.min.js"></script>
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="res/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="res/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="res/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="res/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="res/dist/css/skins/_all-skins.min.css">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="res/bower_components/morris.js/morris.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="res/bower_components/jvectormap/jquery-jvectormap.css">
-  <!-- Date Picker -->
-  <link rel="stylesheet" href="res/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="res/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="res/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="res/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
-  <!-- Bootstrap time Picker -->
-  <link rel="stylesheet" href="res/plugins/timepicker/bootstrap-timepicker.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="res/bower_components/select2/dist/css/select2.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="res/plugins/iCheck/square/blue.css">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="res/plugins/iCheck/all.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="res/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
-  <!-- Google Font -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <!-- estilos cja -->
-  <link rel="stylesheet" href="res/javi/personalizacion.css">
-  <style type="text/css">
-    #mostrar,
-    #ocultar,
-    #mostrar1,
-    #ocultar1 {
-      display: none;
-    }
-  </style>
   <script src="plugins/jquery/jquery-2.1.4.min.js"></script>
-  <script>
-    $(function () {
-      //Initialize Select2 Elements
-      $('.select2').select2()
 
-      //Datemask dd/mm/yyyy
-      $('#datemask').inputmask('dd/mm/yyyy', {
-        'placeholder': 'dd/mm/yyyy'
-      })
-      //Datemask2 mm/dd/yyyy
-      $('#datemask2').inputmask('mm/dd/yyyy', {
-        'placeholder': 'mm/dd/yyyy'
-      })
-      //Money Euro
-      $('[data-mask]').inputmask()
-
-      //Date range picker
-      $('#reservation').daterangepicker()
-      //Date range picker with time picker
-      $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-          format: 'MM/DD/YYYY hh:mm A'
-        }
-      })
-      //Date range as a button
-      $('#daterange-btn').daterangepicker({
-        ranges: {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate: moment()
-      },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-        }
-      )
-
-      //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true
-      })
-
-      //iCheck for checkbox and radio inputs
-      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-        checkboxClass: 'icheckbox_minimal-blue',
-        radioClass: 'iradio_minimal-blue'
-      })
-      //Red color scheme for iCheck
-      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-        checkboxClass: 'icheckbox_minimal-red',
-        radioClass: 'iradio_minimal-red'
-      })
-      //Flat red color scheme for iCheck
-      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass: 'iradio_flat-green'
-      })
-
-      //Colorpicker
-      $('.my-colorpicker1').colorpicker()
-      //color picker with addon
-      $('.my-colorpicker2').colorpicker()
-
-      //Timepicker
-      $('.timepicker').timepicker({
-        showInputs: false
-      })
-    })
-  </script>
 
 </head>
-<style type="text/css">
-  .mt20 {
-    margin-top: 20px;
-  }
-
-  .bold {
-    font-weight: bold;
-  }
-
-  /* chart style*/
-  #legend ul {
-    list-style: none;
-  }
-
-  #legend ul li {
-    display: inline;
-    padding-left: 30px;
-    position: relative;
-    margin-bottom: 4px;
-    border-radius: 5px;
-    padding: 2px 8px 2px 28px;
-    font-size: 14px;
-    cursor: default;
-    -webkit-transition: background-color 200ms ease-in-out;
-    -moz-transition: background-color 200ms ease-in-out;
-    -o-transition: background-color 200ms ease-in-out;
-    transition: background-color 200ms ease-in-out;
-  }
-
-  #legend li span {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 100%;
-    border-radius: 5px;
-  }
-</style>
 
 <body
   class="<?php if (isset($_SESSION["admin_id"]) || isset($_SESSION["id_usuario"])): ?> hold-transition skin-blue sidebar-collapse<?php else: ?>login-page<?php endif; ?>"
@@ -209,16 +38,6 @@
       $range_from = date('m/d/Y', strtotime('-30 day', strtotime($range_to)));
       ?>
 
-
-      <?php
-
-      //$u->tiempo_sesion=180;
-    
-
-
-
-
-      ?>
 
       <div class="wrapper">
         <header class="main-header">
@@ -320,8 +139,7 @@
                 </span>
               </div>
             </form>
-            <!-- /.search form -->
-            <!-- sidebar menu: : style can be found in sidebar.less -->
+
             <?php if ($u->is_admin): ?>
               <ul class="sidebar-menu" data-widget="tree">
 
@@ -383,20 +201,12 @@
                   </ul>
                 </li>
               </ul>
-            <?php endif ?>
-
-
-            <!-- INICIO MENU -->
-
-            <?php if ($u->sucursal_id == 2) { ?>
-
-
-              <?php
+            <?php endif;
+            if ($u->sucursal_id == 2) {
               $usuarioss = UserData::getById($u->id_usuario);
               $sucursales = SucursalUusarioData::verusucursalusuarios($usuarioss->id_usuario);
-              ?>
-              <?php if (count($sucursales) > 0): ?>
-                <?php foreach ($sucursales as $sucur):
+              if (count($sucursales) > 0):
+                foreach ($sucursales as $sucur):
                   $sucursal = $sucur->verSocursal(); ?>
 
                   <ul class="sidebar-menu" data-widget="tree">
@@ -752,8 +562,8 @@
                   </ul>
 
                 <?php endforeach ?>
-              <?php endif ?>
-            <?php } else { ?>
+              <?php endif;
+            } else { ?>
 
 
               <?php
@@ -858,19 +668,6 @@
 
                       </ul>
                     </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1004,7 +801,6 @@
                         </span>
                       </a>
                       <ul class="treeview-menu">
-                        <!-- index.php?view=reporteproductoss&id_sucursal=17 -->
                         <li><a href="index.php?view=nuevoproducto1&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
                               class="fa fa-laptop" style="color: orange;"></i>Nuevo producto</a></li>
                         <li><a href="index.php?view=producto&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
@@ -1161,7 +957,6 @@
         <?php endif; ?>
         <!-- /.sidebar -->
       </aside>
-      <!-- Content Wrapper. Contains page content -->
       <div>
         <?php
         if (isset($_SESSION["admin_id"])) {
@@ -1175,7 +970,6 @@
         $u = null;
         if ($_SESSION["admin_id"] != "") {
           $u = UserData::getById($_SESSION["admin_id"]);
-          // $user = $u->nombre." ".$u->apellido;
         } ?>
 
         <footer class="main-footer">
@@ -1196,265 +990,9 @@
       <?php endif; ?>
 
     </div>
-    <script type="text/javascript">
-      JsBarcode("#barcoder", "1234", {
-        format: "pharmacode",
-        lineColor: "#000",
-        width: 4,
-        height: 40,
-        displayValue: false
-      });
-    </script>
-    <script type="text/javascript" src="bundle.js"></script>
-    <script src="res/javi/operacion.js"></script>
-    <script src="res/javi/personalizacion.js"></script>
-
-    <!-- iCheck -->
-    <script src="res/plugins/iCheck/icheck.min.js"></script>
-    <!-- Select2 -->
-    <script src="res/bower_components/select2/dist/js/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="res/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="res/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="res/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <!-- jQuery 3 -->
-    <script src="res/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- date-range-picker -->
-    <script src="res/bower_components/moment/min/moment.min.js"></script>
-    <script src="res/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap time picker -->
-    <script src="res/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <!-- bootstrap color picker -->
-    <script src="res/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="res/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="res/bower_components/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-      $.widget.bridge('uibutton', $.ui.button);
-    </script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="res/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Morris.js charts -->
-    <script src="res/bower_components/raphael/raphael.min.js"></script>
-    <script src="res/bower_components/morris.js/morris.min.js"></script>
-    <!-- Sparkline -->
-    <script src="res/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-    <!-- jvectormap -->
-    <script src="res/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="res/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="res/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="res/bower_components/moment/min/moment.min.js"></script>
-    <script src="res/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- datepicker -->
-    <script src="res/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="res/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-    <!-- Slimscroll -->
-    <script src="res/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="res/bower_components/fastclick/lib/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="res/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="res/dist/js/pages/dashboard.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="res/dist/js/demo.js"></script>
-    <!-- ChartJS -->
-    <script src="res/bower_components/chart.js/Chart.js"></script>
-    <!-- DataTables -->
-    <script src="res/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="res/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <!-- page script -->
-    <script type="text/javascript">
-      function btnCierredeCaja() {
-        var respuesta = confirm("Estas Seguro de Cerrar la Caja Recuerda eres el Responsable, !! la Caja se Cierra cuando culminas de realizar las actividades durante el dia ..!!");
-        if (respuesta == true) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    </script>
-    <script>
-      $(document).ready(function () {
-        $("#searchppp").on("submit", function (e) {
-          e.preventDefault();
-
-          $.get("./?action=buscarproducto", $("#searchppp").serialize(), function (data) {
-            $("#resultado_producto").html(data);
-          });
-          $("#javier").val("");
-
-        });
-      });
-
-      $(document).ready(function () {
-        $("#javier").keydown(function (e) {
-          if (e.which == 17 || e.which == 74) {
-            e.preventDefault();
-          } else {
-            console.log(e.which);
-          }
-        })
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $("#buscador").on("submit", function (e) {
-          e.preventDefault();
-
-          $.get("./?action=buscarproducto1", $("#buscador").serialize(), function (data) {
-            $("#resultadosbuscador").html(data);
-          });
-          $("#javier").val("");
-
-        });
-      });
-
-      $(document).ready(function () {
-        $("#javier").keydown(function (e) {
-          if (e.which == 17 || e.which == 74) {
-            e.preventDefault();
-          } else {
-            console.log(e.which);
-          }
-        })
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $("#transaccioness").on("submit", function (e) {
-          e.preventDefault();
-
-          $.get("./?action=buscarproductos", $("#transaccioness").serialize(), function (data) {
-            $("#resultado_productos").html(data);
-          });
-          $("#caja").val("");
-
-        });
-      });
-
-      $(document).ready(function () {
-        $("#caja").keydown(function (e) {
-          if (e.which == 17 || e.which == 74) {
-            e.preventDefault();
-          } else {
-            console.log(e.which);
-          }
-        })
-      });
-    </script>
 
 
-    <script>
-      $(document).ready(function () {
-        $("#searchpppp").on("submit", function (e) {
-          e.preventDefault();
 
-          $.get("./?action=buscarpostre", $("#searchpppp").serialize(), function (data) {
-            $("#resultado_postre").html(data);
-          });
-          $("#nombree").val("");
-
-        });
-      });
-
-      $(document).ready(function () {
-        $("#nombree").keydown(function (e) {
-          if (e.which == 17 || e.which == 74) {
-            e.preventDefault();
-          } else {
-            console.log(e.which);
-          }
-        })
-      });
-    </script>
-    <script type="text/javascript">
-      function Mostrar() {
-        document.getElementById('mostrar').style.display = 'block';
-        document.getElementById('ocultar').style.display = 'none';
-      }
-
-      function Ocultar() {
-        document.getElementById('mostrar').style.display = 'none';
-        document.getElementById('ocultar').style.display = 'block';
-      }
-    </script>
-    <script type="text/javascript">
-      function Mostrar1() {
-        document.getElementById('mostrar1').style.display = 'block';
-        document.getElementById('ocultar1').style.display = 'none';
-      }
-
-      function Ocultar1() {
-        document.getElementById('mostrar1').style.display = 'none';
-        document.getElementById('ocultar1').style.display = 'block';
-      }
-    </script>
-
-    <!-- <script>
-          $(document).ready(function(){
-            $("#searchpp").on("submit",function(e){
-              e.preventDefault();
-              
-              $.get("./?action=buscarpl",$("#searchpp").serialize(),function(data){
-                $("#show_search_results").html(data);
-              });
-              $("#nombre").val("");
-
-            });
-            });
-
-          $(document).ready(function(){
-              $("#nombre").keydown(function(e){
-                  if(e.which==17 || e.which==74){
-                      e.preventDefault();
-                  }else{
-                      console.log(e.which);
-                  }
-              })
-          });
-          </script> -->
-
-    <style>
-      .img-responsive {
-        max-width: 100%;
-        height: auto;
-      }
-    </style>
-    <script>
-      $(function () {
-        $('#example1').DataTable()
-        $('#example2').DataTable({
-          'paging': true,
-          'lengthChange': false,
-          'searching': false,
-          'ordering': true,
-          'info': true,
-          'autoWidth': false
-        })
-      })
-    </script>
-    <script>
-      $("#changepasswd").submit(function (e) {
-        if ($("#password").val() == "" || $("#newpassword").val() == "" || $("#confirmnewpassword").val() == "") {
-          e.preventDefault();
-          alert("No debes dejar espacios vacios.");
-
-        } else {
-          if ($("#newpassword").val() == $("#confirmnewpassword").val()) {
-            //      alert("Correcto");      
-          } else {
-            e.preventDefault();
-            alert("Las nueva contraseña no coincide con la confirmacion.");
-          }
-        }
-      });
-    </script>
 
 </body>
 
@@ -1545,12 +1083,7 @@
     </div>
   </div>
 </div>
-<!-- <?php if ($u->image != ""): ?>
-                       <img src="storage/usuario/<?php echo $u->image; ?>"class="img-circle" alt="User Image"> 
-                    <?php endif; ?> 
-                <p>
-                  <?php echo $u->name . " " . $u->lastname; ?>
-                  <small>Miembro desde <?php echo $u->created_at; ?></small> -->
+
 <div class="modal fade bs-example-modal-lg" id="perfil">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -1666,27 +1199,14 @@
                     </label>
                     <br>
                   </div>
-                  <!--  <div class="form-group">
-                      <label for="inputEmail1" class="col-lg-3 control-label" >Esta activo</label>
-                      <div class="col-md-6">
-                  <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="is_active" <?php if ($u->is_active) {
-                          echo "checked";
-                        } ?>> 
-                      </label>
-                    </div>
-                      </div>
-                    </div> -->
+
 
                 </div>
                 <div class="col-md-12 col-lg-12 col-xs-12" style="text-align:center;">
                   <br>
                   <div class="col-md-4">
                   </div>
-                  <!-- <div class="col-md-4" >
-                       <button class="btn btn-success"  style="width: 100%" ><span class="glyphicon glyphicon-floppy-saved" ></span>&nbsp;<b>Modificar Datos</b></button><br>
-                    </div> -->
+
                   <div class="col-md-4">
                   </div>
                 </div>
@@ -1719,14 +1239,9 @@
 
       , 3000);
 
-    // $('push-menu').toggle()
   </script>
 
 
-
-  <script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     function iniciarControlInactividad() {
@@ -1778,4 +1293,3 @@
 
     iniciarControlInactividad();
   </script>
-  <!------------------------------------ NUEVO ------------------------------------->
