@@ -3,17 +3,16 @@ class Database
 {
 	public static $db;
 	public static $con;
-	function Database()
+	private $user = "root";
+	private $pass = "0709";
+	private $host = "localhost";
+	private $ddbb = "syscombl";
+	public function __construct()
 	{
-		/* 
-		 	$this->user="diegolo";$this->pass="&u57c49jJ";$this->host="localhost";$this->ddbb= "syscombl2"; 
-			 */
-
 		$this->user = "root";
 		$this->pass = "0709";
 		$this->host = "localhost";
-		// $this->ddbb = "syscombl_conoflex";
-		$this->ddbb = "syscombl_conoflex2";
+		$this->ddbb = "syscombl_dosbeta";
 	}
 
 	function connect()

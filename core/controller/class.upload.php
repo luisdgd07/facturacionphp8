@@ -2658,18 +2658,27 @@ class upload {
      * @param  string  $size  Size in bytes, or shorthand byte options
      * @return integer Size in bytes
      */
-    function getsize($size) {
-        $last = strtolower($size{strlen($size)-1});
-        switch($last) {
-            case 'g':
-                $size *= 1024;
-            case 'm':
-                $size *= 1024;
-            case 'k':
-                $size *= 1024;
-        }
-        return $size;
+    
+	
+	function getsize($size) {
+    // nos aseguramos de trabajar como string para usar strlen
+    $size = (string) $size;
+
+    // PHP 8: acceso al último carácter usando []
+    $last = strtolower($size[strlen($size) - 1] ?? '');
+
+    switch ($last) {
+        case 'g':
+            $size *= 1024;
+        case 'm':
+            $size *= 1024;
+        case 'k':
+            $size *= 1024;
     }
+
+    return $size;
+}
+
 
     /**
      * Decodes offsets
