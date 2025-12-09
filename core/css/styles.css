@@ -1,0 +1,25 @@
+.Rechazado{
+    background-color: orange;
+    padding:5px;
+}
+.Aprobado {
+    background-color: green;
+    color: #fff;
+    padding:5px;
+}
+.Cancelado{
+    background-color: crimson;
+    color: #fff;
+    padding:5px;
+}
+
+.Activo{
+    background-color: green;
+    color: #fff;
+    padding:5px;
+}
+.Anulado{
+    background-color: crimson;
+    color: #fff;
+    padding:5px;
+}

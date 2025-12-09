@@ -1,0 +1,44 @@
+<?php
+$product = new ProductoData();
+$product->nombre = $_POST['nombre'];
+$product->categoria_id = $_POST['categoria_id'];
+$product->marca_id = $_POST['marca_id'];
+if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == UPLOAD_ERR_OK) {
+    $imagen_tmp = $_FILES["imagen"]["tmp_name"];
+    $extension = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
+    $nombre_imagen = uniqid() . "." . $extension;
+    $url = "storage/producto/" . $nombre_imagen;
+    if (move_uploaded_file($imagen_tmp, $url)) {
+        $product->imagen = $nombre_imagen;
+    }
+} else {
+    $product->imagen = '';
+}
+$product->impuesto = $_POST['impuesto'];
+
+$product->descripcion = $_POST['descripcion'];
+$product->presentacion = $_POST['presentacion'];
+$product->estado = $_POST['estado'];
+$product->precio_compra = 0;
+$product->inventario_minimo = $_POST['inventario_minimo'];
+$product->id_producto = $_POST['id_producto'];
+$product->sucursal_id = $_POST['sucursal_id'];
+$res = $product->actualizar_Producto();
+$insumos = new InsumosData();
+$insumos->id = $_POST['id_producto'];
+$insumos->delete();
+// InsumosData::delete($_POST['id_producto']);
+$cart =  json_decode($_POST['carrito']);
+foreach ($cart as $c) {
+    $insumos = new InsumosData();
+    $insumos->producto_id
+        = $_POST['id_producto'];
+    $insumos->nombre = $c->producto;
+    $insumos->insumo_id = $c->id;
+    $insumos->cantidad = $c->cantidad;
+    $insumos->precio = $c->precio;
+    $insumos->total = $c->total;
+    $insumos->id_sucursal = $_POST["id_sucursal"];
+    $insumos->registrarnuevo();
+}
+echo 1;
