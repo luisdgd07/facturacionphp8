@@ -18,7 +18,7 @@ class TarjetaDetalleData
     {
         $sql = "SELECT * FROM `tarjeta_detalle` WHERE `transaccion` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new TarjetaDetalleData());
+        return Model::one($query[0], "TarjetaDetalleData");
     }
     public static function eliminar($id)
     {

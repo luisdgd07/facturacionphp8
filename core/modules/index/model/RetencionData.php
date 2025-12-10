@@ -14,8 +14,7 @@ class RetencionData
     {
         $sql = "select RC.*, RD.numero_timbrado, CC.anulado from retencion_cabecera RC INNER JOIN retencion_detalle RD ON RD.usuario = RC.id INNER JOIN cobro_cabecera CC ON CC.COBRO_ID = RC.cobro_id where CC.`sucursal_id` = $SUCURSAL_ID ";
         $query = Executor::doit($sql);
-        return $sql;
-        return Model::many($query[0], new RetencionData());
+        return Model::many($query[0], "RetencionData");
     }
 
 
@@ -23,7 +22,7 @@ class RetencionData
     {
         $sql = "SELECT * FROM `retencion_cabecera` WHERE id = $id;";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new RetencionData());
+        return Model::one($query[0], "RetencionData");
     }
     public function editar()
     {
@@ -37,6 +36,6 @@ class RetencionData
     public static function eliminar($id)
     {
         $sql = "DELETE FROM retencion_cabecera WHERE `id` = $id";
-        return  Executor::doit($sql);
+        return Executor::doit($sql);
     }
 }

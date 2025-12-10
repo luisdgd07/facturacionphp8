@@ -12,26 +12,26 @@ class PlacaData
 	{
 		$sql = "select * from detalle_placa where id_sucursal =" . $sucursal;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "PlacaData");
 	}
 	public static function listar3($sucursal)
 	{
 		$sql = "select * from `placas` where id_sucursal =" . $sucursal;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "PlacaData");
 	}
 	public static function listar($sucursal)
 	{
 		$sql = "select * from placas_fabrica where id_sucursal =" . $sucursal;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "PlacaData");
 	}
 
 	public static function obtener($placa)
 	{
 		$sql = "select * from detalle_placa where id_venta =" . $placa;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "PlacaData");
 	}
 	public static function VerId($id_placa)
 	{
@@ -71,6 +71,6 @@ class PlacaData
 	{
 		$sql = "select * from placas_fabrica where id_sucursal =" . $sucursal;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "PlacaData");
 	}
 }

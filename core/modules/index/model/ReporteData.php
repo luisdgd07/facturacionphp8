@@ -1,16 +1,19 @@
 <?php
 
-class ReporteData {
+class ReporteData
+{
 
-    public static function obtenerRuc($sucursalId){
+    public static function obtenerRuc($sucursalId)
+    {
         $sql = "SELECT SUBSTRING_INDEX(ruc,'-',1) as ruc FROM sucursal where id_sucursal = $sucursalId";
         $query = Executor::doit($sql);
-        return Model::many($query[0],new ReporteData());
+        return Model::many($query[0], "ReporteData");
     }
 
-    public static function buscarDatosReporte90Venta($fechaDesde, $fechaHasta, $sucursal, $monedaPrincipal, $monedaSeleccionada){
-        if($monedaPrincipal == "US$"){
-            if($monedaSeleccionada == "₲"){
+    public static function buscarDatosReporte90Venta($fechaDesde, $fechaHasta, $sucursal, $monedaPrincipal, $monedaSeleccionada)
+    {
+        if ($monedaPrincipal == "US$") {
+            if ($monedaSeleccionada == "₲") {
                 $sql = "select 
                 1 as tipoArchivo, 
                 CASE
@@ -78,7 +81,7 @@ class ReporteData {
                 left join cliente c on c.id_cliente = v.cliente_id
                 left join configfactura c2 on  c2.id_configfactura =v.configfactura_id
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 2 and v.tipo_venta != 2";
-            }else{
+            } else {
                 $sql = "select 
                 1 as tipoArchivo, 
                 CASE
@@ -118,8 +121,8 @@ class ReporteData {
                 left join configfactura c2 on  c2.id_configfactura =v.configfactura_id
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 2 and v.tipo_venta != 2";
             }
-        }else if($monedaPrincipal == "₲"){
-            if($monedaSeleccionada == "US$"){
+        } else if ($monedaPrincipal == "₲") {
+            if ($monedaSeleccionada == "US$") {
                 $sql = "select 
                 1 as tipoArchivo, 
                 CASE
@@ -158,7 +161,7 @@ class ReporteData {
                 left join cliente c on c.id_cliente = v.cliente_id
                 left join configfactura c2 on  c2.id_configfactura =v.configfactura_id
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 2 and v.tipo_venta != 2";
-            }else{
+            } else {
                 $sql = "select 
                 1 as tipoArchivo, 
                 CASE
@@ -226,15 +229,16 @@ class ReporteData {
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 2 and v.tipo_venta != 2";
             }
         }
-        
+
         $query = Executor::doit($sql);
-        return Model::many($query[0],new ReporteData());
+        return Model::many($query[0], "ReporteData");
     }
 
-    public static function buscarDatosReporte90Compra($fechaDesde, $fechaHasta, $sucursal, $monedaPrincipal, $monedaSeleccionada){
+    public static function buscarDatosReporte90Compra($fechaDesde, $fechaHasta, $sucursal, $monedaPrincipal, $monedaSeleccionada)
+    {
 
-		if($monedaPrincipal == "US$"){
-            if($monedaSeleccionada == "₲"){
+        if ($monedaPrincipal == "US$") {
+            if ($monedaSeleccionada == "₲") {
                 $sql = "select 
                 2 as tipoArchivo, 
                 CASE
@@ -303,7 +307,7 @@ class ReporteData {
                 left join cliente c on c.id_cliente = v.cliente_id
                 left join configfactura c2 on  c2.id_configfactura =v.configfactura_id
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 1 and v.tipo_venta != 2";
-            }else{
+            } else {
                 $sql = "select 
                 2 as tipoArchivo, 
                 CASE
@@ -344,8 +348,8 @@ class ReporteData {
                 left join configfactura c2 on  c2.id_configfactura =v.configfactura_id
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 1 and v.tipo_venta != 2";
             }
-        }else if($monedaPrincipal == "₲"){
-            if($monedaSeleccionada == "US$"){
+        } else if ($monedaPrincipal == "₲") {
+            if ($monedaSeleccionada == "US$") {
                 $sql = "select 
                 2 as tipoArchivo, 
                 CASE
@@ -385,7 +389,7 @@ class ReporteData {
                 left join cliente c on c.id_cliente = v.cliente_id
                 left join configfactura c2 on  c2.id_configfactura =v.configfactura_id
                 where v.sucursal_id = $sucursal and v.fecha between '$fechaDesde' and '$fechaHasta' and v.accion_id = 1 and v.tipo_venta != 2";
-            }else{
+            } else {
                 $sql = "select 
                 2 as tipoArchivo, 
                 CASE
@@ -457,7 +461,7 @@ class ReporteData {
         }
 
         $query = Executor::doit($sql);
-        return Model::many($query[0],new ReporteData());
+        return Model::many($query[0], "ReporteData");
     }
 
 

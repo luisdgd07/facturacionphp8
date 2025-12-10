@@ -29,12 +29,12 @@ class PlacaDetalleData
     {
         $sql = "select * FROM `detalle_placa` WHERE `id_venta` = $id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new OperationData());
+        return Model::many($query[0], "PlacaDetalleData");
     }
     public static function obtenerPlaca($id)
     {
         $sql = "SELECT * FROM `placas_fabrica` WHERE `id_placa` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new OperationData());
+        return Model::one($query[0], "PlacaDetalleData");
     }
 }

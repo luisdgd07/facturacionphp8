@@ -1,4 +1,3 @@
-
 <?php
 class CobroDetalleData
 {
@@ -40,7 +39,7 @@ class CobroDetalleData
 
         $sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal order by id desc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
 
 
@@ -49,7 +48,7 @@ class CobroDetalleData
 
         $sql = "select * from " . self::$tablename . " where COBRO_ID=$COBRO_ID order by COBRO_ID asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
 
     public function getCliente()
@@ -64,21 +63,21 @@ class CobroDetalleData
 
         $sql = "select * from cobro_detalle where NUMERO_CREDITO=$credito and cuota=$cuota and venta=0";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
     public static function cobranza_creditosum2($credito)
     {
 
         $sql = "select * from cobro_detalle where NUMERO_CREDITO=$credito and venta=0";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
     public static function cobranza_credito2($credito)
     {
 
         $sql = "select * from " . self::$tablename . " where NUMERO_CREDITO=$credito order by NUMERO_CREDITO asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
 
     public static function cobranza_credito_detalle()
@@ -86,7 +85,7 @@ class CobroDetalleData
 
         $sql = "SELECT id as idT,`NUMERO_FACTURA`, SUM(`IMPORTE_COBRO`) as importeCO, SUM(`IMPORTE_CREDITO`) as importeC FROM `cobro_detalle` GROUP BY `NUMERO_FACTURA`;";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
 
     public static function agregar_abono($monto, $id)
@@ -103,25 +102,25 @@ class CobroDetalleData
     {
         $sql = "select * from " . self::$tablename . " where COBRO_ID=" . $id . "; ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
     public static function getCredito($id)
     {
         $sql = "select * from " . self::$tablename . " where credito_detalle_id = " . $id . " ";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CobroDetalleData());
+        return Model::one($query[0], "CobroDetalleData");
     }
     public static function getByCredito($id)
     {
         $sql = "select * from " . self::$tablename . " where NUMERO_CREDITO= " . $id . " ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CobroDetalleData());
+        return Model::many($query[0], "CobroDetalleData");
     }
     public static function getcobroid($id)
     {
         $sql = "SELECT * FROM `cobro_detalle` WHERE `COBRO_ID` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CobroDetalleData());
+        return Model::one($query[0], "CobroDetalleData");
     }
 
 
@@ -129,7 +128,7 @@ class CobroDetalleData
     {
         $sql = "SELECT * FROM `cobro_detalle` WHERE `COBRO_ID` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CobroDetalleData());
+        return Model::one($query[0], "CobroDetalleData");
     }
 
 

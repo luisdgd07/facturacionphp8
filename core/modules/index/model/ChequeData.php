@@ -11,7 +11,7 @@ class ChequeData
     {
         $sql = "select * from `cheques_recibidos`  WHERE `caja_id` = $cajaid";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new ChequeData());
+        return Model::one($query[0], "ChequeData");
         // return $sql;
     }
 }

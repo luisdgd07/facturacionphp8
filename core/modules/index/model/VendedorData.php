@@ -18,6 +18,5 @@ class VendedorData
         $sql = "select * from " . self::$tablename . " where id = " . $id;
         $query = Executor::doit($sql);
         return Model::one($query[0], "VendedorData");
-        // return Model::one($query[0], new VendedorData());
     }
 }

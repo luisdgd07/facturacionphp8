@@ -89,7 +89,7 @@ class OperationData
 	{
 		$sql = "select * from " . self::$tablename . " where id_proceso=$id_proceso";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new OperationData());
+		return Model::one($query[0], "OperationData");
 	}
 
 
@@ -97,25 +97,25 @@ class OperationData
 	{
 		$sql = "select * from " . self::$tablename;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function verTransacciones($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where transaccion=1 and sucursal_id=$id_sucursal OR( transaccion=0 AND accion_id=1 and sucursal_id=$id_sucursal) or ( transaccion=0 AND accion_id=2 and sucursal_id=$id_sucursal)  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function verproductoprocesos($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal order by id_proceso desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function verproductmasivas($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and transaccion =0 order by id_proceso desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public function actualizarmasiva()
 	{
@@ -210,67 +210,67 @@ class OperationData
 	{
 		$sql = "select * from " . self::$tablename . " where plato_id=$plato_id  order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllByProducto($producto_id)
 	{
 		$sql = "select * from " . self::$tablename . " where producto_id=$producto_id  order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllByPostre($postre_id)
 	{
 		$sql = "select * from " . self::$tablename . " where postre_id=$postre_id  order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsBySellId($mesa_id)
 	{
 		$sql = "select * from " . self::$tablename . " where mesa_id=$mesa_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsBySellIdd($delivery_id)
 	{
 		$sql = "select * from " . self::$tablename . " where delivery_id=$delivery_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsByVenta($venta_id)
 	{
 		$sql = "select * from operacion where venta_id=$venta_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsBySellIddd($venta_id)
 	{
 		$sql = "select * from remision_detalle where venta_id=$venta_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsByNotaVentaId($venta_id)
 	{
 		$sql = "select * from nota_de_credito_venta_detalle where venta_id=$venta_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsBySellIddd2($venta_id)
 	{
 		$sql = "select * from " . self::$tablename . " where venta_id=$venta_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new OperationData());
+		return Model::one($query[0], "OperationData");
 	}
 	public static function getAllProductsBySellIdddd($venderpostre_id)
 	{
 		$sql = "select * from " . self::$tablename . " where venderpostre_id=$venderpostre_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllProductsBySellIddddd($verderpostre_id)
 	{
 		$sql = "select * from " . self::$tablename . " where verderpostre_id=$verderpostre_id order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	////////////////////////////////////////////////////////////////////////////
 
@@ -278,31 +278,31 @@ class OperationData
 	// public static function cierre_caja(){
 	// 	$sql = "select * from ".self::$tablename." where accion_id=2 and caja_id is NULL order by fecha desc";
 	// 	$query = Executor::doit($sql);
-	// 	return Model::many($query[0],new OperationData());
+	// 	return Model::many($query[0],"OperationData");
 	// }
 	public static function getAllByPlatoId($plato_id)
 	{
 		$sql = "select * from " . self::$tablename . " where plato_id=$plato_id";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllByPostreId($postre_id)
 	{
 		$sql = "select * from " . self::$tablename . " where postre_id=$postre_id";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getAllByProductoId($producto_id)
 	{
 		$sql = "select * from " . self::$tablename . " where producto_id=$producto_id";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getByProductoId($sucursal, $producto_id, $start, $end)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$sucursal and precio!=0 and producto_id=$producto_id and date(fecha) >= \"$start\" and date(fecha) <= \"$end\"";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getByProductoId4($sucursal, $producto_id, $start, $end)
 	{
@@ -314,20 +314,20 @@ class OperationData
 		}
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function getByProductoId2($sucursal, $start, $end)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$sucursal  and precio!=0 and date(fecha) >= \"$start\" and date(fecha) <= \"$end\"";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 		// return $sql;
 	}
 	public static function getByProductoId3($sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$sucursal ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 		// return $sql;
 	}
 	public function del()
@@ -345,7 +345,7 @@ class OperationData
 	{
 		$sql = "select * from " . self::$tablename . " where producto_id=$producto  and transaccion=1 and sucursal_id=$id_sucursal OR( transaccion=0 AND accion_id=1 and sucursal_id=$id_sucursal) or ( transaccion=0 AND accion_id=2 and sucursal_id=$id_sucursal) and date(fecha) >= \"$start\" and date(fecha) <= \"$end\"  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 
 
@@ -354,13 +354,13 @@ class OperationData
 	{
 		$sql = "select * from " . self::$tablename . " where  transaccion=1 and sucursal_id=$id_sucursal OR( transaccion=0 AND accion_id=1 and sucursal_id=$id_sucursal) or ( transaccion=0 AND accion_id=2 and sucursal_id=$id_sucursal) and date(fecha) >= \"$start\" and date(fecha) <= \"$end\"  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function verTransacciones12($id_sucursal, $producto)
 	{
 		$sql = "select * from " . self::$tablename . " where producto_id=$producto  and transaccion=1 and sucursal_id=$id_sucursal OR( transaccion=0 AND accion_id=1 and sucursal_id=$id_sucursal) or ( transaccion=0 AND accion_id=2 and sucursal_id=$id_sucursal) ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 
 
@@ -369,7 +369,7 @@ class OperationData
 	{
 		$sql = "select * from " . self::$tablename . " where  transaccion=1 and sucursal_id=$id_sucursal OR( transaccion=0 AND accion_id=1 and sucursal_id=$id_sucursal) or ( transaccion=0 AND accion_id=2 and sucursal_id=$id_sucursal)   ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 
 
@@ -382,7 +382,7 @@ class OperationData
 		INNER JOIN `tipo_producto` AS tipo_p ON `tipo_p`.`ID_TIPO_PROD`= prod.`ID_TIPO_PROD`
 		WHERE `operacion`.`venta_id` = $venta_id;";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new OperationData());
+		return Model::many($query[0], "OperationData");
 	}
 	public static function eliminarVenta($id)
 	{

@@ -13,7 +13,7 @@ class RetencionDetalleData
     {
         $sql = "select * from " . self::$tablename . " where usuario=$id order by id desc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new RetencionDetalleData());
+        return Model::many($query[0], "RetencionDetalleData");
     }
 
 
@@ -25,7 +25,7 @@ class RetencionDetalleData
     {
         $sql = "select * from " . self::$tablename . " where usuario='$id' order by id desc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new RetencionDetalleData());
+        return Model::many($query[0], "RetencionDetalleData");
     }
     public function editar()
     {
@@ -36,12 +36,12 @@ class RetencionDetalleData
     {
         $sql = "SELECT * FROM `retencion_detalle` WHERE sucursal = $id;";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new RetencionData());
+        return Model::many($query[0], "RetencionData");
     }
 
     public static function eliminar($id)
     {
         $sql = "DELETE FROM retencion_detalle WHERE `id` = $id";
-        return  Executor::doit($sql);
+        return Executor::doit($sql);
     }
 }

@@ -43,37 +43,37 @@ class StockData
 	{
 		$sql = "select * from " . self::$tablename . " order by id_sucursal asc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new StockData());
+		return Model::many($query[0], "StockData");
 	}
 	public static function vercontenidos3($PRODUCTO_ID, $deposito)
 	{
 		$sql = "select * from " . self::$tablename . " where PRODUCTO_ID=$PRODUCTO_ID AND DEPOSITO_ID = $deposito ";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new StockData());
+		return Model::one($query[0], "StockData");
 	}
 	public static function vercontenidos2($PRODUCTO_ID)
 	{
 		$sql = "select * from " . self::$tablename . " where PRODUCTO_ID=$PRODUCTO_ID";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new StockData());
+		return Model::one($query[0], "StockData");
 	}
 	public static function vercontenidos4($PRODUCTO_ID)
 	{
 		$sql = "select * from " . self::$tablename . " where PRODUCTO_ID=$PRODUCTO_ID";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new StockData());
+		return Model::one($query[0], "StockData");
 	}
 	public static function vercontenidos($PRODUCTO_ID)
 	{
 		$sql = "select * from " . self::$tablename . " where PRODUCTO_ID=$PRODUCTO_ID";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new StockData());
+		return Model::many($query[0], "StockData");
 	}
 	public static function verdeposito($deposito)
 	{
 		$sql = "select * from deposito where DEPOSITO_ID=$deposito";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new StockData());
+		return Model::many($query[0], "StockData");
 	}
 
 
@@ -81,19 +81,19 @@ class StockData
 	{
 		$sql = "select * from " . self::$tablename . " where condicion_id=$id_condicion";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new StockData());
+		return Model::many($query[0], "StockData");
 	}
 	public static function verusucursalusuario($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where id_sucursal=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new StockData());
+		return Model::many($query[0], "StockData");
 	}
 	public static function VerId($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where id_sucursal=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new StockData());
+		return Model::one($query[0], "StockData");
 	}
 	public function eliminar()
 	{

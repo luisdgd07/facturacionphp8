@@ -1,21 +1,9 @@
-
 <?php
 class CobroData
 {
     public static $tablename = "cobros";
 
-    public function CobroData()
-    {
-        // $this->ventaId = "";
-        // $this->sucursalId = "";
-        // $this->monedaId = "";
-        // $this->concepto = "";
-        // $this->credito = "";
-        // $this->abonado = "";
-        // $this->vencimiento = "";
-        // $this->cuotas = "";
-        $this->fecha = "NOW()";
-    }
+
     public function registrar_credito()
     {
         $sql = "insert into " . self::$tablename . " (`id`, `id_credito`, `fecha_cobro`, `total`, `comentario`) 
@@ -29,7 +17,7 @@ class CobroData
 
         $sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal order by fecha desc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoData());
+        return Model::many($query[0], "CreditoData");
     }
     public static function agregar_abono($monto, $id)
     {

@@ -18,14 +18,14 @@ class TarjetaCabecera
     {
         $sql = "SELECT * FROM `tarjeta_cabecera` WHERE `ID` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new TarjetaCabecera());
+        return Model::one($query[0], "TarjetaCabecera");
     }
 
     public static function getByMonedas($moneda1, $moneda2)
     {
         $sql = "SELECT * FROM `tarjeta_cabecera` WHERE `moneda_id` = $moneda1 OR moneda_id = $moneda2";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CuentaBancariaData());
+        return Model::many($query[0], "CuentaBancariaData");
         // return $sql;
     }
     public static function eliminar($id)

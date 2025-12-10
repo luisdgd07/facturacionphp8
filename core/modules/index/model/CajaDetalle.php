@@ -24,7 +24,7 @@ class CajaDetalle
     {
         $sql = "select * from caja_detalle where `COBRO_ID` = $id_cobro ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CajaDetalle());
+        return Model::many($query[0], "CajaDetalle");
     }
 
 
@@ -33,19 +33,19 @@ class CajaDetalle
     {
         $sql = "SELECT * FROM `caja_detalle` WHERE `COBRO_ID` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CajaDetalle());
+        return Model::one($query[0], "CajaDetalle");
     }
     public static function obtenerVarios($id)
     {
         $sql = "SELECT * FROM `caja_detalle` WHERE `COBRO_ID` = $id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CajaCabecera());
+        return Model::many($query[0], "CajaDetalle");
     }
     public static function obtenerVenta($id)
     {
         $sql = "SELECT * FROM `caja_detalle` WHERE `id_venta` = $id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CajaCabecera());
+        return Model::many($query[0], "CajaDetalle");
     }
     public static function eliminarVenta($id)
     {
@@ -62,12 +62,12 @@ class CajaDetalle
     {
         $sql = "SELECT * FROM `caja_detalle` WHERE `SUCURSAL_ID` = $id ORDER BY `ID` DESC";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CajaCabecera());
+        return Model::many($query[0], "CajaDetalle");
     }
     public static function obtenerById($id)
     {
         $sql = "SELECT * FROM `caja_detalle` WHERE `ID` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CajaDetalle());
+        return Model::one($query[0], "CajaDetalle");
     }
 }

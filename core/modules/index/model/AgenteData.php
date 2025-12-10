@@ -10,13 +10,13 @@ class AgenteData
     {
         $sql = "SELECT * FROM `agente_transporte` WHERE `id_sucursal` = $id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new AgenteData());
+        return Model::many($query[0], "AgenteData");
     }
     public static function veragente($id)
     {
         $sql = "SELECT * FROM `agente_transporte` WHERE `id_agente` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new AgenteData());
+        return Model::one($query[0], "AgenteData");
     }
     public function crear()
     {
@@ -31,7 +31,7 @@ class AgenteData
     {
         $sql = "select * from " . self::$tablename . " where id_sucursal =" . $sucursal;
         $query = Executor::doit($sql);
-        return Model::many($query[0], new AgenteData());
+        return Model::many($query[0], "AgenteData");
     }
 
     public function actualizar1()
@@ -44,6 +44,6 @@ class AgenteData
     {
         $sql = "select * from agente_transporte   where id_agente =$id_agente ";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new AgenteData());
+        return Model::one($query[0], "AgenteData");
     }
 }

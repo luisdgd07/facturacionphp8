@@ -42,13 +42,13 @@ class CreditoDetalleData
     {
         $sql = "select * from " . self::$tablename . " where credito_id=$id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function getByCuota($id, $cuota)
     {
         $sql = "select * from " . self::$tablename . " where credito_id=$id and cuota = $cuota";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CreditoDetalleData());
+        return Model::one($query[0], "CreditoDetalleData");
     }
     public static function agregar_abono($monto, $id)
     {
@@ -65,25 +65,25 @@ class CreditoDetalleData
     {
         $sql = "select * from " . self::$tablename . " where date(fecha) >= \"$start\" and date(fecha) <= \"$end\"";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function getAllByDateOp($start, $end, $sucursal)
     {
         $sql = "select * from " . self::$tablename . " where date(fecha) >= \"$start\" and date(fecha) <= \"$end\" and sucursal_id = \"$sucursal\" and importe_credito != 0  order by fecha asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function getAllByDateOp2($start, $end, $sucursal)
     {
         $sql = "select * from " . self::$tablename . " where date(fecha) >= \"$start\" and date(fecha) <= \"$end\" and sucursal_id = \"$sucursal\" order by fecha asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function getAllByDateBCOp($cliente_id, $start, $end, $sucursal)
     {
         $sql = "select * from " . self::$tablename . " where date(fecha) >= \"$start\" and date(fecha) <= \"$end\" and cliente_id=$cliente_id and sucursal_id = \"$sucursal\" and importe_credito != 0   order by fecha asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
 
 
@@ -91,38 +91,38 @@ class CreditoDetalleData
     // {
     //     $sql = "select * from cajas_cabecera where date(FECHA) >= \"$start\" and date(FECHA) <= \"$end\" and ID_CLIENTE=$cliente_id and SUCURSAL_ID = \"$sucursal\"  and COBRO_ID  = \"$cobro\"   order by FECHA asc";
     //     $query = Executor::doit($sql);
-    //     return Model::many($query[0], new CreditoDetalleData());
+    //     return Model::many($query[0], "CreditoDetalleData");
     // }
     public static function busq_estadog($cobro, $cliente_id, $start, $end, $sucursal)
     {
         $sql = "select * from cobro_cabecera where CLIENTE_ID=$cliente_id and SUCURSAL_ID = \"$sucursal\"  and COBRO_ID  = \"$cobro\"   order by FECHA_COBRO asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function busq_estado($cobro, $cliente_id, $start, $end, $sucursal)
     {
         $sql = "select * from cobro_cabecera where CLIENTE_ID=$cliente_id and SUCURSAL_ID = \"$sucursal\"  and COBRO_ID  = \"$cobro\"   order by FECHA_COBRO asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function getAllByDateBCOp2($cliente_id, $start, $end, $sucursal)
     {
         $sql = "select * from " . self::$tablename . " where date(fecha) >= \"$start\" and date(fecha) <= \"$end\" and cliente_id=$cliente_id and sucursal_id = \"$sucursal\"  order by fecha asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
     public static function getAllpendiente($cliente_id, $sucursal)
     {
         $sql = "select * from " . self::$tablename . " where  sucursal_id = \"$sucursal\" and saldo_credito != 0 and cliente_id=$cliente_id order by fecha asc";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
 
     public static function eliminarCredito($id)
     {
         $sql = "DELETE FROM " . self::$tablename . " WHERE `credito_id` = $id";
 
-        return  Executor::doit($sql);
+        return Executor::doit($sql);
     }
 
     public static function getBySucursal($id)
@@ -130,6 +130,6 @@ class CreditoDetalleData
         $sql = "select * from " . self::$tablename . " where sucursal_id=$id";
         $query = Executor::doit($sql);
 
-        return Model::many($query[0], new CreditoDetalleData());
+        return Model::many($query[0], "CreditoDetalleData");
     }
 }

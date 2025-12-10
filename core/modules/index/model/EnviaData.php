@@ -17,6 +17,6 @@ class EnviaData
     {
         $sql = "select * from " . self::$tablename . " ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new OperationData());
+        return Model::many($query[0], "EnviaData");
     }
 }

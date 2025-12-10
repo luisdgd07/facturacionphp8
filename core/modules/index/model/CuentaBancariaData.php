@@ -12,14 +12,14 @@ class CuentaBancariaData
     {
         $sql = "select * from `cuenta_bancaria`  WHERE `caja_id` = $cajaid";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new CuentaBancariaData());
+        return Model::one($query[0], "CuentaBancariaData");
         // return $sql;
     }
     public static function getByMonedas($moneda1, $moneda2)
     {
         $sql = "select * from `cuenta_bancaria`  WHERE id_moneda = $moneda1 OR id_moneda = $moneda2";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new CuentaBancariaData());
+        return Model::many($query[0], "CuentaBancariaData");
         // return $sql;
     }
     public static function eliminar($id)

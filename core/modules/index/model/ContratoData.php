@@ -2,9 +2,11 @@
 class ContratoData
 {
 
-    public function ContratoData() {}
+    public function ContratoData()
+    {
+    }
 
-    public  function crear()
+    public function crear()
     {
         $sql = "INSERT INTO `contratos` (`id`, `cuota`, `monto`, `total`, `entrega`, `id_cliente`, `fecha`, `inicial`, `zona`, `datos`, `descripcion`,`id_sucursal`) VALUES (NULL, \"$this->cuota\", \"$this->monto\", \"$this->total\", \"$this->entrega\", \"$this->cliente\", \"$this->fecha\", \"$this->inicial\", \"$this->zona\", \"$this->datos\", \"$this->descripcion\", \"$this->sucursal\")";
         return Executor::doit($sql);
@@ -15,21 +17,21 @@ class ContratoData
         $sql = "SELECT * FROM `contratos` WHERE `id_cliente` = $id";
         $query = Executor::doit($sql);
         // return $sql;
-        return Model::many($query[0], new ContratoData());
+        return Model::many($query[0], "ContratoData");
     }
     public static function buscarId($id)
     {
         $sql = "SELECT * FROM `contratos` WHERE `id` = $id";
         $query = Executor::doit($sql);
         // return $sql;
-        return Model::one($query[0], new ContratoData());
+        return Model::one($query[0], "ContratoData");
     }
     public static function buscarSucursal($id)
     {
         $sql = "SELECT * FROM `contratos` WHERE `id_sucursal` = $id";
         $query = Executor::doit($sql);
         // return $sql;
-        return Model::many($query[0], new ContratoData());
+        return Model::many($query[0], "ContratoData");
     }
     public function actualizar()
     {
@@ -52,6 +54,6 @@ class ContratoData
     {
         $sql = "select * from contratos";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new ContratoData());
+        return Model::many($query[0], "ContratoData");
     }
 }

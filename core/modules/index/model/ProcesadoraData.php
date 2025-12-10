@@ -11,6 +11,6 @@ class ProcesadoraData
     {
         $sql = "select * from " . self::$tablename;
         $query = Executor::doit($sql);
-        return Model::many($query[0], new ProcesadoraData());
+        return Model::many($query[0], "ProcesadoraData");
     }
 }

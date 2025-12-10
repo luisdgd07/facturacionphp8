@@ -2,13 +2,15 @@
 class DNCPData
 {
     public static $tablename = "dncp";
-    public function DNCPData() {}
+    public function DNCPData()
+    {
+    }
 
     public static function ver($id)
     {
         $sql = "SELECT * FROM `dncp` WHERE `id_sucursal` = $id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new DNCPData());
+        return Model::many($query[0], "DNCPData");
     }
 
 
@@ -16,7 +18,7 @@ class DNCPData
     {
         $sql = "SELECT * FROM `dncp` WHERE `id` = $id";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new DNCPData());
+        return Model::one($query[0], "DNCPData");
     }
     public function crear()
     {
@@ -36,7 +38,7 @@ class DNCPData
     {
         $sql = "select * from " . self::$tablename . " where id_sucursal =" . $sucursal;
         $query = Executor::doit($sql);
-        return Model::many($query[0], new DNCPData());
+        return Model::many($query[0], "DNCPData");
     }
 
     public function actualizar1()
@@ -49,6 +51,6 @@ class DNCPData
     {
         $sql = "select * from " . self::$tablename . " where cliente_id =" . $cliente;
         $query = Executor::doit($sql);
-        return Model::many($query[0], new DNCPData());
+        return Model::many($query[0], "DNCPData");
     }
 }
