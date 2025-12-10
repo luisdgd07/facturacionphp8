@@ -2,12 +2,64 @@
 class VentaData
 {
 	public static $tablename = "venta";
+	public ?int $id_venta = null;
+	public ?int $tipo_venta = null;
 
-	public function VentaData()
+	public ?float $cambio2 = null;
+	public ?float $total = null;
+	public ?float $iva10 = null;
+	public ?float $iva5 = null;
+	public ?float $descuento = null;
+
+
+	public ?int $accion_id = null;
+	public ?string $metodopago = "";
+	public ?string $fechapago = "";
+
+	public ?string $factura = "";
+	public ?string $cdc = "";
+	public ?string $codigo = "";
+	public ?string $xml = "";
+
+	public ?string $numero_factura = "";
+	public ?string $fecha_envio = "";
+	public ?string $celular = "";
+	public ?string $estado = "";
+
+	public ?string $ID_TIPO_PROD = null;
+	public ?int $sucursal_id = 0;
+	public ?int $transaccion = 0;
+	public ?int $email_enviado = 0;
+	public ?string $enviado = null;
+
+	public ?string $ciudad = "";
+
+	public ?int $total_registros = 0;
+
+	public ?int $id_sucursal = 0;
+
+	public ?string $timbrado = "";
+
+	public ?string $fecha_tim = "";
+
+	public ?int $usuario_id = 0;
+	public ?float $cambio = 0;
+
+	public ?int $cliente_id = 0;
+	public ?int $tipomoneda_id = 0;
+	public ?int $sucursal = 0;
+
+	public ?string $fecha = "";
+	public ?string $kude = "";
+	public ?string $fecha_pago = "";
+	public ?string $fechpago = "";
+
+	public ?string $cdc_fact = "";
+
+	public function __construct()
 	{
-		// $this->fecha = "NOW()";
-	}
 
+	}
 	public function getCliente()
 	{
 		return ClienteData::getById($this->cliente_id);

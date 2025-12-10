@@ -11,7 +11,7 @@ class PaisData
     {
         $sql = "select * from  paises ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new PaisData());
+        return Model::many($query[0], "PaisData");
     }
 
 
@@ -19,6 +19,6 @@ class PaisData
     {
         $sql = "SELECT * FROM `paises` WHERE `id` = $id ";
         $query = Executor::doit($sql);
-        return Model::one($query[0], new PaisData());
+        return Model::one($query[0], "PaisData");
     }
 }

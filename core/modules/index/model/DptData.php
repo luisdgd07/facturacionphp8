@@ -9,16 +9,16 @@ class DptData
 
     public static function getAll()
     {
-        $sql = "select * from  ubigeo_departments " ;
+        $sql = "select * from  ubigeo_departments ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new DptData());
+        return Model::many($query[0], "DptData");
     }
-	
-	
-	 public static function getAll2()
+
+
+    public static function getAll2()
     {
-        $sql = "select * from  distritos " ;
+        $sql = "select * from  distritos ";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new DptData());
+        return Model::many($query[0], "DptData");
     }
 }

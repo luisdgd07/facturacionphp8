@@ -1,9 +1,11 @@
-
 <?php
 class ConfigFacturaData
 {
 	public static $tablename = "configfactura";
-
+	public ?string $comprobante1 = "";
+	public ?string $diferencia = "";
+	public ?string $serie1 = "";
+	public ?int $id_configfactura = 0;
 	public function registro1()
 	{
 		$sql = "insert into configfactura (sucursal_id,numeracion_inicial,numeracion_final,comprobante1,serie1,timbrado1,numeroactual1,inicio_timbrado,fin_timbrado,diferencia,activo,fecha) ";
@@ -14,7 +16,7 @@ class ConfigFacturaData
 	{
 		$sql = "select serie1,numeroactual1,numeracion_inicial,numeracion_final,id_configfactura,diferencia from " . self::$tablename . " where id_configfactura = $id_configfactura";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 	public function actualizardiferencia()
 	{
@@ -35,13 +37,13 @@ class ConfigFacturaData
 	{
 		$sql = "select * from " . self::$tablename;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 	public static function verfacturasucursal($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and comprobante1 = 'Factura') or (sucursal_id=$id_sucursal and comprobante1 = 'Masiva') ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 
 
@@ -49,13 +51,13 @@ class ConfigFacturaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 	public static function verRecibo($idsucursal)
 	{
 		$sql = "SELECT * FROM `configfactura` WHERE `comprobante1` LIKE 'Recibo' AND sucursal_id = $idsucursal ORDER BY `configfactura`.`id_configfactura` DESC LIMIT 1;";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ConfigFacturaData());
+		return Model::one($query[0], "ConfigFacturaData");
 	}
 	// 
 
@@ -64,17 +66,17 @@ class ConfigFacturaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and comprobante1 = 'Nota de Credito'  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 
 
-    
 
-    public static function verfacturasucursal2($id_sucursal)
+
+	public static function verfacturasucursal2($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and comprobante1 = 'Remision'  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 
 
@@ -82,7 +84,7 @@ class ConfigFacturaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and comprobante1 = 'Recibo'  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ConfigFacturaData());
+		return Model::many($query[0], "ConfigFacturaData");
 	}
 
 
@@ -91,7 +93,7 @@ class ConfigFacturaData
 	{
 		$sql = "select * from " . self::$tablename . " where id_configfactura=$id_configfactura";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ConfigFacturaData());
+		return Model::one($query[0], "ConfigFacturaData");
 	}
 	public function eliminar()
 	{

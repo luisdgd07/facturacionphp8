@@ -4,16 +4,26 @@ class ProductoData
 	public static $tablename = "producto";
 
 
+	public ?int $id_producto = null;
+	public ?string $imagen = "";
+	public ?string $codigo = "";
+	public ?string $presentacion = "";
+	public ?string $nombre = "";
+	public ?int $impuesto = 0;
 
-	public function Userdata()
-	{
-		$this->nombre = "";
-		$this->apellido = "";
-		$this->email = "";
-		$this->imagen = "";
-		$this->password = "";
-		$this->fecha_registro = "NOW()";
-	}
+	public ?int $precio_compra = 0;
+	public ?int $precio_venta = 0;
+	public ?string $TIPO_PRODUCTO = "";
+	public ?string $descripcion = "";
+
+	public ?string $NOMBRE_DEPOSITO = "";
+	public ?int $DEPOSITO_ID = 0;
+	public ?int $IMPORTE = 0;
+	public ?int $PRECIO_ID = 0;
+	public ?int $ID_TIPO_PROD = 0;
+	public ?int $total_registros = 0;
+
+
 	public function tipoproducto()
 	{
 		return TipoProductoData::VerId($this->ID_TIPO_PROD);

@@ -13,7 +13,7 @@ class InsumosData
     {
         $sql = "SELECT * FROM `insumos` WHERE `producto_id` = $id";
         $query = Executor::doit($sql);
-        return Model::many($query[0], new InsumosData());
+        return Model::many($query[0], "InsumosData");
     }
     public function delete()
     {

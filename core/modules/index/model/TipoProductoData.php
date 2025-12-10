@@ -18,26 +18,26 @@ class TipoProductoData
 	{
 		$sql = "select * from " . self::$tablename . " order by ID_TIPO_PROD asc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new TipoProductoData());
+		return Model::many($query[0], "TipoProductoData");
 	}
 
 	public static function vercondicionessnombre($id_condicion)
 	{
 		$sql = "select * from " . self::$tablename . " where condicion_id=$id_condicion";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new TipoProductoData());
+		return Model::many($query[0], "TipoProductoData");
 	}
 	public static function verusucursalusuario($ID_TIPO_PROD)
 	{
 		$sql = "select * from " . self::$tablename . " where ID_TIPO_PROD=$ID_TIPO_PROD";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new TipoProductoData());
+		return Model::many($query[0], "TipoProductoData");
 	}
 	public static function VerId($ID_TIPO_PROD)
 	{
 		$sql = "select * from " . self::$tablename . " where ID_TIPO_PROD=$ID_TIPO_PROD";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new TipoProductoData());
+		return Model::one($query[0], "TipoProductoData");
 	}
 	public function eliminar()
 	{

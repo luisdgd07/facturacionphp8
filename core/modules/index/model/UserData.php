@@ -9,6 +9,8 @@ class UserData
 		public ?int $id_usuario = null,
 		public string $nombre = "",
 		public string $apellido = "",
+		public string $username = "",
+
 		public string $email = "",
 		public string $usuario = "",
 		public string $password = "",
