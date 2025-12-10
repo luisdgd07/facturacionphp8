@@ -100,7 +100,7 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">
                     <label>
-                        <marquee> DATOS DEL ADMINISTRADOR</marquee>
+                        DATOS DEL ADMINISTRADOR
                     </label>
                 </h4>
             </div>

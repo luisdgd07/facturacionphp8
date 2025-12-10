@@ -14,6 +14,15 @@
     }
     ?>
     <script src="plugins/jquery/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="res/dist/css/AdminLTE.min.css">
+    <!-- <link rel="stylesheet" href="res/javi/personalizacion.css"> -->
+    <link rel="stylesheet" href="res/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="res/bower_components/Ionicons/css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="res/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="res/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="res/bower_components/morris.js/morris.css"> -->
+
+
 </head>
 
 <body
@@ -115,6 +124,9 @@
     <?php endif; ?>
 
     <!-- Scripts -->
+    <script src="res/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="res/dist/js/adminlte.min.js"></script>
+
     <script>
         var clickCount = 0;
 
