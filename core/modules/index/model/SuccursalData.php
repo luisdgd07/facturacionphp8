@@ -2,7 +2,56 @@
 class SuccursalData
 {
 	public static $tablename = "sucursal";
+	public ?int $id_sucursal = null;
+	public ?string $ruc = null;
+	public ?string $descripcion = null;
+	public ?string $representante = null;
+	public ?string $telefono = null;
+	public ?string $nombre = null;
 
+	public ?string $direccion = null;
+	public ?string $clave = null;
+	public ?string $entorno = null;
+	public ?string $email = null;
+	public ?string $dpt_id = null;
+	public ?string $distrito_id = null;
+	public ?int $is_facturador = null;
+	public ?string $venta_de = null;
+	public ?string $timbrado = null;
+	public ?int $id_envio = null;
+	public ?string $establecimiento = null;
+	public ?string $fecha_firma = null;
+	public ?string $razon_social = null;
+	public ?string $nombre_fantasia = null;
+	public ?string $codigo_act = null;
+	public ?string $actividad = null;
+	public ?string $fecha_tim = null;
+	public ?string $numero_casa = null;
+	public ?string $com_dir = null;
+	public ?string $com_dir2 = null;
+	public ?string $departamento_descripcion = null;
+	public ?string $distrito_descripcion = null;
+	public ?string $ciudad_descripcion = null;
+	public ?string $ciudad = null;
+	public ?string $razonsocial = null;
+
+	public ?string $id_ciudad = null;
+	public ?string $tipo_venta = null;
+	public ?string $tipo_recibo = null;
+	public ?string $cod_depart = null;
+	public ?string $certificado_url = null;
+	public ?string $denominacion = null;
+	public ?string $host = null;
+	public ?string $port = null;
+	public ?string $pass = null;
+	public ?string $qr_envio = null;
+
+
+	public ?int $id_venta = null;
+
+	public function __construct()
+	{
+	}
 	public function registro()
 	{
 		$sql = "insert into " . self::$tablename . "(nombre,ruc, cod_depart, distrito_id, descripcion, representante, telefono,direccion, activo,fecha,is_envia_factura,ti_producto)";
@@ -27,13 +76,13 @@ class SuccursalData
 	{
 		$sql = "select * from " . self::$tablename . " order by id_sucursal asc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new SuccursalData());
+		return Model::many($query[0], "SuccursalData");
 	}
 	public static function vercondicionessnombre($id_condicion)
 	{
 		$sql = "select * from " . self::$tablename . " where condicion_id=$id_condicion";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new SuccursalData());
+		return Model::many($query[0], "SuccursalData");
 	}
 
 	public static function actualizarlogo($id, $logo)
@@ -52,13 +101,13 @@ class SuccursalData
 	{
 		$sql = "select * from " . self::$tablename . " where id_sucursal=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new SuccursalData());
+		return Model::many($query[0], "SuccursalData");
 	}
 	public static function VerId($id_sucursal)
 	{
 		$sql = "select * from sucursal where id_sucursal= " . $id_sucursal;
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new SuccursalData());
+		return Model::one($query[0], "SuccursalData");
 	}
 	public function eliminar()
 	{

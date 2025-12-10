@@ -5,6 +5,9 @@ class ConfigData
 	public static $tablename = "empresa";
 	public ?string $logo = null;
 	public ?string $texto = "";
+	public ?string $imagen = "";
+	public ?string $nombre = "";
+
 	public ?string $texto1 = "";
 
 	public function ConfigData()

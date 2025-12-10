@@ -3,33 +3,36 @@ class ClienteData
 {
 	public static $tablename = "cliente";
 
-	public function ClienteData()
-	{
-		$this->nombre = "";
-		$this->sucursal_id = "";
-		$this->descripcion = "";
-		$this->direccion = "";
-		$this->email = "";
-		$this->mensaje = "";
-		$this->imagen = "";
-		$this->fecha = "NOW()";
-		$this->pais_id = "";
-		$this->dias_credito = "";
-		$this->tipo_operacion = "";
-	}
+	public ?string $imagen = "";
+	public ?string $nombre = "";
+	public ?string $apellido = "";
+
+	public ?string $direccion = "";
+	public ?string $celular = "";
+	public ?string $ciudad = "";
+
+	public ?string $dni = "";
+	public ?string $tipo_doc = "";
+	public ?string $email = "";
+	public ?string $telefono = "";
+	public ?int $id_cliente = 0;
+
+	public ?int $departamento_id = 0;
+
+	public ?int $distrito_id = 0;
 
 	public static function getAll()
 	{
 		$sql = "select * from " . self::$tablename;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 
 	public static function verclientessucursal($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and is_cliente=1";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 
 	public static function contarClientesPorSucursal($id_sucursal)
@@ -48,7 +51,7 @@ class ClienteData
 		$offset = intval($offset);
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and is_cliente=1 order by id_cliente desc limit $limit offset $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 
 	public static function contarClientesPorSucursalBuscado($id_sucursal, $q)
@@ -69,7 +72,7 @@ class ClienteData
 		$q = trim($q);
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and is_cliente=1 and (nombre like '%$q%' or apellido like '%$q%' or dni like '%$q%' or email like '%$q%') order by id_cliente desc limit $limit offset $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 
 
@@ -77,7 +80,7 @@ class ClienteData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and is_cliente=1 and tipo_operacion=3";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 
 	public function registrar_cliente()
@@ -131,24 +134,24 @@ class ClienteData
 	{
 		$sql = "select * from " . self::$tablename . " where id_cliente=$id_cliente";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ClienteData());
+		return Model::one($query[0], "ClienteData");
 	}
 	public static function VerDueño()
 	{
 		$sql = "select * from " . self::$tablename . " where is_activo=1 order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 	public static function IsCliente()
 	{
 		$sql = "select * from " . self::$tablename . " where is_cliente=1  ";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 	public static function IsPoveedor()
 	{
 		$sql = "select * from " . self::$tablename . " where is_proveedor=1";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ClienteData());
+		return Model::many($query[0], "ClienteData");
 	}
 }

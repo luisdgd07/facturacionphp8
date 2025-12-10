@@ -60,7 +60,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where factura=\"$codigo\" and sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 
 	public static function getNombre($codigo, $id_sucursal)
@@ -111,26 +111,26 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function remision($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and REMISION_ID=1";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function versucursaltipoventas($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=0) and (estado =1 or estado=2) and fecha >= '2023-01-01' order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function versucursaltipoventastot($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=0 or tipo_venta=5  ) and (estado =1 or estado=2) and fecha >= '2023-01-01' order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -138,7 +138,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=1 and ( tipo_venta=15 ) and (estado =1 or estado=2) and fecha >= '2023-01-01' order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -147,7 +147,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=15) and (estado =1 or estado=2) and fecha >= '2023-01-01'  order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -156,7 +156,7 @@ class VentaData
 	{
 		$sql = "select * from remision where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=4) and estado =1 and fecha >= '2023-01-01' and  tipo_remision != 3 order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -165,14 +165,14 @@ class VentaData
 	{
 		$sql = "select * from remision where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=4) and estado =1 and fecha >= '2023-01-01' and  tipo_remision=3 order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function versucursaltipoventasremi2($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=4) and  ( estado =1 or  estado =0 or  estado =2) and fecha >= '2023-01-01' order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -180,33 +180,33 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=15) and  ( estado =1 or  estado =0) order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function versucursaltipoventasremi4($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and ( tipo_venta=4) and fecha >= '2023-01-01' order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function versucursaltipoventasremi3($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and ( tipo_venta=5) and  ( estado =1 or  estado =0 or  estado =2) and fecha >= '2023-01-01'  order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function versucursaltipoventasexportacion($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and ( tipo_venta=20) and  ( estado =1 or  estado =0 or  estado =2) and fecha >= '2023-01-01'  order by id_venta desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getnumercionfact($comprobante2, $id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where comprobante2 like \"$comprobante2\" and sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -214,7 +214,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and (tipo_venta=1  ) order by factura desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -229,25 +229,25 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and (tipo_venta=0 or  tipo_venta=1 or tipo_venta=5) order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function Pagos($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=1 and tipo_venta=0 order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function verventasporusuario($id_usuario)
 	{
 		$sql = "select * from " . self::$tablename . " where usuario_id=$id_usuario and accion_id=2 and caja_id is NULL and tipo_venta!=2 order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function versucursaltipocompras($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=1 and tipo_venta=0 order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -255,20 +255,20 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and tipo_venta != 5 order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function versucursaltipotrans2($id_sucursal, $start, $end)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and tipo_venta != 5 and date(fecha) >= \"$start\" and date(fecha) <= \"$end\"  order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function verventapadre($id_venta)
 	{
 		$sql = "select * from " . self::$tablename . " where ventapadre=$id_venta";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public function actualizartipoventa()
 	{
@@ -363,7 +363,7 @@ class VentaData
 		$sql .= "value ($this->presupuesto,\"$this->factura\",$this->configfactura_id,$this->tipomoneda_id,\"$this->cambio\",$this->cambio2,\"$this->simbolo2\",\"$this->formapago\",$this->codigo,\"$this->fechapago\",\"$this->metodopago\",\"$this->total10\",\"$this->iva10\",\"$this->total5\",\"$this->iva5\",\"$this->exenta\",\"$this->total\",$this->n,\"$this->numerocorraltivo\",$this->sucursal_id,$this->cliente_id,$this->usuario_id,\"$this->cantidaconfigmasiva\",2,\"$this->fecha\",1,4,1, \"$this->chofer_id\", \"$this->vehiculo_id\", \"$this->dep_id\", \"$this->ciudad_id\",\"$this->destino\",\"$this->tipo_remision\",\"$this->contrato\")";
 		return Executor::doit($sql);
 	}
-    */
+	*/
 	public function venta_producto_cliente4()
 	{
 		$sql = "insert into remision (presupuesto,factura,configfactura_id,tipomoneda_id,cambio,cambio2,simbolo2,formapago,codigo,fechapago,metodopago,total10,iva10,total5,iva5,exenta,total,n,numerocorraltivo,sucursal_id,cliente_id,usuario_id,cantidaconfigmasiva,accion_id,fecha,REMISION_ID, tipo_venta, estado,id_chofer, id_vehiculo, id_dep, id_ciudad, destino,tipo_remision, peso_neto, peso_bruto, fletera_id,vendedor,tipo_transporte, id_dncp) ";
@@ -441,7 +441,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where id_venta=$id_venta";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public function del()
@@ -472,14 +472,14 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where id_venta=$id_venta";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 
 	public static function getByIdRemision($id_venta)
 	{
 		$sql = "select * from remision where id_venta=$id_venta";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 
 	public static function getByIdInTable($id_venta, $tabla = "venta")
@@ -487,86 +487,86 @@ class VentaData
 
 		$sql = "select * from " . $tabla . " where id_venta=$id_venta";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 	public static function getByCLienteId($id)
 	{
 		$sql = "SELECT * FROM `venta` WHERE `cliente_id` = $id";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getByCLienteIdContrato($id, $contrato)
 	{
 		$sql = "SELECT * FROM `venta` WHERE `cliente_id` = $id AND contrato_id AND contrato_id = $contrato";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getSells()
 	{
 		$sql = "select * from " . self::$tablename . " where operation_type_id=2 order by created_at desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getSellsUnBoxed()
 	{
 		$sql = "select * from " . self::$tablename . " where operation_type_id=2 and box_id is NULL order by created_at desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getByBoxId($id)
 	{
 		$sql = "select * from " . self::$tablename . " where operation_type_id=2 and box_id=$id order by created_at desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getRes()
 	{
 		$sql = "select * from " . self::$tablename . " where operation_type_id=1 order by created_at desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getAllByPage($start_from, $limit)
 	{
 		$sql = "select * from " . self::$tablename . " where id<=$start_from limit $limit";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function getAllByDateOp($start, $end, $op)
 	{
 		$sql = "select * from " . self::$tablename . " where date(created_at) >= \"$start\" and date(created_at) <= \"$end\" and operation_type_id=$op order by created_at desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getAllByDateBCOp($clientid, $start, $end, $op)
 	{
 		$sql = "select * from " . self::$tablename . " where date(created_at) >= \"$start\" and date(created_at) <= \"$end\" and client_id=$clientid  and operation_type_id=$op order by created_at desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	// CAJAS
 	public static function cierre_caja()
 	{
 		$sql = "select * from " . self::$tablename . " where accion_id=2 and caja_id is NULL order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function cierre_caja1($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and caja_id is NULL order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function cierre_caja1porusuario($id_usuario)
 	{
 		$sql = "select * from " . self::$tablename . " where usuario_id=$id_usuario and accion_id=2 and caja_id is NULL order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public function actualizar_caja()
 	{
@@ -577,19 +577,19 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where accion_id=2 and caja_id=$id_venta order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getId($id_venta)
 	{
 		$sql = "SELECT * FROM `venta` WHERE `id_venta` = $id_venta order by id_venta desc ";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 	public static function getRemisionId($id_venta)
 	{
 		$sql = "SELECT * FROM `remision` WHERE `id_venta` = $id_venta order by id_venta desc ";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 
 
@@ -597,7 +597,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and accion_id=2 and (tipo_venta=1  or tipo_venta=0 or tipo_venta=5) and total <> 0 order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -608,7 +608,7 @@ class VentaData
 	{
 		$sql = "select * from " . self::$tablename . " where accion_id=2 and caja_id=$id_caja order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	// *********************************** REPORTES ******************************
 	// -----------------------VENTAS-------------------------------
@@ -619,7 +619,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\" and accion_id=2 order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	//public static function getAllByDateOfficialGs($start,$end){
 	//$sql = "select * from ".self::$tablename." where date(fecha) >= \"$start\" and date(fecha) <= \"$end\" and accion_id=1 order by fecha desc";
@@ -627,7 +627,7 @@ class VentaData
 	//$sql = "select * from ".self::$tablename." where date(fecha) = \"$start\" and accion_id=2 order by fecha desc";
 	//}
 	//$query = Executor::doit($sql);
-	//return Model::many($query[0],new VentaData());
+	//return Model::many($query[0],"VentaData");
 	// }
 	public static function getAllByDateOfficialBP($producto, $start, $end)
 	{
@@ -636,7 +636,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\" and accion_id=2 order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public function registrarcobranza()
 	{
@@ -656,7 +656,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and date(fecha) >= \"$start\" and date(fecha) <= \"$end\" and accion_id=2 and (tipo_venta=1  or tipo_venta=0 or tipo_venta=5) and cliente_id = $cliente  order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -668,7 +668,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\" and accion_id=1  and sucursal_id=$id_sucursal   and tipo_venta=0 order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getAllByDateOfficialGs3($start, $end, $id_sucursal)
 	{
@@ -677,13 +677,13 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\"  and sucursal_id=$id_sucursal   and tipo_venta=0 order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getbysucursal($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal order by fecha desc";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getAllByDateOfficialGs4($start, $end, $id_sucursal, $enviado)
 	{
@@ -692,7 +692,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\"  and sucursal_id=$id_sucursal   and tipo_venta=0 and enviado like \"$enviado\" order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getAllByDateOfficialGs5($start, $end, $id_sucursal, $tipo)
 	{
@@ -701,7 +701,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\"  and sucursal_id=$id_sucursal   and tipo_venta=0 order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getAllByDateOfficialGs6($start, $end, $id_sucursal, $enviado, $tipo)
 	{
@@ -710,7 +710,7 @@ class VentaData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\"  and sucursal_id=$id_sucursal   and tipo_venta=0 and enviado like \"$enviado\" order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function getAllPersonalizado($start, $end, $id_sucursal, $enviado, $tipo, $cliente, $vendedor)
 	{
@@ -754,7 +754,7 @@ class VentaData
 		}
 		// return $sql;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -764,7 +764,7 @@ class VentaData
 	{
 		$sql = "";
 		if ($start == $end) {
-			$sql = "select * from " . $tipo .  " where sucursal_id=$id_sucursal and date(fecha) = \"$start\"  ";
+			$sql = "select * from " . $tipo . " where sucursal_id=$id_sucursal and date(fecha) = \"$start\"  ";
 			// 	$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\"  and sucursal_id=$id_sucursal   and tipo_venta=0 and enviado like \"$enviado\" order by fecha desc";
 
 		} else {
@@ -797,7 +797,7 @@ class VentaData
 
 		// return $sql;
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 
@@ -814,7 +814,7 @@ class VentaData
 
 
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 	public static function buscarVentas($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -830,7 +830,7 @@ class VentaData
 		}
 		$sql .= "order by id_venta desc LIMIT 10 OFFSET $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarVentasPaginacion($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -845,7 +845,7 @@ class VentaData
 			$sql .= " and cliente_id = \"$cliente\"  ";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarRemisiones($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -861,7 +861,7 @@ class VentaData
 		}
 		$sql .= "order by id_venta desc LIMIT 10 OFFSET $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarRemisionesPaginacion($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -876,7 +876,7 @@ class VentaData
 			$sql .= " and cliente_id = \"$cliente\"  ";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarVentaRemisiones($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -892,7 +892,7 @@ class VentaData
 		}
 		$sql .= "order by id_venta desc LIMIT 10 OFFSET $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarVentaRemisionesPaginacion($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -907,7 +907,7 @@ class VentaData
 			$sql .= " and cliente_id = \"$cliente\"  ";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function buscarVentaExportacion($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
@@ -924,7 +924,7 @@ class VentaData
 		}
 		$sql .= "order by id_venta desc LIMIT 10 OFFSET $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarVentaExportacionPaginacion($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -939,7 +939,7 @@ class VentaData
 			$sql .= " and cliente_id = \"$cliente\"  ";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarNotaCredito($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -955,7 +955,7 @@ class VentaData
 		}
 		$sql .= "order by id_venta desc LIMIT 10 OFFSET $offset";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 	public static function buscarNotaCreditoPaginacion($id_sucursal, $offset, $busqueda, $desde, $hasta, $cliente)
 	{
@@ -970,7 +970,7 @@ class VentaData
 			$sql .= " and cliente_id = \"$cliente\"  ";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new VentaData());
+		return Model::many($query[0], "VentaData");
 	}
 
 	public static function buscarFactura2($id_sucursal, $factura)
@@ -979,6 +979,6 @@ class VentaData
 
 
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new VentaData());
+		return Model::one($query[0], "VentaData");
 	}
 }

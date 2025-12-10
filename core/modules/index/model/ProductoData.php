@@ -26,7 +26,7 @@ class ProductoData
 	{
 		return $this->nombre . " " . $this->apellido;
 	}
-	public  function verSocursal()
+	public function verSocursal()
 	{
 		return SuccursalData::VerId($this->sucursal_id);
 	}
@@ -34,7 +34,7 @@ class ProductoData
 	{
 		$sql = "SELECT * FROM producto WHERE sucursal_id = $id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getproductos($id_sucursal, $producto, $categoria, $tipo, $iva = 'todos')
 	{
@@ -57,20 +57,20 @@ class ProductoData
 		}
 		$sql = $sql . " and activo=1";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	public static function verproductoscate($idcate)
 	{
 		$sql = "select * from " . self::$tablename . " where categoria_id=$idcate and activo=1";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	// public static function verproductoscateProd($idcate)
 	// {
 	// 	$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal";
 	// 	$query = Executor::doit($sql);
-	// 	return Model::many($query[0], new ProductoData());
+	// 	return Model::many($query[0], "ProductoData");
 	// }
 
 
@@ -80,13 +80,13 @@ class ProductoData
 	{
 		$sql = "select * from tipo_producto where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function verinsumo($id_sucursal)
 	{
 		$sql = "SELECT * FROM `tipo_producto` WHERE `TIPO_PRODUCTO` LIKE 'Insumo' AND `sucursal_id` = $id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 
 
@@ -95,7 +95,7 @@ class ProductoData
 	{
 		$sql = "select * from " . self::$tablename . " where id_producto=$id_producto";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -105,7 +105,7 @@ class ProductoData
 	{
 		$sql = "select * from deposito where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -116,7 +116,7 @@ class ProductoData
 	{
 		$sql = "select * from categoria where id_categoria=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -127,7 +127,7 @@ class ProductoData
 	{
 		$sql = "select * from deposito where DEPOSITO_ID=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -135,13 +135,13 @@ class ProductoData
 	{
 		$sql = "select * from  lista_precio where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function listar_tipo_precio($id)
 	{
 		$sql = "select * from  lista_precio where PRECIO_ID=$id";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 	public function registrolistaprecio_pro()
 	{
@@ -153,13 +153,13 @@ class ProductoData
 	{
 		$sql = "select * from   productos_precios where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function listar_precio_productos($PRODUCTO_ID)
 	{
 		$sql = "select * from   productos_precios where PRODUCTO_ID=$PRODUCTO_ID";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function listar_precio_productos2($PRODUCTO_ID, $tipo, $id_moneda)
 	{
@@ -171,20 +171,20 @@ class ProductoData
 		$sql = $sql . "and ID_MONEDA = $id_moneda";
 
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
-	public static function listar_precio_productos_moneda($PRODUCTO_ID,  $id_moneda)
+	public static function listar_precio_productos_moneda($PRODUCTO_ID, $id_moneda)
 	{
 		$sql = "select * from productos_precios where PRODUCTO_ID=$PRODUCTO_ID and ID_MONEDA = $id_moneda";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	public static function vertipomoneda($id_sucursal)
 	{
 		$sql = "select * from tipomoneda where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -194,14 +194,14 @@ class ProductoData
 	{
 		$sql = "select * from tipomoneda where sucursal_id=$id_sucursal and id_tipomoneda =$id_moneda";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	public static function vertipomonedadescrip2($id_sucursal, $id_PRECIO)
 	{
 		$sql = "select * from  lista_precio where sucursal_id=$id_sucursal and PRECIO_ID =$id_PRECIO";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -209,7 +209,7 @@ class ProductoData
 	{
 		$sql = "select * from  producto where sucursal_id=$id_sucursal and id_producto =$id_prod";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 
@@ -217,13 +217,13 @@ class ProductoData
 	{
 		$sql = "select * from tipo_producto where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function vertipoproductoId($id)
 	{
 		$sql = "select * from tipo_producto where ID_TIPO_PROD =$id";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 	public function registrotipo()
 	{
@@ -254,7 +254,7 @@ class ProductoData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal and id_producto =$producto_id";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	// partiendo de que ya tenemos creado un objecto UserData previamente utilizamos el contexto
@@ -268,7 +268,7 @@ class ProductoData
 	{
 		$sql = "insert into " . self::$tablename . " (sucursal_id,imagen,codigo,nombre,categoria_id,marca_id,presentacion,descripcion,cantidad_inicial,inventario_minimo,precio_compra,precio_venta,impuesto,usuario_id,activo,fecha, ID_TIPO_PROD, ncm, partida_arancelaria, codigoNivelGeneral, codigoNivelEspecifico, codigoGtinProducto, codigoNivelPaquete, cuota, id_grupo) ";
 		$sql .= "value ($this->sucursal_id,\"$this->imagen\",\"$this->codigo\",\"$this->nombre\",$this->categoria_id,$this->marca_id,\"$this->presentacion\",\"$this->descripcion\",\"$this->cantidad_inicial\",\"$this->inventario_minimo\",\"$this->precio_compra\",\"$this->precio_venta\",\"$this->impuesto\",\"$this->usuario_id\",1,NOW(),\"$this->ID_TIPO_PROD\",\"$this->ncm\",\"$this->partida_arancelaria\",\"$this->codigoNivelGeneral\",\"$this->codigoNivelEspecifico\",\"$this->codigoGtinProducto\",\"$this->codigoNivelPaquete\",null,\"$this->id_grupo\")";
-		return  Executor::doit($sql);
+		return Executor::doit($sql);
 	}
 	public function registrar_contrato()
 	{
@@ -443,39 +443,39 @@ class ProductoData
 	{
 		$sql = "select * from " . self::$tablename . " where id_sqlserver=$id_producto";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 	public static function getBycontrato($idcontrato)
 	{
 		$sql = "select * from " . self::$tablename . " where contrato_id=$idcontrato";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getcontratos($idcliente)
 	{
 		$sql = "SELECT DISTINCT contrato_id from  " . self::$tablename . " WHERE cliente_id = $idcliente";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 		// var_dump($sql);
 	}
 	public static function getBycontrato2($idcontrato)
 	{
 		$sql = "select * from " . self::$tablename . " where contrato_id=$idcontrato";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	public static function getByCliente($id_producto)
 	{
 		$sql = "select * from " . self::$tablename . " where cliente_id = $id_producto";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getByIddeposito($id_deposito)
 	{
 		$sql = "select * from  deposito where DEPOSITO_ID=$id_deposito";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 
 
@@ -483,14 +483,14 @@ class ProductoData
 	{
 		$sql = "select * from  lista_precio where PRECIO_ID=$id_listado";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 
 	public static function getByIlistadoproducto($id_listado, $id_producto)
 	{
 		$sql = "select * from  productos_precios where PRECIO_ID=$id_listado and PRODUCTO_ID = $id_producto";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 
 
@@ -498,14 +498,14 @@ class ProductoData
 	{
 		$sql = "select * from " . self::$tablename . " where email=\"$id_usuario\"";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 
 	public static function getByNick($nick)
 	{
 		$sql = "select * from " . self::$tablename . " where email=\"$nick\" or username=\"$nick\"";
 		$query = Executor::doit($sql);
-		return Model::one($query[0], new ProductoData());
+		return Model::one($query[0], "ProductoData");
 	}
 	public static function getnumercionfact($codigo, $id_sucursal)
 	{
@@ -524,7 +524,7 @@ class ProductoData
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public function eliminar()
 	{
@@ -535,38 +535,38 @@ class ProductoData
 	{
 		$sql = "select * from " . self::$tablename . " where nombre like '%$p%' or codigo like '%$p%' or id_producto like '%$p%'";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getLikee3($id_sucursal, $p)
 	{
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%') or (codigo like '%$p%' and sucursal_id=$id_sucursal) or (sucursal_id=$id_sucursal and id_producto like '%$p%')";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getContratoCliente($id_sucursal, $p, $idcliente)
 	{
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%' and cliente_id =$idcliente)  or (codigo like '%$p%' and sucursal_id=$id_sucursal  and cliente_id =$idcliente) or (sucursal_id=$id_sucursal and id_producto like '%$p%'  and cliente_id =$idcliente)";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getInsumo($id_sucursal, $p, $tipo)
 	{
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%' and ID_TIPO_PROD = $tipo) or (codigo like '%$p%' and sucursal_id=$id_sucursal and ID_TIPO_PROD = $tipo) or (sucursal_id=$id_sucursal and id_producto like '%$p%' and ID_TIPO_PROD = $tipo)";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	// public static function getLikee($id_sucursal,$p){
 	// 	$sql = "select * from ".self::$tablename." where sucursal_id=$id_sucursal and nombre like '%$p%' or codigo like '%$p%' or id_producto like '%$p%'";
 	// 	$query = Executor::doit($sql);
-	// 	return Model::many($query[0],new ProductoData());
+	// 	return Model::many($query[0],"ProductoData");
 	// }
 	public static function getLikee($id_sucursal, $p, $offset)
 	{
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%') or (codigo like '%$p%' and sucursal_id=$id_sucursal ) or (sucursal_id=$id_sucursal and id_producto like '%$p%' ) LIMIT 5 OFFSET $offset";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getProducto($id_sucursal, $p, $offset, $limit)
 	{
@@ -575,7 +575,7 @@ class ProductoData
 		$sql = "SELECT * FROM producto WHERE sucursal_id = $id_sucursal AND cliente_id IS NULL AND ( nombre LIKE '%$p%' OR codigo LIKE '%$p%' OR id_producto LIKE '%$p%') LIMIT $limit OFFSET $offset;";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getProductoPages($id_sucursal, $p)
 	{
@@ -583,7 +583,7 @@ class ProductoData
 		// $sql = "select COUNT(*) AS total_registros from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%' and contrato_id =null) or (codigo like '%$p%' and sucursal_id=$id_sucursal and contrato_id =null) or (sucursal_id=$id_sucursal and id_producto like '%$p%' and contrato_id =null) ";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	public static function getLikee2($id_sucursal, $p)
@@ -591,21 +591,21 @@ class ProductoData
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%') or (codigo like '%$p%' and sucursal_id=$id_sucursal ) or (sucursal_id=$id_sucursal and id_producto like '%$p%' ) ";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function getpages($id_sucursal, $p)
 	{
 		$sql = "select COUNT(*) AS total_registros from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%') or (codigo like '%$p%' and sucursal_id=$id_sucursal ) or (sucursal_id=$id_sucursal and id_producto like '%$p%' ) ";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	// ELIMINAR CATEGORIA
 	public static function getAllByCategoriaId($categoria_id)
 	{
 		$sql = "select * from " . self::$tablename . " where categoria_id=$categoria_id";
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public function del_categoria()
 	{
@@ -621,7 +621,7 @@ class ProductoData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\" order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 
 	public static function getAllByDateOfficialBP($producto, $start, $end)
@@ -631,7 +631,7 @@ class ProductoData
 			$sql = "select * from " . self::$tablename . " where date(fecha) = \"$start\" order by fecha desc";
 		}
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public function updatePrice()
 	{
@@ -647,13 +647,13 @@ class ProductoData
 		}
 
 		$query = Executor::doit($sql);
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 	public static function obtenerTodos($id_sucursal, $p, $offset)
 	{
 		$sql = "select * from " . self::$tablename . " where (sucursal_id=$id_sucursal and nombre like '%$p%') or (codigo like '%$p%' and sucursal_id=$id_sucursal ) or (sucursal_id=$id_sucursal and id_producto like '%$p%' ) LIMIT 10 OFFSET $offset";
 		$query = Executor::doit($sql);
 		// return $sql;
-		return Model::many($query[0], new ProductoData());
+		return Model::many($query[0], "ProductoData");
 	}
 }

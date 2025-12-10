@@ -49,29 +49,29 @@ function renderSucursalMenu($sucursal, $u)
         <!-- Ventas -->
         <li class="header"><i class="fa fa-windows" style="color: orange;"></i> VENTAS</li>
 
-        <?php include __DIR__ . '/menu-sections/clientes.php'; ?>
-        <?php include __DIR__ . '/menu-sections/remision.php'; ?>
-        <?php include __DIR__ . '/menu-sections/ventas.php'; ?>
-        <?php include __DIR__ . '/menu-sections/nota-credito.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/clientes.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/remision.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/ventas.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/nota-credito.php'; ?>
 
         <?php if ($u->opciones == 1): ?>
-            <?php include __DIR__ . '/menu-sections/cobranza.php'; ?>
+            <?php include __DIR__ . '/../components/menu-sections/cobranza.php'; ?>
         <?php endif; ?>
 
         <!-- Mantenimiento -->
         <li class="header"><i class="fa fa-windows" style="color: orange;"></i> MANTENIMIENTO</li>
 
-        <?php include __DIR__ . '/menu-sections/productos.php'; ?>
-        <?php include __DIR__ . '/menu-sections/inventario.php'; ?>
-        <?php include __DIR__ . '/menu-sections/configuraciones.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/productos.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/inventario.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/configuraciones.php'; ?>
 
         <!-- Caja -->
         <li class="header"><i class="fa fa-windows" style="color: orange;"></i> CAJA</li>
-        <?php include __DIR__ . '/menu-sections/caja.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/caja.php'; ?>
 
         <!-- Reportes -->
         <li class="header"><i class="fa fa-image" style="color: orange;"></i> REPORTE EN GENERAL</li>
-        <?php include __DIR__ . '/menu-sections/reportes.php'; ?>
+        <?php include __DIR__ . '/../components/menu-sections/reportes.php'; ?>
     </ul>
     <?php
 }
