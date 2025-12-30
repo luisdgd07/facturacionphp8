@@ -2,6 +2,10 @@
 class CajaTipo
 {
     public static $tablename = "cajas_tipo";
+    public ?int $id_tipo = 0;
+    public ?string $nombre = "";
+
+
     public function CajaTipo()
     {
     }

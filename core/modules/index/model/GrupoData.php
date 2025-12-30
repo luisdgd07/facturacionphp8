@@ -3,6 +3,11 @@ class GrupoData
 {
 	public static $tablename = "grupo";
 
+	public ?int $id_grupo = 0;
+	public ?int $sucursal_id = 0;
+	public ?string $nombre_grupo = "";
+	public ?string $grupo_ini = "";
+	public ?string $fecha = "";
 
 
 	public function GrupoData()

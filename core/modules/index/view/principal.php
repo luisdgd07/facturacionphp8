@@ -24,7 +24,52 @@
     <link rel="stylesheet" href="res/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="res/bower_components/morris.js/morris.css"> -->
 
+    <style type="text/css">
+        #mostrar,
+        #ocultar,
+        #mostrar1,
+        #ocultar1 {
+            display: none;
+        }
 
+        .mt20 {
+            margin-top: 20px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        /* chart style*/
+        #legend ul {
+            list-style: none;
+        }
+
+        #legend ul li {
+            display: inline;
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 4px;
+            border-radius: 5px;
+            padding: 2px 8px 2px 28px;
+            font-size: 14px;
+            cursor: default;
+            -webkit-transition: background-color 200ms ease-in-out;
+            -moz-transition: background-color 200ms ease-in-out;
+            -o-transition: background-color 200ms ease-in-out;
+            transition: background-color 200ms ease-in-out;
+        }
+
+        #legend li span {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body
@@ -128,7 +173,7 @@
     <!-- Scripts -->
     <script src="res/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="res/dist/js/adminlte.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         var clickCount = 0;
 

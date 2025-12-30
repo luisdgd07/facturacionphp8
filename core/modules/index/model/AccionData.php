@@ -2,17 +2,9 @@
 class AccionData
 {
 	public static $tablename = "accion";
+	public ?int $id_accion = 0;
+	public ?string $nombre = "";
 
-	public function AccionData()
-	{
-		$this->nombre = "";
-		$this->descripcion = "";
-		$this->direccion = "";
-		$this->email = "";
-		$this->mensaje = "";
-		$this->imagen = "";
-		$this->fecha = "NOW()";
-	}
 	public static function VerAccion()
 	{
 		$sql = "select * from " . self::$tablename . " order by nombre asc";

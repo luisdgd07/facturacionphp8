@@ -3,9 +3,9 @@ class UnidadesData
 {
     public static $tablename = "unidades";
 
-    public function UnidadesData()
-    {
-    }
+    public ?string $nombre = "";
+    public ?int $id = 0;
+
 
     public static function getAll()
     {

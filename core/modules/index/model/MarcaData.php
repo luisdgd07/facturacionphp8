@@ -2,18 +2,11 @@
 class MarcaData
 {
 	public static $tablename = "marca";
+	public ?int $id_marca = 0;
+	public ?string $nombre = "";
 
 
 
-	public function MarcaData()
-	{
-		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
-		$this->image = "";
-		$this->password = "";
-		$this->fecha = "NOW()";
-	}
 	public static function vermarcasucursal($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal";

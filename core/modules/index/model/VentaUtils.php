@@ -25,10 +25,10 @@ class VentaUtils
         $operacion->is_oficiall = isset($params["is_oficiall"]) ? 1 : 0;
         $operacion->deposito = $item["deposito"];
         $operacion->deposito_nombre = $item["depositotext"];
-        
+
         return $operacion;
     }
-    
+
     /**
      * Actualiza el stock de un producto
      */
@@ -41,7 +41,7 @@ class VentaUtils
         $actualizar->DEPOSITO_ID = $item['deposito'];
         return $actualizar->actualizar2();
     }
-    
+
     /**
      * Procesa insumos de un producto
      */
@@ -49,7 +49,7 @@ class VentaUtils
     {
         $insumosData = new InsumosData();
         $insumos = $insumosData->find($item['id']);
-        
+
         foreach ($insumos as $insumo) {
             $operacion = new OperationData();
             $operacion->producto_id = $insumo->insumo_id;
@@ -66,7 +66,7 @@ class VentaUtils
             $operacion->deposito = $item["deposito"];
             $operacion->deposito_nombre = $item["depositotext"];
             $operacion->registro_producto1();
-            
+
             // Actualizar stock del insumo
             $stockInsumo = StockData::vercontenidos3($insumo->insumo_id, $item['deposito']);
             $actualizarInsumo = new StockData();
@@ -76,7 +76,7 @@ class VentaUtils
             $actualizarInsumo->actualizar2();
         }
     }
-    
+
     /**
      * Crea un crédito con sus cuotas
      */
@@ -84,7 +84,7 @@ class VentaUtils
     {
         $fechaActual = $params['fecha'];
         $vence = date("Y-m-d", strtotime($fechaActual . "+ " . $params['vencimiento'] . " days"));
-        
+
         $credito = new CreditoData();
         $credito->sucursalId = $params["sucursal_id"];
         $credito->monedaId = trim($params["idtipomoneda"]);
@@ -96,15 +96,15 @@ class VentaUtils
         $credito->fecha = $fechaActual;
         $credito->cliente_id = $params["cliente_id"];
         $credito->ventaId = $ventaId;
-        
+
         $resultadoCredito = $credito->registrar_credito();
-        
+
         // Crear cuotas
         for ($i = 1; $i <= $params['cuotas']; $i++) {
             if ($i > 1) {
                 $vence = date("Y-m-d", strtotime($vence . "+ " . $params['vencimiento'] . " days"));
             }
-            
+
             $detalle = new CreditoDetalleData();
             $detalle->fechaDetalle = $vence;
             $detalle->cuota = $i;
@@ -116,17 +116,17 @@ class VentaUtils
             $detalle->cliente_id = $params["cliente_id"];
             $detalle->recibido = str_replace(',', '', $params['total']) / $params['cuotas'];
             $detalle->moneda = 0;
-            
+
             $resultadoDetalle = $detalle->registrar_credito_detalle();
-            
+
             $detalleCobro = new CobroDetalleData();
             $detalleCobro->creditoDetalle = $resultadoDetalle[1];
             $detalleCobro->registrar_credito();
         }
-        
+
         return $resultadoCredito[1];
     }
-    
+
     /**
      * Actualiza numeración de factura
      */
@@ -138,7 +138,7 @@ class VentaUtils
             $configuracion->actualizardiferencia();
         }
     }
-    
+
     /**
      * Calcula numeración de factura
      */
@@ -148,7 +148,7 @@ class VentaUtils
         $diferencia = $params['diferencia'];
         return ($numeracionFinal - $diferencia);
     }
-    
+
     /**
      * Configura una venta estándar
      */
@@ -179,15 +179,16 @@ class VentaUtils
         $venta->n = 1;
         $venta->numerocorraltivo = self::calcularNumeracion($params);
         $venta->sucursal_id = $params["sucursal_id"];
-        $venta->dncp = $params["dncp"];
+        $dncp = $params["dncp"] && $params["dncp"] != "" ? $params["dncp"] : null;
+        $venta->dncp = $dncp;
         $venta->fecha = $params["fecha"];
         $venta->transaccion = $params["transaccion"];
         $venta->cantidaconfigmasiva = $params["cantidaconfigmasiva"];
         $venta->cliente_id = $params["cliente_id"];
-        
+
         return $venta;
     }
-    
+
     /**
      * Verifica stock disponible
      */

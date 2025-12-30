@@ -12,7 +12,7 @@ class Database
 		$this->user = "root";
 		$this->pass = "0709";
 		$this->host = "localhost";
-		$this->ddbb = "syscombl_dosbeta";
+		$this->ddbb = "syscombl_conoflex2";
 	}
 
 	function connect()

@@ -6,6 +6,15 @@ class ConfigFacturaData
 	public ?string $diferencia = "";
 	public ?string $serie1 = "";
 	public ?int $id_configfactura = 0;
+	public ?int $numeracion_final = 0;
+	public ?int $numeracion_inicial = 0;
+
+	public ?int $timbrado1 = 0;
+	public ?int $activo = 0;
+
+	public ?string $inicio_timbrado = "";
+	public ?string $fin_timbrado = "";
+
 	public function registro1()
 	{
 		$sql = "insert into configfactura (sucursal_id,numeracion_inicial,numeracion_final,comprobante1,serie1,timbrado1,numeroactual1,inicio_timbrado,fin_timbrado,diferencia,activo,fecha) ";

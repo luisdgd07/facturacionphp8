@@ -43,19 +43,37 @@ class VentaData
 	public ?string $fecha_tim = "";
 
 	public ?int $usuario_id = 0;
+	public ?int $REMISION_ID = 0;
+
 	public ?float $cambio = 0;
+	public ?float $total10 = 0;
+	public ?float $total5 = 0;
+	public ?float $exenta = 0;
+	public ?float $n = 0;
+
+	public ?float $numerocorraltiv = 0;
+	public ?float $presupuesto = 0;
+	public ?float $cantidaconfigmasiva = 0;
+	public ?float $numerocorraltivo = 0;
 
 	public ?int $cliente_id = 0;
 	public ?int $tipomoneda_id = 0;
 	public ?int $sucursal = 0;
+	public ?int $configfactura_id = 0;
+	public ?int $vendedor = 0;
+	public ?string $simbolo2 = "";
+	public ?string $formapago = "";
 
 	public ?string $fecha = "";
 	public ?string $kude = "";
+	public ?string $num_fact = "";
+
 	public ?string $fecha_pago = "";
 	public ?string $fechpago = "";
 
 	public ?string $cdc_fact = "";
 
+	public ?int $dncp = null;
 	public function __construct()
 	{
 
@@ -377,8 +395,11 @@ class VentaData
 	}
 	public function venta_producto_cliente1()
 	{
+		// Convertir dncp a NULL si es nulo para SQL
+		$dncpValue = $this->dncp !== null ? $this->dncp : 'NULL';
+
 		$sql = "insert into " . self::$tablename . " (presupuesto,factura,configfactura_id,tipomoneda_id,cambio,cambio2,simbolo2,formapago,codigo,fechapago,metodopago,total10,iva10,total5,iva5,exenta,total,n,numerocorraltivo,sucursal_id,cliente_id,usuario_id,cantidaconfigmasiva,accion_id,fecha,REMISION_ID, estado,vendedor,transaccion,id_dncp	) ";
-		$sql .= "value ($this->presupuesto,\"$this->factura\",$this->configfactura_id,$this->tipomoneda_id,\"$this->cambio\",$this->cambio2,\"$this->simbolo2\",\"$this->formapago\",$this->codigo,\"$this->fechapago\",\"$this->metodopago\",\"$this->total10\",\"$this->iva10\",\"$this->total5\",\"$this->iva5\",\"$this->exenta\",\"$this->total\",$this->n,\"$this->numerocorraltivo\",$this->sucursal_id,$this->cliente_id,$this->usuario_id,\"$this->cantidaconfigmasiva\",2,\"$this->fecha\",$this->REMISION_ID,1,\"$this->vendedor\",\"$this->transaccion\",$this->dncp)";
+		$sql .= "value ($this->presupuesto,\"$this->factura\",$this->configfactura_id,$this->tipomoneda_id,\"$this->cambio\",$this->cambio2,\"$this->simbolo2\",\"$this->formapago\",$this->codigo,\"$this->fechapago\",\"$this->metodopago\",\"$this->total10\",\"$this->iva10\",\"$this->total5\",\"$this->iva5\",\"$this->exenta\",\"$this->total\",$this->n,\"$this->numerocorraltivo\",$this->sucursal_id,$this->cliente_id,$this->usuario_id,\"$this->cantidaconfigmasiva\",2,\"$this->fecha\",$this->REMISION_ID,1,\"$this->vendedor\",\"$this->transaccion\",$dncpValue)";
 		return Executor::doit($sql);
 		// return $sql;
 	}

@@ -5,7 +5,6 @@ class CuentaBancariaData
     public static function agregar($recibo, $moneda, $banco, $importe, $caja)
     {
         $sql = "INSERT INTO `cuenta_bancaria` (`id_cuenta_bancaria`, `nro_cuenta`, `id_moneda`, `id_banco`, `importe`,`caja_id`) VALUES (NULL, \"$recibo\", \"$moneda\", \"$banco\", \"$importe\", \"$caja\")";
-        var_dump($sql);
         return Executor::doit($sql);
     }
     public static function getByCajaId($cajaid)

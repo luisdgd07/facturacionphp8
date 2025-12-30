@@ -1,6 +1,8 @@
 <?php
 class BancoData
 {
+    public ?int $id_banco = 0;
+    public ?string $nombre_banco = "";
 
     public static function getBancos()
     {

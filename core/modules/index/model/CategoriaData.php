@@ -2,18 +2,15 @@
 class CategoriaData
 {
 	public static $tablename = "categoria";
+	public ?int $id_categoria = 0;
+
+	public ?int $sucursal_id = 0;
+	public ?string $nombre = "";
+	public ?string $descripcion = "";
+	public ?string $fecha = "";
 
 
 
-	public function CategoriaData()
-	{
-		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
-		$this->image = "";
-		$this->password = "";
-		$this->fecha = "NOW()";
-	}
 	public static function vercategoriassucursal($id_sucursal)
 	{
 		$sql = "select * from " . self::$tablename . " where sucursal_id=$id_sucursal";

@@ -1,14 +1,13 @@
 <?php
 try {
     $c = ClienteData::getBDni($_POST["dni"], $_POST["id_sucursal"]);
-    // if(count($_POST)>0){
     if ($c == null) {
-        // $is_active=0;
-        // if(isset($_POST["is_active"])){$is_active=1;}
         $product = new ClienteData();
+        // PHP 8.4 compatible: Verificar que la propiedad existe antes de asignar
         foreach ($_POST as $k => $v) {
-            $product->$k = $v;
-            # code...
+            if (property_exists($product, $k)) {
+                $product->$k = $v;
+            }
         }
         $alphabeth = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ1234567890_-";
         if (isset($_FILES["imagen"])) {
@@ -35,10 +34,10 @@ try {
 } catch (Exception $e) {
     // Log del error para debugging
     error_log("Error en nuevocliente: " . $e->getMessage());
-    
+
     // Respuesta de error para el cliente
     echo json_encode([
-        'success' => false, 
+        'success' => false,
         'message' => 'Error interno del servidor: ' . $e->getMessage(),
         'error_code' => $e->getCode(),
         'file' => $e->getFile(),

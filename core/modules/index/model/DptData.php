@@ -3,9 +3,9 @@ class DptData
 {
     public static $tablename = "ubigeo_departments";
 
-    public function DptData()
-    {
-    }
+    public ?string $name = "";
+    public ?string $descripcion = "";
+    public ?string $codigo = "";
 
     public static function getAll()
     {

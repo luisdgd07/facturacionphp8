@@ -2,6 +2,29 @@
 class OperationData
 {
 	public static $tablename = "operacion";
+	public ?int $producto_id = 0;
+	public ?int $precio = 0;
+	public ?int $precio1 = 0;
+	public ?int $sucursal_id = 0;
+
+	public ?int $stock_trans = 0;
+
+	public ?int $q = 0;
+	public ?string $fecha = null;
+	public ?string $deposito_nombre = null;
+	public ?int $deposito = null;
+
+	public ?string $motivo = null;
+
+	public ?int $accion_id = 0;
+	public ?string $venta_id = "";
+	public ?int $is_oficiall = 0;
+
+	public ?int $SUCURSAL_ID = 0;
+	public ?int $DEPOSITO_ID = 0;
+	public ?int $MINIMO_STOCK = 0;
+	public ?int $COSTO_COMPRA = 0;
+
 	public function registro_producto()
 	{
 		$sql = "insert into " . self::$tablename . " (producto_id,q,precio,accion_id,venta_id,fecha) ";

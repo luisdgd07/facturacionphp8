@@ -28,20 +28,20 @@ class CobroCabecera
 
     public function registro()
     {
-        $RECIBO           = addslashes($this->RECIBO);
-        $FECHA_COBRO      = addslashes($this->FECHA_COBRO);
-        $CLIENTE_ID       = (int)$this->CLIENTE_ID;
-        $TOTAL_COBRO      = ($this->TOTAL_COBRO === null || $this->TOTAL_COBRO === '') ? 'NULL' : floatval(str_replace(',', '', $this->TOTAL_COBRO));
-        $SUCURSAL_ID      = (int)$this->SUCURSAL_ID;
-        $MONEDA_ID        = (int)$this->MONEDA_ID;
-        $COMENTARIO       = isset($this->COMENTARIO) ? addslashes($this->COMENTARIO) : '';
-        $configfactura_id = ($this->configfactura_id === null || $this->configfactura_id === '') ? 'NULL' : (int)$this->configfactura_id;
-        $anulado          = (int)($this->anulado ?? 0);
-        $NIVEL1           = (int)($this->NIVEL1 ?? 1);
-        $NIVEL2           = (int)($this->NIVEL2 ?? 1);
-        $ID_COBRANZA      = ($this->ID_COBRANZA === null || $this->ID_COBRANZA === '') ? 'NULL' : (int)$this->ID_COBRANZA;
-        $ventaId =    ($this->ventaId ?? 'null');
-        $notaCreditoId=   ($this->notaCreditoId ??'null');
+        $RECIBO = addslashes($this->RECIBO);
+        $FECHA_COBRO = addslashes($this->FECHA_COBRO);
+        $CLIENTE_ID = (int) $this->CLIENTE_ID;
+        $TOTAL_COBRO = ($this->TOTAL_COBRO === null || $this->TOTAL_COBRO === '') ? 'NULL' : floatval(str_replace(',', '', $this->TOTAL_COBRO));
+        $SUCURSAL_ID = (int) $this->SUCURSAL_ID;
+        $MONEDA_ID = (int) $this->MONEDA_ID;
+        $COMENTARIO = isset($this->COMENTARIO) ? addslashes($this->COMENTARIO) : '';
+        $configfactura_id = ($this->configfactura_id === null || $this->configfactura_id === '') ? 'NULL' : (int) $this->configfactura_id;
+        $anulado = (int) ($this->anulado ?? 0);
+        $NIVEL1 = (int) ($this->NIVEL1 ?? 1);
+        $NIVEL2 = (int) ($this->NIVEL2 ?? 1);
+        $ID_COBRANZA = ($this->ID_COBRANZA === null || $this->ID_COBRANZA === '') ? 'NULL' : (int) $this->ID_COBRANZA;
+        $ventaId = ($this->ventaId ?? 'null');
+        $notaCreditoId = ($this->notaCreditoId ?? 'null');
 
         $sql = "INSERT INTO " . self::$tablename . " (
                     NIVEL1, NIVEL2, RECIBO, FECHA_COBRO, CLIENTE_ID,
@@ -58,7 +58,7 @@ class CobroCabecera
         } else {
             $q = Executor::doit("SELECT LAST_INSERT_ID() AS id");
             if ($q && isset($q[0])) {
-                $row = Model::one($q[0], new stdClass());
+                $row = Model::one($q[0], "CobroCabecera");
                 $this->COBRO_ID = isset($row->id) ? $row->id : null;
             }
         }
@@ -77,7 +77,7 @@ class CobroCabecera
 
     public static function getById($id)
     {
-        $id = (int)$id;
+        $id = (int) $id;
         $sql = "SELECT * FROM " . self::$tablename . " WHERE COBRO_ID = {$id} LIMIT 1";
         $query = Executor::doit($sql);
         if (!$query || !isset($query[0])) {
@@ -100,7 +100,7 @@ class CobroCabecera
     public static function eliminarVentaCliente($factura, $cliente)
     {
         $factura = addslashes($factura);
-        $cliente = (int)$cliente;
+        $cliente = (int) $cliente;
         $sql = "DELETE FROM " . self::$tablename . " WHERE RECIBO = '{$factura}' AND CLIENTE_ID = {$cliente}";
         return Executor::doit($sql);
     }

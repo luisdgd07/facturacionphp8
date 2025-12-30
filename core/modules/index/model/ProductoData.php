@@ -5,23 +5,50 @@ class ProductoData
 
 
 	public ?int $id_producto = null;
+	public ?int $usuario_id = 0;
+	public ?int $id_grupo = 0;
+	public ?int $sucursal_id = 0;
+
+
+
 	public ?string $imagen = "";
 	public ?string $codigo = "";
 	public ?string $presentacion = "";
+	public ?string $codigoGtinProducto = "";
+	public ?string $codigoNivelPaquete = "";
+	public ?string $codigoNivelEspecifico = "";
+
+	public ?string $codigoNivelGeneral = "";
+
+
 	public ?string $nombre = "";
+	public ?int $activo = 0;
+
 	public ?int $impuesto = 0;
+	public ?string $TIPO_PRODUCTO = "";
 
 	public ?int $precio_compra = 0;
 	public ?int $precio_venta = 0;
-	public ?string $TIPO_PRODUCTO = "";
+	public ?string $ncm = "";
+	public ?string $partida_arancelaria = "";
+
+
+	public ?int $inventario_minimo = 0;
+
+	public ?int $cantidad_inicial = 0;
+
 	public ?string $descripcion = "";
 
 	public ?string $NOMBRE_DEPOSITO = "";
 	public ?int $DEPOSITO_ID = 0;
 	public ?int $IMPORTE = 0;
+	public ?int $categoria_id = 0;
+	public ?int $marca_id = 0;
+
 	public ?int $PRECIO_ID = 0;
 	public ?int $ID_TIPO_PROD = 0;
 	public ?int $total_registros = 0;
+	public ?string $NOMBRE_PRECIO = "";
 
 
 	public function tipoproducto()

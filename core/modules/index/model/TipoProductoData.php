@@ -2,6 +2,8 @@
 class TipoProductoData
 {
 	public static $tablename = "tipo_producto";
+	public ?int $ID_TIPO_PROD = 0;
+	public ?string $TIPO_PRODUCTO = "";
 
 	public function registrar()
 	{

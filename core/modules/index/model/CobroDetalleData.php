@@ -2,19 +2,17 @@
 class CobroDetalleData
 {
     public static $tablename = "cobro_detalle";
+    public ?int $COBRO_ID = 0;
+    public ?string $NUMERO_FACTURA = "";
+    public ?int $CUOTA = 0;
+    public ?int $NUMERO_CREDITO = 0;
+    public ?int $CLIENTE_ID = 0;
+    public ?int $IMPORTE_COBRO = 0;
+    public ?int $IMPORTE_CREDITO = 0;
+    public ?int $SUCURSAL_ID = 0;
+    public ?int $venta = 0;
+    public ?string $tipo = "";
 
-    public function CobroDetalleData()
-    {
-        // $this->ventaId = "";
-        // $this->sucursalId = "";
-        // $this->monedaId = "";
-        // $this->concepto = "";
-        // $this->credito = "";
-        // $this->abonado = "";
-        // $this->vencimiento = "";
-        // $this->cuotas = "";
-        $this->fecha = "NOW()";
-    }
     public function registrar_credito()
     {
         $sql = "insert into " . self::$tablename . "(`id`, `credito_detalle_id`, `cobro`)
@@ -32,6 +30,7 @@ class CobroDetalleData
     {
         $sql = "insert into cobro_detalle (COBRO_ID,NUMERO_FACTURA,CUOTA,NUMERO_CREDITO,CLIENTE_ID,IMPORTE_COBRO,IMPORTE_CREDITO,SUCURSAL_ID, venta) ";
         $sql .= "value (\"$this->COBRO_ID\",\"$this->NUMERO_FACTURA\",\"$this->CUOTA\",\"$this->NUMERO_CREDITO\",\"$this->CLIENTE_ID\",\"$this->IMPORTE_COBRO\",\"$this->IMPORTE_CREDITO\",\"$this->SUCURSAL_ID\",\"$this->tipo\")";
+        var_dump($sql);
         return Executor::doit($sql);
     }
     public static function cobranza($id_sucursal)

@@ -2,6 +2,14 @@
 class CajaData
 {
 	public static $tablename = "caja";
+	public ?string $fecha = "";
+	public ?int $usuario_id = 0;
+	public ?int $id_caja = 0;
+
+	public ?int $sucursal_id = 0;
+	public ?int $montoinicial = 0;
+
+	public ?string $fecha_inicio = "";
 
 	public static function vercajasucursal($id_sucursal)
 	{
@@ -69,7 +77,7 @@ class CajaData
 	public function aperturaporusuario()
 	{
 		$sql = "insert into caja (montoinicial,usuario_id,sucursal_id,fecha) ";
-		$sql .= "value (\"$this->montoinicial\",\"$this->usuario_id\",\"$this->sucursal_id\",$this->fecha)";
+		$sql .= "value (\"$this->montoinicial\",\"$this->usuario_id\",\"$this->sucursal_id\",\"$this->fecha\")";
 		return Executor::doit($sql);
 	}
 	public function cierre_caja_producto1porusuario()

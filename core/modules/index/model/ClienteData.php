@@ -14,12 +14,23 @@ class ClienteData
 	public ?string $dni = "";
 	public ?string $tipo_doc = "";
 	public ?string $email = "";
+	public ?int $dias_credito = 0;
+	public ?int $dpt_id = 0;
+	public ?string $distrito = "";
+
+	public ?int $sucursal_id = 0;
+
+	public ?int $tipo_operacion = 0;
+
 	public ?string $telefono = "";
 	public ?int $id_cliente = 0;
+	public ?int $id_precio = 0;
+	public ?int $pais_id = 0;
+	// public ?int $distrito
 
 	public ?int $departamento_id = 0;
 
-	public ?int $distrito_id = 0;
+	// public ?int $distrito_id = 0;
 
 	public static function getAll()
 	{

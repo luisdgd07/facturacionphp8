@@ -4,7 +4,9 @@ $tipo = $_POST["tipo_producto"];
 if ($c == null) {
   $product = new ProductoData();
   foreach ($_POST as $k => $v) {
-    $product->$k = $v;
+    if (property_exists($product, $k)) {
+      $product->$k = $v;
+    }
   }
   $alphabeth = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ1234567890_-";
   if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == UPLOAD_ERR_OK) {
@@ -55,7 +57,7 @@ if ($c == null) {
 
     $op->COSTO_COMPRA = $_POST["precio_compra"];
 
-    $idProd =  $op->registro_producto();
+    $idProd = $op->registro_producto();
 
 
     if ($tipo == "Producto") {
@@ -70,7 +72,7 @@ if ($c == null) {
       $registro2->registrar();
     }
   }
-  $cart =  json_decode($_POST['carrito']);
+  $cart = json_decode($_POST['carrito']);
   // var_dump($cart);
 
   foreach ($cart as $c) {

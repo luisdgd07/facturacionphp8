@@ -3,6 +3,7 @@ class VendedorData
 {
     public static $tablename = "vendedor";
     public ?string $nombre = "";
+    public ?string $id = "";
     public ?string $cedula = "";
 
 

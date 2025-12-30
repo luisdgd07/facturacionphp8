@@ -3,9 +3,7 @@ class CiudadData
 {
     public static $tablename = "ciudades";
 
-    public function CiudadData()
-    {
-    }
+
 
     public static function getByDpt($id)
     {

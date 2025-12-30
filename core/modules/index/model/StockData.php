@@ -2,6 +2,13 @@
 class StockData
 {
 	public static $tablename = "stock";
+	public ?int $DEPOSITO_ID = 0;
+	public ?int $PRODUCTO_ID = 0;
+	public ?int $CANTIDAD_STOCK = 0;
+	public ?int $MINIMO_STOCK = 0;
+	public ?int $MAXIMO_STOCK = 0;
+	public ?int $SUCURSAL_ID = 0;
+	public ?int $COSTO_COMPRA = 0;
 
 	public function registrar()
 	{
