@@ -3,6 +3,17 @@ class VehiculoData
 {
     public static $tablename = "vehiculos";
 
+    public ?string $nombre_empresa = "";
+    public ?string $chapa_nro = "";
+    public ?string $rua_nro = "";
+    public ?string $marca = "";
+    public ?string $modelo = "";
+    public ?string $anio = "";
+    public ?string $color = "";
+    public ?string $tipo = "";
+    public ?string $estado = "";
+    public ?int $id_vehiculo = 0;
+
     public function ClienteData()
     {
     }

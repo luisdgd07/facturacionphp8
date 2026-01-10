@@ -1,0 +1,435 @@
+<!-- 
+    EJEMPLO DE INTEGRACIÓN
+    
+    Este archivo muestra cómo integrar el botón de "Enviar por Correo"
+    en tu sistema de facturación existente.
+    
+    Puedes copiar y adaptar este código a tus necesidades.
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Integración - Envío de Facturas</title>
+    <style>
+        /* Estilos para el botón de enviar por correo */
+        .btn-enviar-email {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-enviar-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-enviar-email:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Modal para ingresar el correo */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .notification.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .notification.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        /* Ejemplo de tabla de facturas */
+        .factura-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .factura-table th,
+        .factura-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .factura-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <h1>📋 Sistema de Facturación</h1>
+        <p style="color: #666; margin-bottom: 30px;">Ejemplo de integración del envío de facturas por correo</p>
+
+        <!-- Ejemplo de tabla de facturas -->
+        <table class="factura-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ejemplo de fila -->
+                <tr>
+                    <td>123</td>
+                    <td>Juan Pérez</td>
+                    <td>06/12/2025</td>
+                    <td>$1,500.00</td>
+                    <td>
+                        <!-- Botón para enviar por correo -->
+                        <button 
+                            class="btn-enviar-email" 
+                            onclick="abrirModalEnvio(123, 'juan.perez@ejemplo.com', 'Juan Pérez')"
+                        >
+                            📧 Enviar por Correo
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>124</td>
+                    <td>María González</td>
+                    <td>06/12/2025</td>
+                    <td>$2,300.00</td>
+                    <td>
+                        <button 
+                            class="btn-enviar-email" 
+                            onclick="abrirModalEnvio(124, 'maria.gonzalez@ejemplo.com', 'María González')"
+                        >
+                            📧 Enviar por Correo
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para enviar correo -->
+    <div id="modalEnvio" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📧 Enviar Factura por Correo</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Cliente:</label>
+                    <input type="text" id="clienteNombre" readonly style="background: #f5f5f5;">
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" id="emailDestino" placeholder="cliente@ejemplo.com" required>
+                </div>
+                <input type="hidden" id="ventaId">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="enviarFactura()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal de envío
+        function abrirModalEnvio(ventaId, email, nombreCliente) {
+            document.getElementById('ventaId').value = ventaId;
+            document.getElementById('emailDestino').value = email;
+            document.getElementById('clienteNombre').value = nombreCliente;
+            document.getElementById('modalEnvio').style.display = 'block';
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById('modalEnvio').style.display = 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalEnvio');
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${tipo}`;
+            notification.textContent = mensaje;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Función principal para enviar la factura
+        async function enviarFactura() {
+            const ventaId = document.getElementById('ventaId').value;
+            const email = document.getElementById('emailDestino').value;
+
+            if (!email) {
+                mostrarNotificacion('Por favor ingresa un correo electrónico', 'error');
+                return;
+            }
+
+            // Validar formato de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                mostrarNotificacion('Por favor ingresa un correo electrónico válido', 'error');
+                return;
+            }
+
+            // Deshabilitar botón mientras se envía
+            const btnEnviar = event.target;
+            btnEnviar.disabled = true;
+            btnEnviar.textContent = 'Enviando...';
+
+            mostrarNotificacion('Enviando factura por correo...', 'info');
+
+            try {
+                // Llamar al script de envío
+                const response = await fetch(
+                    `enviar_factura.php?venta=${ventaId}&email=${encodeURIComponent(email)}`
+                );
+                
+                const data = await response.json();
+
+                if (data.success) {
+                    mostrarNotificacion(data.message, 'success');
+                    cerrarModal();
+                } else {
+                    mostrarNotificacion(data.message, 'error');
+                }
+            } catch (error) {
+                mostrarNotificacion('Error al enviar el correo: ' + error.message, 'error');
+            } finally {
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Enviar';
+            }
+        }
+
+        // Permitir enviar con Enter
+        document.getElementById('emailDestino').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                enviarFactura();
+            }
+        });
+    </script>
+
+    <!-- 
+        CÓDIGO PHP DE EJEMPLO PARA INTEGRAR EN TU SISTEMA
+        
+        Copia este código en tu página de listado de ventas:
+    -->
+    <?php
+    /*
+    // En tu página de listado de ventas, agrega este botón:
+    
+    <button 
+        class="btn-enviar-email" 
+        onclick="abrirModalEnvio(
+            <?php echo $venta->id_venta; ?>, 
+            '<?php echo $cliente->email; ?>', 
+            '<?php echo htmlspecialchars($cliente->nombre . ' ' . $cliente->apellido); ?>'
+        )"
+    >
+        📧 Enviar por Correo
+    </button>
+    
+    // O si prefieres enviar directamente sin modal:
+    
+    <button 
+        class="btn-enviar-email" 
+        onclick="enviarFacturaDirecto(<?php echo $venta->id_venta; ?>, '<?php echo $cliente->email; ?>')"
+    >
+        📧 Enviar por Correo
+    </button>
+    
+    <script>
+    async function enviarFacturaDirecto(ventaId, email) {
+        if (!confirm('¿Enviar factura a ' + email + '?')) {
+            return;
+        }
+        
+        mostrarNotificacion('Enviando factura...', 'info');
+        
+        try {
+            const response = await fetch(
+                `kudes/enviar_factura.php?venta=${ventaId}&email=${encodeURIComponent(email)}`
+            );
+            const data = await response.json();
+            
+            if (data.success) {
+                mostrarNotificacion(data.message, 'success');
+            } else {
+                mostrarNotificacion(data.message, 'error');
+            }
+        } catch (error) {
+            mostrarNotificacion('Error: ' + error.message, 'error');
+        }
+    }
+    </script>
+    */
+    ?>
+</body>
+</html>

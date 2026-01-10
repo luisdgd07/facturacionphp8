@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Factura por Correo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #0d47a1;
+        }
+
+        .info-box strong {
+            color: #01579b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Enviar Factura</h1>
+        <p class="subtitle">Envía la factura electrónica por correo</p>
+
+        <div class="info-box">
+            <p><strong>📋 Instrucciones:</strong></p>
+            <p>1. Ingresa el ID de la venta</p>
+            <p>2. Ingresa el correo del destinatario</p>
+            <p>3. Haz clic en "Enviar Factura"</p>
+        </div>
+
+        <form id="emailForm">
+            <div class="form-group">
+                <label for="ventaId">🔢 ID de Venta</label>
+                <input 
+                    type="number" 
+                    id="ventaId" 
+                    name="venta" 
+                    placeholder="Ej: 123" 
+                    required
+                    min="1"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">📧 Correo Electrónico</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="cliente@ejemplo.com" 
+                    required
+                >
+            </div>
+
+            <button type="submit" id="submitBtn">
+                Enviar Factura
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Enviando correo...</p>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('emailForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+        const message = document.getElementById('message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const ventaId = document.getElementById('ventaId').value;
+            const email = document.getElementById('email').value;
+
+            // Mostrar loading
+            submitBtn.disabled = true;
+            loading.style.display = 'block';
+            message.style.display = 'none';
+
+            try {
+                const response = await fetch(`enviar_factura.php?venta=${ventaId}&email=${encodeURIComponent(email)}`);
+                const data = await response.json();
+
+                // Ocultar loading
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+
+                // Mostrar mensaje
+                message.style.display = 'block';
+                if (data.success) {
+                    message.className = 'message success';
+                    message.innerHTML = `✅ ${data.message}`;
+                    form.reset();
+                } else {
+                    message.className = 'message error';
+                    message.innerHTML = `❌ ${data.message}`;
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+                message.style.display = 'block';
+                message.className = 'message error';
+                message.innerHTML = `❌ Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

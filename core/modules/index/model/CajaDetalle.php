@@ -1,6 +1,10 @@
 <?php
 class CajaDetalle
 {
+    public ?string $CAJA = "";
+    public ?float $IMPORTE = 0;
+
+
     public function agregarDetalle()
     {
         $sql = "INSERT INTO `caja_detalle` (`ID`, `COBRO_ID`, `CAJA`, `IMPORTE`, `ID_MONEDA`, `SUCURSAL_ID`,`CAMBIO`,`id_venta`,`id_caja_cabecera`) ";

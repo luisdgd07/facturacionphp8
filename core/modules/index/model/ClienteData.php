@@ -12,8 +12,14 @@ class ClienteData
 	public ?string $ciudad = "";
 
 	public ?string $dni = "";
+	public ?string $ruc = "";
+	public ?string $nif = "";
+
 	public ?string $tipo_doc = "";
 	public ?string $email = "";
+	public ?string $distrito_id = "";
+
+
 	public ?int $dias_credito = 0;
 	public ?int $dpt_id = 0;
 	public ?string $distrito = "";
@@ -24,6 +30,8 @@ class ClienteData
 
 	public ?string $telefono = "";
 	public ?int $id_cliente = 0;
+	public ?int $cliente_id = 0;
+
 	public ?int $id_precio = 0;
 	public ?int $pais_id = 0;
 	// public ?int $distrito

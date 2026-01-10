@@ -24,6 +24,8 @@ class OperationData
 	public ?int $DEPOSITO_ID = 0;
 	public ?int $MINIMO_STOCK = 0;
 	public ?int $COSTO_COMPRA = 0;
+	public ?int $ID_TIPO_PROD = 0;
+	public ?int $is_sqlserver = 0;
 
 	public function registro_producto()
 	{

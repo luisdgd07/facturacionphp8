@@ -27,7 +27,6 @@ function registrarCobroConDetalles(array $params)
         $cab->anulado = 0;
         $cab->ventaId = $params['ventaId'];
         $id_cobro = $cab->registro();
-
         $i = 0;
         if (!empty($params['tablaCobro']) && is_array($params['tablaCobro'])) {
             foreach ($params['tablaCobro'] as $cobroItem) {

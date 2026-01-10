@@ -3,6 +3,17 @@ class ChoferData
 {
     public static $tablename = "choferes";
 
+    public ?int $id_chofer = 0;
+    public ?string $cedula = "";
+    public ?string $telefono = "";
+    public ?string $direccion = "";
+    public ?string $nombre = "";
+
+    public ?string $apellido = "";
+    public ?string $estado = "";
+    public ?string $fecha = "";
+
+
 
     public static function getAll()
     {

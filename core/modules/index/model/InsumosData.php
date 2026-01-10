@@ -1,6 +1,13 @@
 <?php
 class InsumosData
 {
+    public ?int $producto_id = null;
+    public ?int $nombre = null;
+    public ?int $cantidad = null;
+    public ?int $id_sucursal = null;
+    public ?int $insumo_id = null;
+    public ?int $precio = null;
+    public ?int $total = null;
     public static $tablename = "insumos";
 
     public function registrarnuevo()
@@ -10,6 +17,12 @@ class InsumosData
         // return $sql;
     }
     public function find($id)
+    {
+        $sql = "SELECT * FROM `insumos` WHERE `producto_id` = $id";
+        $query = Executor::doit($sql);
+        return Model::many($query[0], "InsumosData");
+    }
+    public static function find2($id)
     {
         $sql = "SELECT * FROM `insumos` WHERE `producto_id` = $id";
         $query = Executor::doit($sql);

@@ -4,6 +4,10 @@ class CiudadData
     public static $tablename = "ciudades";
 
 
+    public ?string $descripcion = "";
+    public ?string $codigo = "";
+    public ?string $id_ciudad = "";
+    public ?string $id_distrito = "";
 
     public static function getByDpt($id)
     {

@@ -476,9 +476,9 @@ class ProductoData
 
 
 
-	public static function getById($id_producto)
+	public static function getById($id_producto, $fila)
 	{
-		$sql = "select * from " . self::$tablename . " where id_sqlserver=$id_producto";
+		$sql = "select * from " . self::$tablename . " where $fila=$id_producto";
 		$query = Executor::doit($sql);
 		return Model::one($query[0], "ProductoData");
 	}

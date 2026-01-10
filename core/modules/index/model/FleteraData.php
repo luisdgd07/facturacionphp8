@@ -2,6 +2,15 @@
 class FleteraData
 {
     public static $tablename = "empresa_fletera";
+    public ?string $nombre_empresa = "";
+    public ?int $id_empresa_flete = 0;
+    public ?string $direccion = "";
+    public ?string $telefono = "";
+    public ?string $ruc = "";
+    public ?int $estado = 0;
+
+
+
     public function FleteraData()
     {
     }

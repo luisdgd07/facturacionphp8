@@ -13,6 +13,8 @@ class SuccursalData
 	public ?string $clave = null;
 	public ?string $entorno = null;
 	public ?string $email = null;
+	public ?string $logo = null;
+
 	public ?string $dpt_id = null;
 	public ?string $distrito_id = null;
 	public ?int $is_facturador = null;

@@ -1,13 +1,13 @@
 <?php
 $u = null;
 
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     $u = UserData::getById($_SESSION["admin_id"]);
     // require 'core/modules/index/components/kudes.php';
     $sucursal = new SuccursalData();
 
     $sucursalDatos = $sucursal->VerId($_GET['id_sucursal']);
-?>
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <section class="content-header">
@@ -136,7 +136,7 @@ require 'core/modules/index/components/kudes.php';
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=eliminarcompra&id_sucursal=<?= $_GET['id_sucursal'] ?>&id_venta=${venta}`;
 
-            } else {}
+            } else { }
         })
     }
 
@@ -156,7 +156,7 @@ require 'core/modules/index/components/kudes.php';
             type: "GET",
             data: {},
             cache: false,
-            success: function(dataResult) {
+            success: function (dataResult) {
                 var result = JSON.parse(dataResult);
                 totalPages = result.pages
                 pagination()
@@ -318,7 +318,7 @@ require 'core/modules/index/components/kudes.php';
             actividadesEconomicas: [{
                 codigo: "<?php echo $sucursalDatos->codigo_act ?>",
                 descripcion: "<?php echo $sucursalDatos->actividad ?>",
-            }, ],
+            },],
             timbradoNumero: "<?php echo $sucursalDatos->timbrado ?>",
             timbradoFecha: "<?php echo $sucursalDatos->fecha_tim ?>T00:00:00",
             tipoContribuyente: 2,
@@ -338,7 +338,7 @@ require 'core/modules/index/components/kudes.php';
                 telefono: "<?php echo $sucursalDatos->telefono ?>",
                 email: "<?php echo $sucursalDatos->email ?>",
                 denominacion: "<?php echo $sucursalDatos->denominacion ?>",
-            }, ],
+            },],
         }
         // let cert = '../facturacionElectronica<?php echo $sucursalDatos->certificado_url ?>';
         //let cert = './facturacionElectronica<?php echo $sucursalDatos->certificado_url ?>';
@@ -365,7 +365,7 @@ require 'core/modules/index/components/kudes.php';
 
             },
 
-            success: function(dataResult) {
+            success: function (dataResult) {
                 try {
 
                     // let data = JSON.parse(
@@ -383,7 +383,7 @@ require 'core/modules/index/components/kudes.php';
                         icon: 'info',
                     })
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         consultaLote(lote, 'venta');
                     }, 20000);
 

@@ -52,16 +52,10 @@ class CobroCabecera
                     {$TOTAL_COBRO}, {$SUCURSAL_ID}, {$MONEDA_ID}, '{$COMENTARIO}',
                     {$configfactura_id}, {$anulado}, {$ID_COBRANZA}, {$ventaId}, {$notaCreditoId}
                 )";
-        Executor::doit($sql);
-        if (method_exists('Executor', 'lastInsertId')) {
-            $this->COBRO_ID = Executor::lastInsertId();
-        } else {
-            $q = Executor::doit("SELECT LAST_INSERT_ID() AS id");
-            if ($q && isset($q[0])) {
-                $row = Model::one($q[0], "CobroCabecera");
-                $this->COBRO_ID = isset($row->id) ? $row->id : null;
-            }
-        }
+        $result = Executor::doit($sql);
+        // Executor::doit() retorna [query_result, insert_id]
+        $this->COBRO_ID = isset($result[1]) ? $result[1] : null;
+
         return $this->COBRO_ID;
     }
 
@@ -72,7 +66,7 @@ class CobroCabecera
         if (!$query || !isset($query[0])) {
             return null;
         }
-        return Model::one($query[0], new CobroCabecera());
+        return Model::one($query[0], "CobroCabecera");
     }
 
     public static function getById($id)
@@ -83,7 +77,7 @@ class CobroCabecera
         if (!$query || !isset($query[0])) {
             return null;
         }
-        return Model::one($query[0], new CobroCabecera());
+        return Model::one($query[0], "CobroCabecera");
     }
 
     public static function obtenerCobro($recibo)
@@ -94,7 +88,7 @@ class CobroCabecera
         if (!$query || !isset($query[0])) {
             return [];
         }
-        return Model::many($query[0], new CobroCabecera());
+        return Model::many($query[0], "CobroCabecera");
     }
 
     public static function eliminarVentaCliente($factura, $cliente)

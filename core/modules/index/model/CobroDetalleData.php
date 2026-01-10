@@ -12,6 +12,8 @@ class CobroDetalleData
     public ?int $SUCURSAL_ID = 0;
     public ?int $venta = 0;
     public ?string $tipo = "";
+    public ?string $NIVEL1 = "";
+    public ?string $NIVEL2 = "";
 
     public function registrar_credito()
     {
@@ -30,7 +32,6 @@ class CobroDetalleData
     {
         $sql = "insert into cobro_detalle (COBRO_ID,NUMERO_FACTURA,CUOTA,NUMERO_CREDITO,CLIENTE_ID,IMPORTE_COBRO,IMPORTE_CREDITO,SUCURSAL_ID, venta) ";
         $sql .= "value (\"$this->COBRO_ID\",\"$this->NUMERO_FACTURA\",\"$this->CUOTA\",\"$this->NUMERO_CREDITO\",\"$this->CLIENTE_ID\",\"$this->IMPORTE_COBRO\",\"$this->IMPORTE_CREDITO\",\"$this->SUCURSAL_ID\",\"$this->tipo\")";
-        var_dump($sql);
         return Executor::doit($sql);
     }
     public static function cobranza($id_sucursal)

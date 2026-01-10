@@ -50,32 +50,7 @@ if ($c == null) {
                 $j8 = ($j5 - $j6);
                 $sell->factura = $_POST['facturan'];
                 $nrofactura = $_POST['facturan'];
-                // $nrofactura = "";
 
-                // if ($j8 >= 1 & $j8 < 10) {
-                //     $nrofactura = $sell->factura = $j1 . "-" . "000000" . $j8;
-                // } else {
-                //     if ($j8 >= 10 & $j8 < 100) {
-                //         $nrofactura = $sell->factura = $j1 . "-" . "00000" . $j8;
-                //     } else {
-                //         if ($j8 >= 100 & $j8 < 1000) {
-                //             $nrofactura = $sell->factura = $j1 . "-" . "0000" . $j8;
-                //         } else {
-                //             if ($j8 >= 1000 & $j8 < 10000) {
-                //                 $nrofactura = $sell->factura = $j1 . "-" . "000" . $j8;
-                //             } else {
-                //                 if ($j8 >= 100000 & $j8 < 1000000) {
-                //                     $nrofactura = $sell->factura = $j1 . "-" . "00" . $j8;
-                //                 } else {
-                //                     if ($j8 >= 1000000 & $j8 < 10000000) {
-                //                         $nrofactura = $sell->factura = $j1 . "-" . "0" . $j8;
-                //                     } else {
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
 
                 $sell->configfactura_id = $_POST["configfactura_id"];
                 $sell->tipomoneda_id = trim($_POST["idtipomoneda"]);
@@ -112,7 +87,7 @@ if ($c == null) {
                 } else {
                     $s = $sell->add1();
                 }
-                foreach ($cart as  $c2) {
+                foreach ($cart as $c2) {
                     $productod = new ProductoData();
                     $productod->id = $c2['id'];
                     $productod->precio = $c2['precio'];
@@ -143,12 +118,6 @@ if ($c == null) {
                     $op->deposito_nombre = $c2["depositotext"];
                     $add = $op->registro_producto1();
 
-                    // $actualizar = new StockData();
-                    // $resta = $c2["stock"] - $c2["cantidad"];
-                    // $actualizar->CANTIDAD_STOCK =    $resta;
-                    // $actualizar->PRODUCTO_ID = $c2["id"];
-                    // $actualizar->DEPOSITO_ID = $c2["deposito"];
-                    // $ac = $actualizar->actualizar2();
                 }
                 if (count($_POST) > 0) {
                     $configuracionfactura = ConfigFacturaData::VerId($_POST["id_configfactura"]);
@@ -208,10 +177,7 @@ if ($c == null) {
                     echo json_encode($s[1]);
                     // Core::redir("index.php?view=vender&id_sucursal=" . $_POST["sucursal_id"]);
                 } else {
-                    // 
-                    // 
-                    // 
-                    // 
+
 
                     $registro1 = new CobroCabecera();
 
@@ -225,36 +191,7 @@ if ($c == null) {
                     $nrofactura = "";
                     $sell->factura = $_POST['facturan'];
                     $nrofactura = $_POST['facturan'];
-                    // if (
-                    //     $j8 >= 1 & $j8 < 10
-                    // ) {
-                    //     $nrofactura = $sell->factura = $j1 . "-" . "000000" . $j8;
-                    // } else {
-                    //     if (
-                    //         $j8 >= 10 & $j8 < 100
-                    //     ) {
-                    //         $nrofactura = $j1 . "-" . "00000" . $j8;
-                    //     } else {
-                    //         if ($j8 >= 100 & $j8 < 1000) {
-                    //             $nrofactura = $j1 . "-" . "0000" . $j8;
-                    //         } else {
-                    //             if (
-                    //                 $j8 >= 1000 & $j8 < 10000
-                    //             ) {
-                    //                 $nrofactura = $j1 . "-" . "000" . $j8;
-                    //             } else {
-                    //                 if ($j8 >= 100000 & $j8 < 1000000) {
-                    //                     $nrofactura = $j1 . "-" . "00" . $j8;
-                    //                 } else {
-                    //                     if ($j8 >= 1000000 & $j8 < 10000000) {
-                    //                         $nrofactura = $j1 . "-" . "0" . $j8;
-                    //                     } else {
-                    //                     }
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // }
+
 
 
 
@@ -357,32 +294,7 @@ if ($c == null) {
                 $j8 = ($j5 - $j6);
                 $sell->factura = $_POST['facturan'];
                 $nrofactura = $_POST['facturan'];
-                // $nrofactura = "";
 
-                // if ($j8 >= 1 & $j8 < 10) {
-                //     $nrofactura = $sell->factura = $j1 . "-" . "000000" . $j8;
-                // } else {
-                //     if ($j8 >= 10 & $j8 < 100) {
-                //         $nrofactura = $sell->factura = $j1 . "-" . "00000" . $j8;
-                //     } else {
-                //         if ($j8 >= 100 & $j8 < 1000) {
-                //             $nrofactura = $sell->factura = $j1 . "-" . "0000" . $j8;
-                //         } else {
-                //             if ($j8 >= 1000 & $j8 < 10000) {
-                //                 $nrofactura = $sell->factura = $j1 . "-" . "000" . $j8;
-                //             } else {
-                //                 if ($j8 >= 100000 & $j8 < 1000000) {
-                //                     $nrofactura = $sell->factura = $j1 . "-" . "00" . $j8;
-                //                 } else {
-                //                     if ($j8 >= 1000000 & $j8 < 10000000) {
-                //                         $nrofactura = $sell->factura = $j1 . "-" . "0" . $j8;
-                //                     } else {
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
 
                 $sell->configfactura_id = $_POST["configfactura_id"];
                 $sell->tipomoneda_id = trim($_POST["idtipomoneda"]);
@@ -418,7 +330,7 @@ if ($c == null) {
                 } else {
                     $s = $sell->add1();
                 }
-                foreach ($cart as  $c2) {
+                foreach ($cart as $c2) {
                     $productod = new ProductoData();
                     $productod->id = $c2['id'];
                     $productod->precio = $c2['precio'];
@@ -449,12 +361,7 @@ if ($c == null) {
                     $op->deposito_nombre = $c2["depositotext"];
                     $add = $op->registro_producto1();
 
-                    // $actualizar = new StockData();
-                    // $resta = $c2["stock"] - $c2["cantidad"];
-                    // $actualizar->CANTIDAD_STOCK =    $resta;
-                    // $actualizar->PRODUCTO_ID = $c2["id"];
-                    // $actualizar->DEPOSITO_ID = $c2["deposito"];
-                    // $ac = $actualizar->actualizar2();
+
                 }
                 if (count($_POST) > 0) {
                     $configuracionfactura = ConfigFacturaData::VerId($_POST["id_configfactura"]);
@@ -512,12 +419,8 @@ if ($c == null) {
                     header("HTTP/1.1 200 OK");
                     header('Content-Type: text/plain');
                     echo json_encode($s[1]);
-                    // Core::redir("index.php?view=vender&id_sucursal=" . $_POST["sucursal_id"]);
                 } else {
-                    // 
-                    // 
-                    // 
-                    // 
+
 
                     $registro1 = new CobroCabecera();
 
@@ -531,36 +434,7 @@ if ($c == null) {
                     $nrofactura = "";
                     $sell->factura = $_POST['facturan'];
                     $nrofactura = $_POST['facturan'];
-                    // if (
-                    //     $j8 >= 1 & $j8 < 10
-                    // ) {
-                    //     $nrofactura = $sell->factura = $j1 . "-" . "000000" . $j8;
-                    // } else {
-                    //     if (
-                    //         $j8 >= 10 & $j8 < 100
-                    //     ) {
-                    //         $nrofactura = $j1 . "-" . "00000" . $j8;
-                    //     } else {
-                    //         if ($j8 >= 100 & $j8 < 1000) {
-                    //             $nrofactura = $j1 . "-" . "0000" . $j8;
-                    //         } else {
-                    //             if (
-                    //                 $j8 >= 1000 & $j8 < 10000
-                    //             ) {
-                    //                 $nrofactura = $j1 . "-" . "000" . $j8;
-                    //             } else {
-                    //                 if ($j8 >= 100000 & $j8 < 1000000) {
-                    //                     $nrofactura = $j1 . "-" . "00" . $j8;
-                    //                 } else {
-                    //                     if ($j8 >= 1000000 & $j8 < 10000000) {
-                    //                         $nrofactura = $j1 . "-" . "0" . $j8;
-                    //                     } else {
-                    //                     }
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // }
+
 
 
 

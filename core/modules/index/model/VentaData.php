@@ -31,18 +31,31 @@ class VentaData
 	public ?int $transaccion = 0;
 	public ?int $email_enviado = 0;
 	public ?string $enviado = null;
+	public ?string $factura_1 = null;
+	public ?string $timbrado_fact = null;
+	public ?int $tipo_nota = 0;
+
 
 	public ?string $ciudad = "";
 
 	public ?int $total_registros = 0;
+	public ?int $id_chofer = 0;
+
 
 	public ?int $id_sucursal = 0;
+	public ?int $id_vehiculo = 0;
+	public ?int $fletera_id = 0;
+
+
 
 	public ?string $timbrado = "";
 
 	public ?string $fecha_tim = "";
 
 	public ?int $usuario_id = 0;
+	public ?int $ninicio = 0;
+	public ?int $nfin = 0;
+
 	public ?int $REMISION_ID = 0;
 
 	public ?float $cambio = 0;
@@ -59,9 +72,13 @@ class VentaData
 	public ?int $cliente_id = 0;
 	public ?int $tipomoneda_id = 0;
 	public ?int $sucursal = 0;
+	public ?int $id_sqlserver = 0;
+
 	public ?int $configfactura_id = 0;
 	public ?int $vendedor = 0;
 	public ?string $simbolo2 = "";
+	public ?string $tipo_remision = "";
+
 	public ?string $formapago = "";
 
 	public ?string $fecha = "";
@@ -73,7 +90,21 @@ class VentaData
 
 	public ?string $cdc_fact = "";
 
-	public ?int $dncp = null;
+	public ?int $dncp = 0;
+	public ?int $chofer_id = null;
+	public ?int $vendedor_id = null;
+	public ?int $vehiculo_id = null;
+
+	public ?int $dep_id = null;
+	public ?int $ciudad_id = null;
+
+	public ?string $destino = "";
+	public ?string $pesob = "";
+	public ?string $peson = "";
+	public ?int $fletera = null;
+
+	public ?int $tipo_transporte = null;
+
 	public function __construct()
 	{
 
@@ -439,8 +470,11 @@ class VentaData
 	*/
 	public function venta_producto_cliente4()
 	{
-		$sql = "insert into remision (presupuesto,factura,configfactura_id,tipomoneda_id,cambio,cambio2,simbolo2,formapago,codigo,fechapago,metodopago,total10,iva10,total5,iva5,exenta,total,n,numerocorraltivo,sucursal_id,cliente_id,usuario_id,cantidaconfigmasiva,accion_id,fecha,REMISION_ID, tipo_venta, estado,id_chofer, id_vehiculo, id_dep, id_ciudad, destino,tipo_remision, peso_neto, peso_bruto, fletera_id,vendedor,tipo_transporte, id_dncp) ";
-		$sql .= "value ($this->presupuesto,\"$this->factura\",$this->configfactura_id,$this->tipomoneda_id,\"$this->cambio\",$this->cambio2,\"$this->simbolo2\",\"$this->formapago\",$this->codigo,\"$this->fechapago\",\"$this->metodopago\",\"$this->total10\",\"$this->iva10\",\"$this->total5\",\"$this->iva5\",\"$this->exenta\",\"$this->total\",$this->n,\"$this->numerocorraltivo\",$this->sucursal_id,$this->cliente_id,$this->usuario_id,\"$this->cantidaconfigmasiva\",2,\"$this->fecha\",1,4,1, \"$this->chofer_id\", \"$this->vehiculo_id\", \"$this->dep_id\", \"$this->ciudad_id\",\"$this->destino\",\"$this->tipo_remision\",\"$this->peson\",\"$this->pesob\",\"$this->fletera\",\"$this->vendedor_id\",\"$this->tipo_transporte\", $this->dncp)";
+		// Manejar NULL para id_dncp si es 0 o vacío para evitar errores de foreign key
+		$dncpValue = ($this->dncp && $this->dncp > 0) ? $this->dncp : 'NULL';
+
+		$sql = "insert into remision (presupuesto,factura,configfactura_id,tipomoneda_id,cambio,cambio2,simbolo2,formapago,codigo,fechapago,metodopago,total10,iva10,total5,iva5,exenta,total,n,numerocorraltivo,sucursal_id,cliente_id,usuario_id,cantidaconfigmasiva,accion_id,fecha,REMISION_ID, tipo_venta, estado,id_chofer, id_vehiculo, id_dep, id_ciudad, destino,tipo_remision, peso_neto, peso_bruto, fletera_id,vendedor,tipo_transporte, id_dncp, ninicio, nfin, kude, fecha_envio) ";
+		$sql .= "value ($this->presupuesto,\"$this->factura\",$this->configfactura_id,$this->tipomoneda_id,\"$this->cambio\",$this->cambio2,\"$this->simbolo2\",\"$this->formapago\",$this->codigo,\"$this->fechapago\",\"$this->metodopago\",\"$this->total10\",\"$this->iva10\",\"$this->total5\",\"$this->iva5\",\"$this->exenta\",\"$this->total\",$this->n,\"$this->numerocorraltivo\",$this->sucursal_id,$this->cliente_id,$this->usuario_id,\"$this->cantidaconfigmasiva\",2,\"$this->fecha\",1,4,1, \"$this->chofer_id\", \"$this->vehiculo_id\", \"$this->dep_id\", \"$this->ciudad_id\",\"$this->destino\",\"$this->tipo_remision\",\"$this->peson\",\"$this->pesob\",\"$this->fletera\",\"$this->vendedor_id\",\"$this->tipo_transporte\", $dncpValue, \"$this->ninicio\", \"$this->nfin\", \"$this->kude\", \"$this->fecha_envio\")";
 		return Executor::doit($sql);
 	}
 

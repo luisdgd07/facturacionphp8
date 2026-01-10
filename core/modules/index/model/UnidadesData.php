@@ -4,6 +4,8 @@ class UnidadesData
     public static $tablename = "unidades";
 
     public ?string $nombre = "";
+    public ?string $codigo = "";
+
     public ?int $id = 0;
 
 

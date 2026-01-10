@@ -9,18 +9,19 @@ $int = 0;
 $sucursal = SuccursalData::VerId($_GET['sucursal']);
 foreach ($ventas as $venta) {
     $int++;
-    $cliente =  $venta->getCliente()->tipo_doc == "SIN NOMBRE" ?
+    $cliente = $venta->getCliente()->tipo_doc == "SIN NOMBRE" ?
         $venta->getCliente()->tipo_doc : $venta->getCliente()->nombre . " " .
         $venta->getCliente()->apellido;
 
 
-    $moneda = $venta->VerTipoModena()->simbolo == "₲" ? 'PYG' :  'USD';
+    $moneda = $venta->VerTipoModena()->simbolo == "₲" ? 'PYG' : 'USD';
 
     $operations = OperationData::getAllProductsBySellIddd($venta->id_venta);
     $productos = array();
     foreach ($operations as $operation) {
-        $product  = $operation->getProducto();
-        $precio =  floatval($operation->precio);
+        $fila = $operation->is_sqlserver ? "id_sqlserver" : "id_producto";
+        $product = ProductoData::getById($operation->producto_id, $fila);
+        $precio = floatval($operation->precio);
 
         if ($product->impuesto === 10) {
             $precioUnitario = $precio;
@@ -121,14 +122,14 @@ foreach ($ventas as $venta) {
     if ($tipo == "Contado") {
         $cajas = CajaDetalle::obtenerVenta($venta->id_venta);
         if ($cajas) {
-            foreach ($cajas  as $caja) {
+            foreach ($cajas as $caja) {
                 $cod = $caja->CAJA;
                 if ($cod == 1) {
                     array_push(
                         $entregas,
                         [
                             'tipo' => 1,
-                            'monto' =>  $caja->IMPORTE,
+                            'monto' => $caja->IMPORTE,
                             'moneda' => $moneda,
                             'cambio' => $cambio,
                         ]
@@ -140,7 +141,7 @@ foreach ($ventas as $venta) {
                         $entregas,
                         [
                             'tipo' => 5,
-                            'monto' =>  $caja->IMPORTE,
+                            'monto' => $caja->IMPORTE,
                             'moneda' => $moneda,
                             'cambio' => $cambio,
                         ]
@@ -172,7 +173,7 @@ foreach ($ventas as $venta) {
                         $entregas,
                         [
                             'tipo' => $cuenta->procesadora_id == 1 ? 3 : 4,
-                            'monto' =>  $caja->IMPORTE,
+                            'monto' => $caja->IMPORTE,
                             'moneda' => $moneda,
                             'cambio' => $cambio,
                             'infoTarjeta' => [
@@ -180,7 +181,7 @@ foreach ($ventas as $venta) {
                                 "tipoDescripcion" => "",
                                 "titular" => str_replace(".", "", $cliente),
                                 "ruc" => $venta->getCliente()->dni,
-                                "razonSocial" =>  $cliente,
+                                "razonSocial" => $cliente,
                                 "medioPago" => 1,
                                 "codigoAutorizacion" => 123456789
                             ],
@@ -193,7 +194,7 @@ foreach ($ventas as $venta) {
                 $entregas,
                 [
                     'tipo' => 1,
-                    'monto' =>  $venta->total - $venta->descuento,
+                    'monto' => $venta->total - $venta->descuento,
                     'moneda' => $moneda,
                     'cambio' => $cambio,
                 ]
@@ -202,10 +203,11 @@ foreach ($ventas as $venta) {
     }
 
     // 
-    $productosItem  = array();
+    $productosItem = array();
     foreach ($operations as $operation) {
-        $product  = $operation->getProducto();
-        $precio =  floatval($operation->precio);
+        $fila = $operation->is_sqlserver ? "id_sqlserver" : "id_producto";
+        $product = ProductoData::getById($operation->producto_id, $fila);
+        $precio = floatval($operation->precio);
         $dncpProducto = null;
 
         if (isset($venta->id_dncp) && $venta->id_dncp != 0) {
@@ -242,7 +244,7 @@ foreach ($ventas as $venta) {
                 "vencimiento" => "",
                 "numeroSerie" => "",
                 "numeroPedido" => "",
-                "dncp" =>  $dncpProducto
+                "dncp" => $dncpProducto
 
             ]);
             array_push($productosItem, $arrayIva5);
@@ -278,7 +280,7 @@ foreach ($ventas as $venta) {
             "vencimiento" => "",
             "numeroSerie" => "",
             "numeroPedido" => "",
-            "dncp" =>  $dncpProducto
+            "dncp" => $dncpProducto
 
         ];
         array_push($productosItem, $array);
@@ -327,7 +329,7 @@ foreach ($ventas as $venta) {
             "fecha" => $dncpdata->fecha
         ];
     }
-    $array =  array(
+    $array = array(
         "id" => $venta->id_venta,
         "emailEnviado" => $venta->email_enviado,
         "xml" => $venta->xml,
@@ -336,7 +338,7 @@ foreach ($ventas as $venta) {
         "tipo" => $venta->tipo_venta,
         "fecha" => $venta->fecha,
         "emailEnviado" => $venta->email_enviado,
-        "estado" => $venta->estado == 1 || $venta->estado == 0  ? 'Activo' : 'Anulado',
+        "estado" => $venta->estado == 1 || $venta->estado == 0 ? 'Activo' : 'Anulado',
         "cliente" => $venta->getCliente(),
         "total" => $venta->total - $venta->descuento,
         "metodoPago" => $venta->metodopago,
@@ -358,10 +360,10 @@ foreach ($ventas as $venta) {
             "cel" => $venta->getCliente()->celular,
             "iva10" => $venta->iva10,
             "iva5" => $venta->iva5,
-            "email" =>  $venta->getCliente()->email,
-            "correo" =>  $venta->getCliente()->email,
+            "email" => $venta->getCliente()->email,
+            "correo" => $venta->getCliente()->email,
             "vipoVenta" => 2,
-            "cdcAsociado" =>  $cdcAsociado,
+            "cdcAsociado" => $cdcAsociado,
             "kudeQr" => $venta->kude,
             "venta" => $venta->factura,
             "itemsVenta" => json_encode($productos),
@@ -372,7 +374,6 @@ foreach ($ventas as $venta) {
             "respon" => $responsable,
             "marca" => $vehiculo->marca,
             "flete" => $nombreFlete,
-            "razonchofer" => $chofer->nombre,
             "dirchofer" => $chofer->direccion,
             "rucchofer" => $chofer->cedula,
             "inicio" => $venta->fecha_envio,
@@ -389,7 +390,6 @@ foreach ($ventas as $venta) {
             "ident" => "",
             "transpor" => "",
             "idtrans" => "",
-            "kudeQr" => $venta->kude,
             "numChofer" => $chofer->telefono,
             "puntoLlegada" => $sucursal->id_sucursal == 19 ? $venta->destino : null,
             "docAsociado" => "",
@@ -406,11 +406,11 @@ foreach ($ventas as $venta) {
             "telEmisor" => $sucursal->telefono,
             "rucEmisor" => $sucursal->ruc,
             "rucCliente" => $venta->getCliente()->dni,
-            "dirCliente" =>  $venta->getCliente()->direccion,
+            "dirCliente" => $venta->getCliente()->direccion,
             "telCliente" => $venta->getCliente()->telefono,
-            "factura" =>  substr($venta->factura, 8),
+            "factura" => substr($venta->factura, 8),
             "total" => $venta->total - $venta->descuento,
-            "moneda" =>  $moneda,
+            "moneda" => $moneda,
             "fechaVenta" => date("Y-m-d-h-i", strtotime($venta->fecha)),
             "tipo" => $venta->metodopago,
             "cambio" => $cambio,
@@ -418,7 +418,7 @@ foreach ($ventas as $venta) {
             "distritoCliente" => $venta->getCliente()->distrito_id,
             "ciudadCliente" => $venta->getCliente()->ciudad,
             "establecimiento" => substr($venta->factura, 0, -12),
-            "punto" =>   substr($venta->factura, 4, -8),
+            "punto" => substr($venta->factura, 4, -8),
             "esContribuyente" => $esContribuyente,
             "docCliente" => $tipoCliente,
             "remision" => array(
@@ -443,15 +443,15 @@ foreach ($ventas as $venta) {
                     "numeroCasa" => $sucursal->numero_casa,
                     "complementoDireccion1" => $sucursal->com_dir,
                     "complementoDireccion2" => $sucursal->com_dir2,
-                    "departamento" =>   $sucursal->cod_depart,
+                    "departamento" => $sucursal->cod_depart,
                     "departamentoDescripcion" => $sucursal->departamento_descripcion,
-                    "distrito" =>  $sucursal->distrito_id,
+                    "distrito" => $sucursal->distrito_id,
                     "distritoDescripcion" => $sucursal->distrito_descripcion,
-                    "ciudad" =>  $sucursal->id_ciudad,
-                    "ciudadDescripcion" =>  $sucursal->ciudad_descripcion,
+                    "ciudad" => $sucursal->id_ciudad,
+                    "ciudadDescripcion" => $sucursal->ciudad_descripcion,
                     "pais:" => "PRY",
                     "paisDescripcion" => "Paraguay",
-                    "telefonoContacto" =>  $sucursal->telefono
+                    "telefonoContacto" => $sucursal->telefono
                 ),
                 "entrega" => array(
                     "direccion" => $pais->codigo,
@@ -464,7 +464,7 @@ foreach ($ventas as $venta) {
                     "distritoDescripcion" => "",
                     "ciudad" => 1,
                     "ciudadDescripcion" => "",
-                    "pais" =>  $pais->codigo,
+                    "pais" => $pais->codigo,
                     "paisDescripcion" => $pais->descripcion,
                     "telefonoContacto" => ""
                 ),
@@ -488,7 +488,7 @@ foreach ($ventas as $venta) {
                     "pais" => "PRY",
                     "paisDescripcion" => "Paraguay",
                     "chofer" => array(
-                        "documentoNumero" =>  $chofer->cedula,
+                        "documentoNumero" => $chofer->cedula,
                         "nombre" => $chofer->nombre,
                         "direccion" => $chofer->direccion
                     ),
@@ -507,7 +507,7 @@ header("HTTP/1.1 200 OK");
 header('Content-Type: text/plain');
 echo json_encode([
     "data" => [
-        "venta" =>  $response,
+        "venta" => $response,
         "insumoId" => $insumoId,
         "sucursal" => $sucursal,
 
