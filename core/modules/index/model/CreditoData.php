@@ -3,18 +3,18 @@ class CreditoData
 {
     public static $tablename = "creditos";
 
-    public function CreditoData()
-    {
-        // $this->ventaId = "";
-        // $this->sucursalId = "";
-        // $this->monedaId = "";
-        // $this->concepto = "";
-        // $this->credito = "";
-        // $this->abonado = "";
-        // $this->vencimiento = "";
-        // $this->cuotas = "";
-        $this->fecha = "NOW()";
-    }
+
+    public ?int $id = null;
+    public ?int $venta_id = null;
+    public ?string $fecha = null;
+    public ?int $sucursal_id = null;
+    public ?int $moneda_id = null;
+    public ?string $concepto = null;
+    public ?int $credito = null;
+    public ?int $abonado = null;
+    public ?string $vencimiento = null;
+    public ?int $cuotas = null;
+    public ?int $cliente_id = null;
     public function venta()
     {
         return VentaData::getById($this->venta_id);

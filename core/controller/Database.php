@@ -13,6 +13,8 @@ class Database
 		$this->pass = "0709";
 		$this->host = "localhost";
 		$this->ddbb = "syscombl_conoflex2";
+		// $this->ddbb = "syscombl_dosbeta";
+
 	}
 
 	function connect()
