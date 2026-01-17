@@ -76,9 +76,10 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                       foreach ($clients as $client): ?>
                         <option <?php if ($client->comprobante1 == "Factura") {
                           echo "selected";
-                        } ?>       <?php if ($client->diferencia == -1): ?>disabled="" <?php else: ?><?php endif ?>
+                        } ?>                   <?php if ($client->diferencia == -1): ?>disabled="" <?php else: ?><?php endif ?>
                           value="<?php echo $client->id_configfactura; ?>">
-                          <?php echo $client->comprobante1; ?>      <?php echo " " ?>      <?php echo $client->serie1; ?></option>
+                          <?php echo $client->comprobante1; ?>       <?php echo " " ?>       <?php echo $client->serie1; ?>
+                        </option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -108,12 +109,14 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                           foreach ($monedas as $moneda):
                             if ($mon->simbolo == $moneda->simbolo) { ?>
                               <option selected value="<?php echo $moneda->simbolo; ?>">
-                                <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?>
+                              </option>
                               <?php
                             } else {
                               ?>
                               <option value="<?php echo $moneda->simbolo; ?>">
-                                <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?>
+                              </option>
                             <?php }
                           endforeach; ?>
                         </select>
@@ -130,7 +133,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                           <!-- <option value="0">Seleccionar</option> -->
                           <?php foreach ($monedas as $moneda): ?>
                             <option value="<?php echo $moneda->simbolo; ?>">
-                              <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                              <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?>
+                            </option>
                           <?php endforeach; ?>
                         </select>
                       </div>
@@ -363,7 +367,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                           <?php
                           $deps = ProductoData::verdeposito($sucursales->id_sucursal);
                           foreach ($deps as $dep):
-                            // $tipocliente = ProductoData::listar_tipo_precio($client->id_precio);
                       
                             ?>
                             <option value="<?php echo $dep->DEPOSITO_ID; ?>"><?php echo $dep->NOMBRE_DEPOSITO; ?></option>
@@ -435,13 +438,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                       </div>
                     </div>
                   <?php } ?>
-                  <!-- <div class="row" onclick="siguiente()" style="margin-top:10px">
-                    <div class="form-group">
-                      <div class="col-lg-4">
-                        <button class="btn btn-primary">Agregar Productos </button>
-                      </div>
-                    </div>
-                  </div> -->
+
                   <input type="hidden" name="simbolo2" id="simbolo2" value="<?php echo $simbolo2; ?>" class="form-control">
                   <input type="hidden" name="factura" id="num1">
                   <input type="hidden" name="numeracion_inicial" id="numinicio">
@@ -455,14 +452,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                 <!-- </div> -->
                 <!-- <div id="paso2"> -->
                 <div class="">
-                  <!-- <div class="box-header">
-                    <i class="fa fa-laptop" style="color: orange;"></i> DATOS DE LA VENTA
 
-                  </div>
-                  <div class="col-lg-12">
-                    <div id="cliente_select"></div>
-                  </div>
-                  <br> -->
 
                 </div>
                 <br>
@@ -538,13 +528,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                         <td>
                           <p><b><input type="text" readonly="" name="exenta" id="exenta" value="0"> </b></p>
                         </td>
-                        <!-- <td>TIPO V.</td>
-                             <td>
-                              <select class="form-control" name="tipoventa">
-                                <option value="1">VENTA</option>
-                                <option value="2">REMISIÓN</option>
-                                </select>
-                              </td> -->
+
                       </tr>
                       <tr>
                         <td>
@@ -688,12 +672,14 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                               if ($i == 1) {
                                 ?>
                                 <option selected value="<?php echo $moneda->id_tipomoneda; ?>">
-                                  <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                  <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?>
+                                </option>
                               <?php } else {
 
                                 ?>
                                 <option value="<?php echo $moneda->id_tipomoneda; ?>">
-                                  <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                  <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?>
+                                </option>
                                 <?php
                               }
 
@@ -1625,6 +1611,8 @@ if (isset($_GET['tid'])) { ?>
               alert("Error, producto insuficiente");
             } else {
               alert("Venta realizada con exito");
+              window.location.href = "index.php?view=envioexportacion&id_sucursal=<?php echo $_GET['id_sucursal'] ?>";
+
               // if ($('input[name="metodopago"]:checked').val() == "Contado") {
               //   window.location.href = "index.php?view=metodopago&id_sucursal=" + $("#sucursal_id").val() + "&id_cobro=" + dataResult
               // } else {
@@ -1652,12 +1640,7 @@ if (isset($_GET['tid'])) { ?>
           }
         }
 
-        try {
-
-
-        } catch (e) {
-
-        }
+      
       }
     });
 

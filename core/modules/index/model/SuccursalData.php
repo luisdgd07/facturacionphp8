@@ -63,6 +63,7 @@ class SuccursalData
 	public function actualizar()
 	{
 		$sql = "update " . self::$tablename . " set nombre=\"$this->nombre\",ruc=\"$this->ruc\" ,clave=\"$this->clave\",entorno=\"$this->entorno\",descripcion=\"$this->descripcion\",representante=\"$this->representante\",telefono=\"$this->telefono\",direccion=\"$this->direccion\",is_envia_factura=$this->is_facturador,ti_producto=$this->venta_de, timbrado=$this->timbrado, establecimiento=$this->establecimiento,  fecha_firma='$this->fecha_firma', razon_social='$this->razon_social', nombre_fantasia='$this->nombre_fantasia', codigo_act='$this->codigo_act', actividad='$this->actividad', fecha_tim='$this->fecha_tim', numero_casa='$this->numero_casa', com_dir='$this->com_dir', com_dir2='$this->com_dir2', departamento_descripcion='$this->departamento_descripcion', distrito_descripcion='$this->distrito_descripcion', ciudad_descripcion='$this->ciudad_descripcion',id_ciudad='$this->id_ciudad' ,email='$this->email' where id_sucursal=$this->id_sucursal";
+		var_dump($sql);
 		return Executor::doit($sql);
 	}
 

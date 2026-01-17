@@ -2,9 +2,16 @@
 class AgenteData
 {
     public static $tablename = "agente_transporte ";
-    public function AgenteData()
-    {
-    }
+    public ?int $agente_id = null;
+    public ?int $id_agente = null;
+    public ?string $nombre_agente = null;
+    public ?string $telefono = null;
+    public ?string $direccion = null;
+    public ?int $id_sucursal = null;
+    public ?string $ruc = null;
+    public ?int $estado = null;
+
+
 
     public static function veragentes($id)
     {

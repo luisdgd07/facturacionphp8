@@ -11,18 +11,18 @@ function registrarCobroConDetalles(array $params)
         Executor::doit("START TRANSACTION");
 
         $cab = new CobroCabecera();
-        $cab->RECIBO           = $params['nrofactura'];
+        $cab->RECIBO = $params['nrofactura'];
         $cab->configfactura_id = $params['configfactura_id'];
-        $cab->CLIENTE_ID       = (int)$params['cliente_id'];
-        $cab->TOTAL_COBRO      = $totalNumber;
-        $cab->SUCURSAL_ID      = (int)$params['sucursal_id'];
-        $cab->FECHA_COBRO      = $params['fecha'];
-        $cab->MONEDA_ID        = (int)$params['moneda_id'];
-        $cab->NIVEL1           = isset($params['nivel1']) ? (int)$params['nivel1'] : 1;
-        $cab->NIVEL2           = isset($params['nivel2']) ? (int)$params['nivel2'] : 1;
-        $cab->COMENTARIO       = isset($params['comentario']) ? $params['comentario'] : '';
-        $cab->anulado          = 0;
-        $cab->anulado          = 0;
+        $cab->CLIENTE_ID = (int) $params['cliente_id'];
+        $cab->TOTAL_COBRO = $totalNumber;
+        $cab->SUCURSAL_ID = (int) $params['sucursal_id'];
+        $cab->FECHA_COBRO = $params['fecha'];
+        $cab->MONEDA_ID = (int) $params['moneda_id'];
+        $cab->NIVEL1 = isset($params['nivel1']) ? (int) $params['nivel1'] : 1;
+        $cab->NIVEL2 = isset($params['nivel2']) ? (int) $params['nivel2'] : 1;
+        $cab->COMENTARIO = isset($params['comentario']) ? $params['comentario'] : '';
+        $cab->anulado = 0;
+        $cab->anulado = 0;
         $cab->ventaId = $params['ventaId'];
         $id_cobro = $cab->registro();
 
@@ -31,15 +31,15 @@ function registrarCobroConDetalles(array $params)
             foreach ($params['tablaCobro'] as $cobroItem) {
                 $i++;
                 $det = new CobroDetalleData();
-                $det->COBRO_ID        = $id_cobro;
-                $det->NUMERO_FACTURA  = $params['nrofactura'];
-                $det->CUOTA           = $i;
-                $det->NUMERO_CREDITO  = $params['numero_credito'];
-                $det->CLIENTE_ID      = (int)$params['cliente_id'];
-                $det->IMPORTE_COBRO   = is_string($cobroItem['monto2']) ? floatval(str_replace(',', '', $cobroItem['monto2'])) : $cobroItem['monto2'];
+                $det->COBRO_ID = $id_cobro;
+                $det->NUMERO_FACTURA = $params['nrofactura'];
+                $det->CUOTA = $i;
+                $det->NUMERO_CREDITO = $params['numero_credito'];
+                $det->CLIENTE_ID = (int) $params['cliente_id'];
+                $det->IMPORTE_COBRO = is_string($cobroItem['monto2']) ? floatval(str_replace(',', '', $cobroItem['monto2'])) : $cobroItem['monto2'];
                 $det->IMPORTE_CREDITO = $totalNumber;
-                $det->tipo            = 1;
-                $det->SUCURSAL_ID     = (int)$params['sucursal_id'];
+                $det->tipo = 1;
+                $det->SUCURSAL_ID = (int) $params['sucursal_id'];
                 $det->registro();
             }
         }
@@ -170,7 +170,7 @@ if ($c == null) {
                     } else {
                         $s = $sell->add1();
                     }
-                    foreach ($cart as  $c2) {
+                    foreach ($cart as $c2) {
 
                         $op = new OperationData();
                         $op->producto_id = $c2["id"];
@@ -291,16 +291,16 @@ if ($c == null) {
 
                         // <<< NUEVO: cabecera + detalles con AUTO_INCREMENT >>>
                         $paramsCobro = [
-                            'nrofactura'       => $nrofactura,
-                            'total'            => $_POST['total'],
-                            'cliente_id'       => $_POST["cliente_id"],
-                            'sucursal_id'      => $_POST["sucursal_id"],
-                            'moneda_id'        => $_POST["idtipomoneda"],
-                            'fecha'            => $_POST['fecha'],
+                            'nrofactura' => $nrofactura,
+                            'total' => $_POST['total'],
+                            'cliente_id' => $_POST["cliente_id"],
+                            'sucursal_id' => $_POST["sucursal_id"],
+                            'moneda_id' => $_POST["idtipomoneda"],
+                            'fecha' => $_POST['fecha'],
                             'configfactura_id' => $_POST["configfactura_id"],
-                            'tablaCobro'       => $_POST['tablaCobro'],
-                            'numero_credito'   => $s[1],
-                            'ventaId'          => $ventaId,
+                            'tablaCobro' => $_POST['tablaCobro'],
+                            'numero_credito' => $s[1],
+                            'ventaId' => $s[1]
 
                         ];
                         $id_cobro = registrarCobroConDetalles($paramsCobro);
@@ -423,7 +423,7 @@ if ($c == null) {
                     } else {
                         $s = $sell->add1();
                     }
-                    foreach ($cart as  $c2) {
+                    foreach ($cart as $c2) {
                         $productod = new ProductoData();
                         $productod->id = $c2['id'];
                         $productod->precio = $c2['precio'];
@@ -548,16 +548,16 @@ if ($c == null) {
 
                         // <<< NUEVO: cabecera + detalles con AUTO_INCREMENT >>>
                         $paramsCobro = [
-                            'nrofactura'       => $nrofactura,
-                            'total'            => $_POST['total'],
-                            'cliente_id'       => $_POST["cliente_id"],
-                            'sucursal_id'      => $_POST["sucursal_id"],
-                            'moneda_id'        => $_POST["idtipomoneda"],
-                            'fecha'            => $_POST['fecha'],
+                            'nrofactura' => $nrofactura,
+                            'total' => $_POST['total'],
+                            'cliente_id' => $_POST["cliente_id"],
+                            'sucursal_id' => $_POST["sucursal_id"],
+                            'moneda_id' => $_POST["idtipomoneda"],
+                            'fecha' => $_POST['fecha'],
                             'configfactura_id' => $_POST["configfactura_id"],
-                            'tablaCobro'       => $_POST['tablaCobro'],
-                            'numero_credito'   => $s[1],
-                            'ventaId'          => $ventaId,
+                            'tablaCobro' => $_POST['tablaCobro'],
+                            'numero_credito' => $s[1],
+                            'ventaId' => $s[1],
 
                         ];
                         $id_cobro = registrarCobroConDetalles($paramsCobro);
@@ -699,7 +699,7 @@ if ($c == null) {
                     $s = 0;
                     $sell->cliente_id = $_POST["cliente_id"];
                     $s = $sell->venta_producto_cliente_exportacion();
-                    foreach ($cart as  $c2) {
+                    foreach ($cart as $c2) {
 
                         $op = new OperationData();
                         $op->producto_id = $c2["id"];
@@ -732,11 +732,11 @@ if ($c == null) {
                         $actualizar = new StockData();
 
                         $resta = $stock2->CANTIDAD_STOCK - $c2["cantidad"];
-                        $actualizar->CANTIDAD_STOCK =    $resta;
+                        $actualizar->CANTIDAD_STOCK = $resta;
                         $actualizar->PRODUCTO_ID = $c2["id"];
                         $actualizar->DEPOSITO_ID = $c2["deposito"];
                         $ac = $actualizar->actualizar2();
-                        $insumosData = InsumosData::find($c2["id"]);
+                        $insumosData = InsumosData::find2($c2["id"]);
                         if ($insumosData) {
                             foreach ($insumosData as $insumo) {
                                 $op = new OperationData();
@@ -770,7 +770,7 @@ if ($c == null) {
                                 $stocki = StockData::vercontenidos3($insumo->insumo_id, $c2["deposito"]);
                                 $actualizari = new StockData();
                                 $resta = $stocki->CANTIDAD_STOCK - $insumo->cantidad;
-                                $actualizari->CANTIDAD_STOCK =    $resta;
+                                $actualizari->CANTIDAD_STOCK = $resta;
                                 $actualizari->PRODUCTO_ID = $insumo->insumo_id;
                                 $actualizari->DEPOSITO_ID = $c2["deposito"];
                                 $aci = $actualizari->actualizar2();
@@ -862,16 +862,16 @@ if ($c == null) {
 
                         // <<< NUEVO: cabecera + detalles con AUTO_INCREMENT >>>
                         $paramsCobro = [
-                            'nrofactura'       => $nrofactura,
-                            'total'            => $_POST['total'],
-                            'cliente_id'       => $_POST["cliente_id"],
-                            'sucursal_id'      => $_POST["sucursal_id"],
-                            'moneda_id'        => $_POST["idtipomoneda"],
-                            'fecha'            => $_POST['fecha'],
+                            'nrofactura' => $nrofactura,
+                            'total' => $_POST['total'],
+                            'cliente_id' => $_POST["cliente_id"],
+                            'sucursal_id' => $_POST["sucursal_id"],
+                            'moneda_id' => $_POST["idtipomoneda"],
+                            'fecha' => $_POST['fecha'],
                             'configfactura_id' => $_POST["configfactura_id"],
-                            'tablaCobro'       => $_POST['tablaCobro'],
-                            'numero_credito'   => $s[1],
-                            'ventaId'          => $ventaId,
+                            'tablaCobro' => $_POST['tablaCobro'],
+                            'numero_credito' => $s[1],
+                            'ventaId' => $s[1],
 
                         ];
                         $id_cobro = registrarCobroConDetalles($paramsCobro);
@@ -1006,7 +1006,7 @@ if ($c == null) {
                         } else {
                             $s = $sell->add1();
                         }
-                        foreach ($cart as  $c2) {
+                        foreach ($cart as $c2) {
 
                             $op = new OperationData();
                             $op->producto_id = $c2["id"];
@@ -1116,16 +1116,16 @@ if ($c == null) {
 
                             // <<< NUEVO: cabecera + detalles con AUTO_INCREMENT >>>
                             $paramsCobro = [
-                                'nrofactura'       => $nrofactura,
-                                'total'            => $_POST['total'],
-                                'cliente_id'       => $_POST["cliente_id"],
-                                'sucursal_id'      => $_POST["sucursal_id"],
-                                'moneda_id'        => $_POST["idtipomoneda"],
-                                'fecha'            => $_POST['fecha'],
+                                'nrofactura' => $nrofactura,
+                                'total' => $_POST['total'],
+                                'cliente_id' => $_POST["cliente_id"],
+                                'sucursal_id' => $_POST["sucursal_id"],
+                                'moneda_id' => $_POST["idtipomoneda"],
+                                'fecha' => $_POST['fecha'],
                                 'configfactura_id' => $_POST["configfactura_id"],
-                                'tablaCobro'       => $_POST['tablaCobro'],
-                                'numero_credito'   => $s[1],
-                                'ventaId'          => $ventaId,
+                                'tablaCobro' => $_POST['tablaCobro'],
+                                'numero_credito' => $s[1],
+                                'ventaId' => $s[1]
 
                             ];
                             $id_cobro = registrarCobroConDetalles($paramsCobro);
@@ -1257,7 +1257,7 @@ if ($c == null) {
                         $s = $sell->venta_producto_cliente_exportacion();
 
                         $sell->actualizaremision();
-                        foreach ($cart as  $c2) {
+                        foreach ($cart as $c2) {
 
                             $op = new OperationData();
                             $op->producto_id = $c2["id"];
@@ -1284,7 +1284,7 @@ if ($c == null) {
                             $op->deposito = $c2["deposito"];
                             $op->deposito_nombre = $c2["depositotext"];
                             $add = $op->registro_producto1();
-                            $insumosData = InsumosData::find($c2["id"]);
+                            $insumosData = InsumosData::find2($c2["id"]);
                             foreach ($insumosData as $insumo) {
                                 $op = new OperationData();
                                 $op->producto_id = $insumo->insumo_id;
@@ -1419,16 +1419,16 @@ if ($c == null) {
 
                             // <<< NUEVO: cabecera + detalles con AUTO_INCREMENT >>>
                             $paramsCobro = [
-                                'nrofactura'       => $nrofactura,
-                                'total'            => $_POST['total'],
-                                'cliente_id'       => $_POST["cliente_id"],
-                                'sucursal_id'      => $_POST["sucursal_id"],
-                                'moneda_id'        => $_POST["idtipomoneda"],
-                                'fecha'            => $_POST['fecha'],
+                                'nrofactura' => $nrofactura,
+                                'total' => $_POST['total'],
+                                'cliente_id' => $_POST["cliente_id"],
+                                'sucursal_id' => $_POST["sucursal_id"],
+                                'moneda_id' => $_POST["idtipomoneda"],
+                                'fecha' => $_POST['fecha'],
                                 'configfactura_id' => $_POST["configfactura_id"],
-                                'tablaCobro'       => $_POST['tablaCobro'],
-                                'numero_credito'   => $s[1],
-                                'ventaId'          => $ventaId,
+                                'tablaCobro' => $_POST['tablaCobro'],
+                                'numero_credito' => $s[1],
+                                'ventaId' => $s[1]
 
                             ];
                             $id_cobro = registrarCobroConDetalles($paramsCobro);

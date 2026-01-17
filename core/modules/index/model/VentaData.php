@@ -24,17 +24,24 @@ class VentaData
 	public ?string $cdc = "";
 	public ?string $codigo = "";
 	public ?string $xml = "";
+	public ?int $agente_id = null;
 
 	public ?string $numero_factura = "";
 	public ?string $fecha_envio = "";
 	public ?string $celular = "";
 	public ?string $estado = "";
 
+	public ?string $agente = "";
+
 	public ?string $ID_TIPO_PROD = null;
 	public ?int $sucursal_id = 0;
 	public ?int $transaccion = 0;
 	public ?int $email_enviado = 0;
 	public ?string $enviado = null;
+	public ?string $condiNego = null;
+	public ?string $manifiesto = null;
+	public ?string $tipo = null;
+
 	public ?string $factura_1 = null;
 	public ?string $timbrado_fact = null;
 	public ?int $tipo_nota = 0;

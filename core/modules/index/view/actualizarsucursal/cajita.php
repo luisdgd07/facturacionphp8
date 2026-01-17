@@ -296,7 +296,7 @@
         formData.append('file', files);
         formData.append('id', '<?php echo $_GET['id_sucursal'] ?>');
         $.ajax({
-
+          // url: "http://localhost:3000/subircert",
           url: "http://18.208.224.72:3000/subircert",
           type: "POST",
           data: formData,

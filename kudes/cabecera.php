@@ -20,7 +20,7 @@ $tipo = "Factura";
             $logoSrc = 'data:' . $mimeType . ';base64,' . $imageData;
         } else {
             // Si no existe, usar un logo por defecto (URL externa)
-            // $logoSrc = 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Falanster_logo_300x300.png';
+            $logoSrc = 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Falanster_logo_300x300.png';
         }
         ?>
         <img height="70" width="70" src="<?php echo $logoSrc ?>" alt="Logo" />
