@@ -35,5 +35,28 @@
                     class="fa fa-cart-plus" style="color: orange;"></i>Retención</a></li>
         <li><a href="index.php?view=cuentabancaria&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
                     class="fa fa-cart-plus" style="color: orange;"></i> Movimiento Bancario </a></li>
+
+    </ul>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-shopping-cart" style="color: yellow;"></i> <span>VENTA DE EXPORTACIÓN</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="index.php?view=venderproforma&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
+                    class="fa fa-cart-plus" style="color: orange;"></i>Realizar Proforma</a></li>
+        <li><a href="index.php?view=venderexport&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
+                    class="fa fa-cart-plus" style="color: orange;"></i>Realizar Exportación</a></li>
+
+        <li><a href="index.php?view=ventasproforma&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
+                    class="fa fa-cart-plus" style="color: orange;"></i>Listado de Proformas</a></li>
+        <li><a href="index.php?view=ventasexportacion&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
+                    class="fa fa-cart-plus" style="color: orange;"></i>Listado de Exportaciones</a></li>
+        <li><a href="index.php?view=envioexportacion&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
+                    class="fa fa-cart-plus" style="color: orange;"></i>Enviar a Sifen.</a></li>
+
     </ul>
 </li>

@@ -13,7 +13,11 @@ class VentaData
 
 
 	public ?int $accion_id = null;
+	public ?int $id_agente = null;
+
 	public ?string $metodopago = "";
+	public ?string $peso_neto = "";
+	public ?string $peso_bruto = "";
 	public ?string $fechapago = "";
 
 	public ?string $factura = "";

@@ -14,7 +14,9 @@
         <li><a href="index.php?view=remision&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i class="fa fa-money"
                     style="color: orange;"></i> Realizar Remisión</a></li>
         <li><a href="index.php?view=remision1&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i class="fa fa-money"
-                    style="color: orange;"></i> Remisiones pendientes</a></li>
+                    style="color: orange;"></i> Rem. pendientes locales</a></li>
+        <li><a href="index.php?view=remisionexport&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
+                    class="fa fa-money" style="color: orange;"></i> Rem. pendientes a Exportar</a></li>
         <li><a href="index.php?view=listadoplacas&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i
                     class="fa fa-cart-plus" style="color: orange;"></i> Listado de Placas</a></li>
         <li><a href="index.php?view=remision2&id_sucursal=<?php echo $sucursal->id_sucursal; ?>"><i class="fa fa-money"
