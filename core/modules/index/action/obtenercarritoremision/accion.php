@@ -1,14 +1,7 @@
 <?php
 $cart = OperationData::getAllProductsBySellIddd($_GET['tid']);
 $venta = VentaData::getByIdRemision($_GET['tid']);
-// $result = [];
-// // ProductoData::
-// array_push($result, array("cantidad" => $q, "tipo" => $tipo->TIPO_PRODUCTO, "producto" => $product));
-// header("Content-type:application/json");
-// $jsdata = json_decode(file_get_contents('php://input'), true);
-// header("HTTP/1.1 200 OK");
-// header('Content-Type: text/plain');
-// // echo json_encode($cart);
+
 $result = [];
 $tipo = ProductoData::verinsumo($_GET['sucursal']);
 $insumo = $tipo->ID_TIPO_PROD;
@@ -22,7 +15,7 @@ foreach ($cart as $c) {
         $precio = 0;
         // $extraerdata  = ProductoData::listar_precio_productos($c->producto_id);
         $cliente = ClienteData::getById($venta->cliente_id);
-        $extraerdata  = ProductoData::listar_precio_productos2($c->producto_id, $cliente->id_precio, $venta->tipomoneda_id);
+        $extraerdata = ProductoData::listar_precio_productos2($c->producto_id, $cliente->id_precio, $venta->tipomoneda_id);
         if (count($extraerdata) > 0) {
             foreach ($extraerdata as $data) {
                 $precio = $data->IMPORTE;

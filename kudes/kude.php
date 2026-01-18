@@ -110,8 +110,16 @@ $options->set('defaultFont', 'Arial');
 // Create an instance of the Dompdf class
 $dompdf = new Dompdf($options);
 
-$venta = VentaData::getById($_GET['venta']);
+if (isset($_GET['venta'])) {
+    $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
+
+} else if (isset($_GET['remision'])) {
+    $venta = VentaData::getByIdInTable($_GET['remision'], "remision");
+} else {
+    die("No se encontro la venta");
+}
 $cliente = ClienteData::getById($venta->cliente_id);
+
 $moneda = MonedaData::vermonedaid($venta->tipomoneda_id);
 
 // Generate QR Code
@@ -305,7 +313,9 @@ foreach ($operaciones as $operacion) {
     $iva5 = 0;
     $iva10 = 0;
     $exenta = 0;
-    $producto = ProductoData::getById($operacion->producto_id);
+
+    $fila = $operacion->is_sqlserver ? "id_sqlserver" : "id_producto";
+    $producto = ProductoData::getById($operacion->producto_id, $fila);
     $total += $operacion->precio * $operacion->q;
 
     if ($producto->impuesto == 0) {

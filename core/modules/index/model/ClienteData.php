@@ -6,6 +6,8 @@ class ClienteData
 	public ?string $imagen = "";
 	public ?string $nombre = "";
 	public ?string $apellido = "";
+	public ?string $departa = "";
+
 
 	public ?string $direccion = "";
 	public ?string $celular = "";
@@ -32,6 +34,7 @@ class ClienteData
 	public ?int $id_cliente = 0;
 	public ?int $cliente_id = 0;
 
+	public ?string $is_activo = "";
 	public ?int $id_precio = 0;
 	public ?int $pais_id = 0;
 	// public ?int $distrito

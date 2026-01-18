@@ -1,11 +1,11 @@
 <?php
 $u = null;
 
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     $u = UserData::getById($_SESSION["admin_id"]);
     require 'core/modules/index/components/kudes.php';
 
-?>
+    ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -40,14 +40,18 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                         <option value="todos">Todos</option>
                                         <?php
                                         $clients = ClienteData::verclientessucursal($_GET['id_sucursal']);
-                                        foreach ($clients as $client) :
+                                        foreach ($clients as $client):
                                             if ($client->id_cliente == $venta->cliente_id) { ?>
-                                                <option selected value="<?php echo $client->id_cliente; ?>"><?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?></option>
-                                            <?php
+                                                <option selected value="<?php echo $client->id_cliente; ?>">
+                                                    <?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?>
+                                                </option>
+                                                <?php
                                             } else {
-                                            ?>
-                                                <option value="<?php echo $client->id_cliente; ?>"><?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?></option>
-                                        <?php }
+                                                ?>
+                                                <option value="<?php echo $client->id_cliente; ?>">
+                                                    <?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?>
+                                                </option>
+                                            <?php }
                                         endforeach;
 
                                         ?>
@@ -58,7 +62,9 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                     <span>
                                         DESDE:
                                     </span>
-                                    <input type="date" name="sd" id="date1" value="<?php echo $_GET['sd'] ?>" class="form-control">
+                                    <input type="date" name="sd" id="date1"
+                                        value="<?php echo isset($_GET['sd']) ? $_GET['sd'] : date('Y-m-d') ?>"
+                                        class="form-control">
 
 
 
@@ -69,7 +75,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                     </span>
 
 
-                                    <input type="date" name="ed" id="date2" class="form-control" value="<?php echo $_GET['ed'] ?>">
+                                    <input type="date" name="ed" id="date2" class="form-control"
+                                        value="<?php echo isset($_GET['ed']) ? $_GET['ed'] : date('Y-m-d') ?>">
 
                                 </div>
                                 <div class="col-md-2" style="margin-top: 20px;">
@@ -141,7 +148,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=eliminarcompra&id_sucursal=<?= $_GET['id_sucursal'] ?>&id_venta=${venta}`;
 
-            } else {}
+            } else { }
         })
     }
 
@@ -155,7 +162,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=actualizar_estado_venta&id_sucursal=<?= $_GET['id_sucursal'] ?>&id_venta=${venta}`;
-            } else {}
+            } else { }
         })
 
     }
@@ -171,7 +178,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=actualizar_estado_venta2&id_sucursal=<?= $_GET['id_sucursal'] ?>&id_venta=${venta}`;
-            } else {}
+            } else { }
         })
 
     }
@@ -203,7 +210,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             type: "GET",
             data: {},
             cache: false,
-            success: function(dataResult) {
+            success: function (dataResult) {
                 var result = JSON.parse(dataResult);
                 totalPages = result.pages
                 pagination()
@@ -269,7 +276,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                         `</td>
                             <td >`
                     if (venta.envio != 'No enviado') {
-                        tablab += `<button class="btn btn-primary" onclick='generarKude(${JSON.stringify(venta.kude)},false)'>Descargar</button>`
+                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?remision=${venta.id}" target="_blank">Descargar</a>`
                     }
                     tablab +=
                         `</td>

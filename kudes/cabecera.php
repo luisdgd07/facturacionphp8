@@ -1,6 +1,13 @@
 <?php
 include "../core/modules/index/model/SuccursalData.php";
-$venta = VentaData::getById($_GET["venta"]);
+if (isset($_GET['venta'])) {
+    $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
+
+} else if (isset($_GET['remision'])) {
+    $venta = VentaData::getByIdInTable($_GET['remision'], "remision");
+} else {
+    die("No se encontro la venta");
+}
 
 $sucursal = SuccursalData::VerId($venta->sucursal_id);
 $tipo = "Factura";
