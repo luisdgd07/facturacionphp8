@@ -6,7 +6,6 @@ $result = [];
 $tipo = ProductoData::verinsumo($_GET['sucursal']);
 $insumo = $tipo->ID_TIPO_PROD;
 foreach ($cart as $c) {
-    // $c
     $product = ProductoData::getById($c->producto_id);
 
     if ($product->ID_TIPO_PROD == $insumo) {

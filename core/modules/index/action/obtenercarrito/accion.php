@@ -14,7 +14,8 @@ $tipo = ProductoData::verinsumo($_GET['sucursal']);
 $insumo = $tipo->ID_TIPO_PROD;
 foreach ($cart as $c) {
     // $c
-    $product = ProductoData::getById($c->producto_id);
+    $fila = $c->is_sqlserver ? "id_sqlserver" : "id_producto";
+    $product = ProductoData::getById($c->producto_id, $fila);
 
     if ($product->ID_TIPO_PROD == $insumo) {
     } else {
@@ -22,7 +23,7 @@ foreach ($cart as $c) {
         $precio = 0;
         // $extraerdata  = ProductoData::listar_precio_productos($c->producto_id);
         $cliente = ClienteData::getById($venta->cliente_id);
-        $extraerdata  = ProductoData::listar_precio_productos2($c->producto_id, $cliente->id_precio, $venta->tipomoneda_id);
+        $extraerdata = ProductoData::listar_precio_productos2($c->producto_id, $cliente->id_precio, $venta->tipomoneda_id);
         if (count($extraerdata) > 0) {
             foreach ($extraerdata as $data) {
                 $precio = $data->IMPORTE;

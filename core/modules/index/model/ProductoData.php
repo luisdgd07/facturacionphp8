@@ -474,7 +474,12 @@ class ProductoData
 
 
 
-
+	public static function getByIdSinFila($id_producto)
+	{
+		$sql = "select * from " . self::$tablename . " where id_producto=$id_producto";
+		$query = Executor::doit($sql);
+		return Model::one($query[0], "ProductoData");
+	}
 
 	public static function getById($id_producto, $fila)
 	{

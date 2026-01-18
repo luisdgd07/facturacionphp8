@@ -7,7 +7,8 @@ $ventas = VentaData::getByCLienteId($cliente);
 foreach ($ventas as $venta) {
     $ops = OperationData::getAllProductsBySellIddd($venta->id_venta);
     foreach ($ops as $op) {
-        $product = ProductoData::getById($op->producto_id);
+        $fila = $op->is_sqlserver ? "id_sqlserver" : "id_producto";
+        $product = ProductoData::getById($op->producto_id, $fila);
         // if ($contrato != '') {
         if ($product->contrato_id == $contrato) {
             array_push($result, array("venta" => $venta, "producto" => $product));
