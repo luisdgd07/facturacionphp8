@@ -6,8 +6,12 @@ include "../core/modules/index/model/VentaData.php";
 include "../core/modules/index/model/OperationData.php";
 include "../core/modules/index/model/MonedaData.php";
 include "../core/modules/index/model/ProductoData.php";
-
+include "../core/modules/index/model/UserData.php";
+include "../core/modules/index/model/FleteraData.php";
 include "../core/modules/index/model/ClienteData.php";
+include "../core/modules/index/model/VehiculoData.php";
+include "../core/modules/index/model/ChoferData.php";
+session_start();
 
 // Reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -112,9 +116,10 @@ $dompdf = new Dompdf($options);
 
 if (isset($_GET['venta'])) {
     $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
-
 } else if (isset($_GET['remision'])) {
     $venta = VentaData::getByIdInTable($_GET['remision'], "remision");
+} else if (isset($_GET['notacredito'])) {
+    $venta = VentaData::getByIdInTable($_GET['notacredito'], "nota_credito_venta");
 } else {
     die("No se encontro la venta");
 }
@@ -287,9 +292,13 @@ $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none
         <td style="border: none;"></td>
         <td style="border: none;"></td>
     </tr>
-</table>
-
-    <table>
+</table>';
+if (isset($_GET['remision'])) {
+    ob_start();
+    include 'tipo/remision.php';
+    $html .= ob_get_clean();
+}
+$html = $html . '<table>
         <thead>
             <tr>
                 <th style="width: 8%;">Código</th>
@@ -304,6 +313,7 @@ $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none
             </tr>
         </thead>
         <tbody>';
+
 $operaciones = OperationData::getAllProductsBySellIddd($venta->id_venta);
 $total = 0;
 $totalIva5 = 0;
@@ -343,7 +353,11 @@ foreach ($operaciones as $operacion) {
                 <td class="text-right">' . $iva10 . '</td>
             </tr>';
 }
-$html = $html . '</tbody>
+if (isset($_GET['remision'])) {
+    $html = $html . '</tbody>
+    </table>';
+} else {
+    $html = $html . '</tbody>
     </table>
 
         <table style="width: 100%; margin-top: 10px; font-size: 9px; border: none;">
@@ -368,8 +382,9 @@ $html = $html . '</tbody>
                 <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total) . '</td>
             </tr>
         </table>
-
-        <div style="margin-top: 10px;"><strong>Observación:</strong></div>
+';
+}
+$html = $html . '<div style="margin-top: 10px;"><strong>Observación:</strong></div>
 
 
     <div class="footer">

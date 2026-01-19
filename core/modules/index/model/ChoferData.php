@@ -12,6 +12,7 @@ class ChoferData
     public ?string $apellido = "";
     public ?string $estado = "";
     public ?string $fecha = "";
+    public ?string $nro_documento = "";
 
 
 
