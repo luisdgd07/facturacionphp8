@@ -13,6 +13,7 @@ include "../core/modules/index/model/ClienteData.php";
 include "../core/modules/index/model/VehiculoData.php";
 include "../core/modules/index/model/ChoferData.php";
 include "../core/modules/index/model/PaisData.php";
+include "../core/modules/index/model/UnidadesData.php";
 session_start();
 
 // Reference the Dompdf namespace
@@ -359,10 +360,11 @@ foreach ($operaciones as $operacion) {
 
         $iva10 = $operacion->precio * $operacion->q;
     }
+    $unidad = UnidadesData::getById($producto->presentacion);
     $html = $html . '<tr>
                 <td class="text-center">' . $producto->codigo . '</td>
                 <td>' . $producto->descripcion . '</td>
-                <td class="text-center">' . $producto->presentacion . '</td>
+                <td class="text-center">' . $unidad->nombre . '</td>
                 <td class="text-center">' . $operacion->q . '</td>
                 <td class="text-right"> ' . $operacion->precio . '</td>
                 <td class="text-right">0</td>

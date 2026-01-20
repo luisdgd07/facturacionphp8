@@ -314,7 +314,7 @@ require 'core/modules/index/components/kudes.php';
                         `</td>
                             <td >`
                     if (venta.envio != 'No enviado') {
-                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}">Descargar</a>`
+                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
                     }
                     if (venta.envio != 'No enviado') {
                         tablab += `<button class="btn btn-primary" onclick='generarTicket(${JSON.stringify(venta.kude)},false)'>Ticket</button>`

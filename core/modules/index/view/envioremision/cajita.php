@@ -282,7 +282,7 @@ require 'core/modules/index/components/kudes.php';
                         `</td>
                             <td >`
                     if (venta.envio != 'No enviado') {
-                        tablab += `<button class="btn btn-primary" onclick='generarKude(${JSON.stringify(venta.kude)},false)'>Descargar</button>`
+                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?remision=${venta.id}" target="_blank">Descargar</a>`
                     }
                     tablab +=
                         `</td>
