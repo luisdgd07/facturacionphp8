@@ -2,15 +2,21 @@
 include "../core/modules/index/model/SuccursalData.php";
 if (isset($_GET['venta'])) {
     $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
-
 } else if (isset($_GET['remision'])) {
     $venta = VentaData::getByIdInTable($_GET['remision'], "remision");
+} else if (isset($_GET['notacredito'])) {
+    $venta = VentaData::getByIdInTable($_GET['notacredito'], "nota_credito_venta");
 } else {
     die("No se encontro la venta");
 }
-
 $sucursal = SuccursalData::VerId($venta->sucursal_id);
-$tipo = "Factura";
+if (isset($_GET['remision'])) {
+    $tipo = "Remision";
+} else if (isset($_GET['notacredito'])) {
+    $tipo = "Nota de Credito";
+} else {
+    $tipo = "Factura";
+}
 ?>
 
 <div class="header">

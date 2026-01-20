@@ -289,8 +289,8 @@ $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none
     <tr>
         <td style="border: none;"><strong>Tel:</strong></td>
         <td style="border: none;">' . $cliente->telefono . '</td>
-        <td style="border: none;"></td>
-        <td style="border: none;"></td>
+        <td style="border: none;"><b>Cdc: asociado</b></td>
+        <td style="border: none;">' . $venta->cdc_fact . '</td>
     </tr>
 </table>';
 if (isset($_GET['remision'])) {
