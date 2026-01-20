@@ -14,27 +14,27 @@
     }
     ?>
     <?= $rucEmisor = $ventas->verSocursal()->ruc ?>
-    <?= $telefonoEmisor =  $ventas->verSocursal()->telefono ?>
+    <?= $telefonoEmisor = $ventas->verSocursal()->telefono ?>
     <?= $ventas->VerConfiFactura()->timbrado1 ?>
 
-    <?php if ($ventas->numerocorraltivo >= 1 & $ventas->numerocorraltivo < 10) : ?>
-      <?= $facturaN =    "000000" . $ventas->numerocorraltivo ?>
-    <?php else : ?>
-      <?php if ($ventas->numerocorraltivo >= 10 & $ventas->numerocorraltivo < 100) : ?>
+    <?php if ($ventas->numerocorraltivo >= 1 & $ventas->numerocorraltivo < 10): ?>
+      <?= $facturaN = "000000" . $ventas->numerocorraltivo ?>
+    <?php else: ?>
+      <?php if ($ventas->numerocorraltivo >= 10 & $ventas->numerocorraltivo < 100): ?>
         <?= $facturaN = "00000" . $ventas->numerocorraltivo ?>
-      <?php else : ?>
-        <?php if ($ventas->numerocorraltivo >= 100 & $ventas->numerocorraltivo < 1000) : ?>
-          <?= $facturaN =  "0000" . $ventas->numerocorraltivo ?>
-        <?php else : ?>
-          <?php if ($ventas->numerocorraltivo >= 1000 & $ventas->numerocorraltivo < 10000) : ?>
+      <?php else: ?>
+        <?php if ($ventas->numerocorraltivo >= 100 & $ventas->numerocorraltivo < 1000): ?>
+          <?= $facturaN = "0000" . $ventas->numerocorraltivo ?>
+        <?php else: ?>
+          <?php if ($ventas->numerocorraltivo >= 1000 & $ventas->numerocorraltivo < 10000): ?>
             <?= $facturaN = "000" . $ventas->numerocorraltivo ?>
-          <?php else : ?>
-            <?php if ($ventas->numerocorraltivo >= 100000 & $ventas->numerocorraltivo < 1000000) : ?>
+          <?php else: ?>
+            <?php if ($ventas->numerocorraltivo >= 100000 & $ventas->numerocorraltivo < 1000000): ?>
               <?= $facturaN = "00" . $ventas->numerocorraltivo ?>
-            <?php else : ?>
-              <?php if ($ventas->numerocorraltivo >= 1000000 & $ventas->numerocorraltivo < 10000000) : ?>
+            <?php else: ?>
+              <?php if ($ventas->numerocorraltivo >= 1000000 & $ventas->numerocorraltivo < 10000000): ?>
                 <?= $facturaN = "0" . $ventas->numerocorraltivo ?>
-              <?php else : ?>
+              <?php else: ?>
                 SIN ACCION
               <?php endif ?>
             <?php endif ?>
@@ -67,7 +67,8 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
 
-    <form class="form-horizontal" role="form" method="post" hidden name="facturacion" action="index.php?action=agregarenvio" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" method="post" hidden name="facturacion"
+      action="index.php?action=agregarenvio" enctype="multipart/form-data">
       <input type="text" name="venta" id="venta" value="<?php echo $_GET['id_venta'] ?>">
       <input type="text" name="estado" id="estado" value="">
       <input type="text" name="cdc" id="cdc" value="">
@@ -87,7 +88,7 @@
           <div class="box-body">
             <input type="hidden" name="xml_string" id="xml_string">
             <input type="hidden" name="certandkey" id="certandkey">
-            <?php if (isset($_GET["id_venta"]) && $_GET["id_venta"] != "") : ?>
+            <?php if (isset($_GET["id_venta"]) && $_GET["id_venta"] != ""): ?>
               <?php
 
               $sell = VentaData::getById($_GET["id_venta"]);
@@ -100,7 +101,8 @@
                   //    print_r($operation);
                   $qx = OperationData::getQYesFf($operation->producto_id);
                   // print "qx=$qx";
-                  $p = $operation->getProducto();
+                  $fila = $operation->is_sqlserver ? "id_sqlserver" : "id_producto";
+                  $p = ProductoData::getById($operation->producto_id, $fila);
                   if ($qx == 0) {
                     echo "<p class='alert alert-danger'>El producto <b style='text-transform:uppercase;'> $p->nombre</b> tiene existencia 0 realice compras para abastecer su stock.</p>";
                   } else if ($qx <= $p->inventario_minimo / 2) {
@@ -113,8 +115,8 @@
               }
 
               ?>
-              <?php if ($sell->numerocorraltivo == "") : ?>
-              <?php else : ?>
+              <?php if ($sell->numerocorraltivo == ""): ?>
+              <?php else: ?>
                 <table class="table table-bordered">
                   <tr>
                     <th style="color: blue;">Factura N°:</th>
@@ -147,9 +149,9 @@
               <?php endif ?>
               <br>
               <table class="table table-bordered">
-                <?php if ($sell->cliente_id != "") :
+                <?php if ($sell->cliente_id != ""):
                   $client = $sell->getCliente();
-                ?>
+                  ?>
 
                   <td class="alert alert-warning"><b>CLIENTE:</b></td>
 
@@ -160,9 +162,9 @@
                     $dptClient = $client->departamento_id;
                     $distClient = $client->distrito_id;
                     if ($client->tipo_doc == "SIN NOMBRE") {
-                      echo  $client->tipo_doc;
+                      echo $client->tipo_doc;
                     } else {
-                      echo  $client->nombre . " " . $client->apellido;
+                      echo $client->nombre . " " . $client->apellido;
                     } ?>
 
                     <?php
@@ -172,9 +174,9 @@
                   </td>
 
                 <?php endif; ?>
-                <?php if ($sell->usuario_id != "") :
+                <?php if ($sell->usuario_id != ""):
                   $user = $sell->getUser();
-                ?>
+                  ?>
 
                   <td class="alert alert-warning"><b>USUARIO:</b></td>
                   <td class="alert alert-warning"><?php echo $user->nombre . " " . $user->apellido; ?></td>
@@ -196,11 +198,12 @@
                 $total3 = 0;
                 $total4 = 0;
                 $cant = 0;
-                $productosItem  = array();
+                $productosItem = array();
                 $tipo = ProductoData::verinsumo($operations[0]->sucursal_id);
                 $insumo = $tipo->ID_TIPO_PROD;
                 foreach ($operations as $operation) {
-                  $product  = $operation->getProducto();
+                  $fila = $operation->is_sqlserver ? "id_sqlserver" : "id_producto";
+                  $product = ProductoData::getById($operation->producto_id, $fila);
                   if ($product->ID_TIPO_PROD == $insumo) {
                   } else {
 
@@ -208,7 +211,8 @@
                       $cant = $operation->precio3;
                     } else {
                       $cant = $operation->q;
-                    };
+                    }
+                    ;
 
                     array_push($productosItem, json_encode(array(
                       "codigo" => $product->codigo,
@@ -230,7 +234,7 @@
                     // array_push($productosItem, json_encode(array("codigo" => $product->codigo, "cantidad" => $operation->q, "descripcion" => $product->nombre, "observacion" => "", "precioUnitario" => $operation->precio, "iva" =>  $product->impuesto)));
                     // array_push($productosItem, [array("codigo" => 'aaa')]);
                     // var_dump(array("Oso" => true, "Gato" => null));
-                ?>
+                    ?>
                     <tr>
                       <td><?php echo $product->codigo; ?></td>
                       <td><?php echo $cant; ?></td>
@@ -247,7 +251,7 @@
                       <td><?php echo number_format(($operation->precio * $cant), 2, ",", "."); ?></td>
                       </b></td>
                     </tr>
-                <?php
+                    <?php
                   }
                 }
                 ?>
@@ -279,14 +283,14 @@
                       <td>
                         <h4><?php echo number_format($sell->total, 2, ",", ".");
 
-                            $cuotas = 0;
-                            $vencimiento = "";
-                            if ($sell->metodopago == "Credito") {
-                              $credito = CreditoData::getByVentaId($_GET['id_venta']);
-                              $cuotas = $credito->cuotas;
-                              $vencimiento = $credito->vencimiento;
-                            }
-                            ?></h4>
+                        $cuotas = 0;
+                        $vencimiento = "";
+                        if ($sell->metodopago == "Credito") {
+                          $credito = CreditoData::getByVentaId($_GET['id_venta']);
+                          $cuotas = $credito->cuotas;
+                          $vencimiento = $credito->vencimiento;
+                        }
+                        ?></h4>
                       </td>
 
                       </td>
@@ -300,7 +304,9 @@
                   </div>
                   <div class="row">
                     <div class="col-sm">
-                      <a target="_BLANK" href="impresionticket.php?id_venta=<?php echo $_GET["id_venta"] ?>" class="btn btn-primary btn-sm btn-flat"><i class='fa fa-file-code-o' style="color: orange"></i> IMPRIMIR</a>
+                      <a target="_BLANK" href="impresionticket.php?id_venta=<?php echo $_GET["id_venta"] ?>"
+                        class="btn btn-primary btn-sm btn-flat"><i class='fa fa-file-code-o' style="color: orange"></i>
+                        IMPRIMIR</a>
                     </div>
                     <br>
                     <?php if ($sell->enviado === 'Aprobado') {
@@ -324,7 +330,7 @@
                 </div>
 
               </div>
-            <?php else : ?>
+            <?php else: ?>
               501 Internal Error
             <?php endif; ?>
           </div>
@@ -392,7 +398,7 @@
         pass: 'Die1905982022',
         logo: "./METASA_logo.png"
       },
-      success: function(dataResult) {
+      success: function (dataResult) {
         console.log('enviando')
         try {
           let data = dataResult;
@@ -406,7 +412,7 @@
             icon: 'info',
             confirmButtonText: 'Aceptar'
           });
-          setTimeout(function() {
+          setTimeout(function () {
             document.facturacion.submit();
 
           }, 5000);

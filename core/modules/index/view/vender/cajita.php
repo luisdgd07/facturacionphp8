@@ -1857,7 +1857,7 @@ if (isset($_GET['tid'])) { ?>
               if ($('input[name="metodopago"]:checked').val() == "Contado") {
                 pagar(dataResult.trim());
               } else {
-                // window.location.href = "index.php?view=envioporlote&id_sucursal=<?php echo $_GET['id_sucursal'] ?>";
+                window.location.href = "index.php?view=envioporlote&id_sucursal=<?php echo $_GET['id_sucursal'] ?>";
               }
 
             } else {

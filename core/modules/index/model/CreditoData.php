@@ -12,6 +12,11 @@ class CreditoData
     public ?string $concepto = null;
     public ?int $credito = null;
     public ?int $abonado = null;
+    public ?int $sucursalId = null;
+    public ?int $monedaId = null;
+    public ?int $ventaId = null;
+
+
     public ?string $vencimiento = null;
     public ?int $cuotas = null;
     public ?int $cliente_id = null;

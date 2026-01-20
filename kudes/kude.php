@@ -8,9 +8,11 @@ include "../core/modules/index/model/MonedaData.php";
 include "../core/modules/index/model/ProductoData.php";
 include "../core/modules/index/model/UserData.php";
 include "../core/modules/index/model/FleteraData.php";
+include "../core/modules/index/model/AgenteData.php";
 include "../core/modules/index/model/ClienteData.php";
 include "../core/modules/index/model/VehiculoData.php";
 include "../core/modules/index/model/ChoferData.php";
+include "../core/modules/index/model/PaisData.php";
 session_start();
 
 // Reference the Dompdf namespace
@@ -263,7 +265,7 @@ $tipo = "Factura Electrónica";
 // $html = $html . var_dump($venta);
 $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none;">
     <tr>
-        <td style="width: 80px; border: none;"><strong>Fecha de Emisión:</strong></td>
+        <td style="width: 150px; border: none;"><strong>Fecha de Emisión:</strong></td>
         <td style="width: 25%; border: none;">' . date('d/m/Y', strtotime($venta->fecha)) . '</td>
         <td style="width: 80; border: none;"><strong>Condición Venta:</strong></td>
         <td style="width: 25%; border: none;">' . $venta->metodopago . '</td>
@@ -289,10 +291,18 @@ $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none
     <tr>
         <td style="border: none;"><strong>Tel:</strong></td>
         <td style="border: none;">' . $cliente->telefono . '</td>
-        <td style="border: none;"><b>Cdc: asociado</b></td>
+        <td style="border: none;"><b>Cdc asociado:</b></td>
         <td style="border: none;">' . $venta->cdc_fact . '</td>
-    </tr>
-</table>';
+    </tr>';
+if (isset($_GET['notacredito'])) {
+    $html = $html . '<tr>
+        <td style="border: none;"><strong>Tipo de Documento Asociado:</strong></td>
+        <td style="width: 25%; border: none;">Venta de mercaderia</td>
+        <td style="width: 25%; border: none;"></td>
+        <td style="width: 25%; border: none;"></td>
+    </tr>';
+}
+$html = $html . '</table>';
 if (isset($_GET['remision'])) {
     ob_start();
     include 'tipo/remision.php';
@@ -314,7 +324,15 @@ $html = $html . '<table>
         </thead>
         <tbody>';
 
-$operaciones = OperationData::getAllProductsBySellIddd($venta->id_venta);
+$table = "";
+if (isset($_GET['remision'])) {
+    $table = "remision_detalle";
+} else if (isset($_GET['notacredito'])) {
+    $table = "nota_de_credito_venta_detalle";
+} else {
+    $table = "operacion";
+}
+$operaciones = OperationData::getAllProductsBySellTable($venta->id_venta, $table);
 $total = 0;
 $totalIva5 = 0;
 $totalIva10 = 0;
@@ -356,6 +374,36 @@ foreach ($operaciones as $operacion) {
 if (isset($_GET['remision'])) {
     $html = $html . '</tbody>
     </table>';
+} else if ($venta->tipo_venta == 20) {
+    ob_start();
+    include 'tipo/exportacion.php';
+    $html .= ob_get_clean();
+    $html = $html . '</tbody>
+    </table>
+
+        <table style="width: 100%; margin-top: 10px; font-size: 9px; border: none;">
+            <tr>
+                <td style="width: 30%; border: none;"><strong>SUBTOTAL:</strong></td>
+                <td style="width: 70%; text-align: right; border: none;">' . $total . '</td>
+            </tr>
+            <tr>
+                <td style="border: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
+                <td style="text-align: right; border: none;">' . $total . '</td>
+            </tr>
+            <tr>
+                <td style="border: none;"><strong>TOTAL EN GUARANIES:</strong></td>
+                <td style="text-align: right; border: none;">' . $total * $venta->cambio . '</td>
+            </tr>
+            <tr>
+                <td style="border: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
+                 <td style="text-align: right; border: none;"><strong>(5%) ' . $totalIva5 . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . $totalIva10 . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . $totalIva5 + $totalIva10 . '</strong></td>
+            </tr>
+            <tr>
+                <td style="border: none;"><strong>TOTAL EN LETRAS:</strong></td>
+                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total) . '</td>
+            </tr>
+        </table>
+';
 } else {
     $html = $html . '</tbody>
     </table>

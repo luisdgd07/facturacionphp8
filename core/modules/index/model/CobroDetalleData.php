@@ -6,6 +6,8 @@ class CobroDetalleData
     public ?string $NUMERO_FACTURA = "";
     public ?int $CUOTA = 0;
     public ?int $NUMERO_CREDITO = 0;
+    public ?int $creditoDetalle = 0;
+
     public ?int $CLIENTE_ID = 0;
     public ?int $IMPORTE_COBRO = 0;
     public ?int $IMPORTE_CREDITO = 0;

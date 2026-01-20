@@ -279,6 +279,13 @@ class OperationData
 		$query = Executor::doit($sql);
 		return Model::many($query[0], "OperationData");
 	}
+
+	public static function getAllProductsBySellTable($venta_id, $table)
+	{
+		$sql = "select * from $table where venta_id=$venta_id order by fecha desc";
+		$query = Executor::doit($sql);
+		return Model::many($query[0], "OperationData");
+	}
 	public static function getAllProductsBySellIddd2($venta_id)
 	{
 		$sql = "select * from " . self::$tablename . " where venta_id=$venta_id order by fecha desc";

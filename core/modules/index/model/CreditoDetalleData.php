@@ -8,9 +8,24 @@ class CreditoDetalleData
     public ?int $importe_credito = null;
     public ?int $saldo_credito = null;
     public ?int $moneda_id = null;
+    public ?int $moneda = null;
+    public ?int $creditoDetalle = null;
+
+
     public ?int $sucursal_id = null;
     public ?string $nrofactura = null;
     public ?string $fecha = null;
+    public ?string $factura = null;
+
+    public ?string $fechaDetalle = null;
+    public ?string $recibido = null;
+
+    public ?int $creditoId = null;
+    public ?int $monedaId = null;
+
+    public ?int $sucursalId = null;
+
+
     public ?string $fecha_detalle = null;
 
     public ?int $id_usuario = null;
