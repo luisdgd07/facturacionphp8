@@ -1,20 +1,5 @@
 <?php
-// Require Composer's autoloader
-require '../vendor/autoload.php';
-include "../core/autoload.php";
-include "../core/modules/index/model/VentaData.php";
-include "../core/modules/index/model/OperationData.php";
-include "../core/modules/index/model/MonedaData.php";
-include "../core/modules/index/model/ProductoData.php";
-include "../core/modules/index/model/UserData.php";
-include "../core/modules/index/model/FleteraData.php";
-include "../core/modules/index/model/AgenteData.php";
-include "../core/modules/index/model/ClienteData.php";
-include "../core/modules/index/model/VehiculoData.php";
-include "../core/modules/index/model/ChoferData.php";
-include "../core/modules/index/model/PaisData.php";
-include "../core/modules/index/model/UnidadesData.php";
-session_start();
+
 
 // Reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -446,15 +431,3 @@ $html = $html . '<div style="margin-top: 10px;"><strong>Observación:</strong></
     </div>
 </body>
 </html>';
-// echo $html;
-// Load HTML content
-$dompdf->loadHtml($html, 'UTF-8');
-
-// Set paper size and orientation
-$dompdf->setPaper('A4', 'portrait');
-
-// Render the HTML as PDF
-$dompdf->render();
-
-// Output the generated PDF to Browser
-$dompdf->stream("factura_electronica.pdf", array("Attachment" => false));

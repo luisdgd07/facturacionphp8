@@ -414,13 +414,11 @@ require 'core/modules/index/components/kudes.php';
         });
 
         $.ajax({
-            url: "index.php?action=send_email_php",
+            url: `index.php?action=send_email_php&venta=${id_venta}&sucursal=<?php echo $_GET['id_sucursal'] ?>`,
             type: "POST",
-            data: {
-                id_venta: id_venta
-            },
+            data: {},
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     Swal.fire({
                         title: 'Correo Enviado',
@@ -437,7 +435,7 @@ require 'core/modules/index/components/kudes.php';
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error(xhr.responseText);
                 Swal.fire({
                     title: 'Error de servidor',

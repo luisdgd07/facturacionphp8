@@ -1,5 +1,4 @@
 <?php
-include "../core/modules/index/model/SuccursalData.php";
 if (isset($_GET['venta'])) {
     $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
 } else if (isset($_GET['remision'])) {

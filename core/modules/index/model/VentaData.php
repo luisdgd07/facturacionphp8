@@ -922,7 +922,7 @@ class VentaData
 
 	public function enviocorreo()
 	{
-		$sql = "update " . self::$tablename . " set email_enviado=1  where id_venta=$this->id";
+		$sql = "update " . self::$tablename . " set email_enviado=1  where id_venta=$this->id_venta";
 		return Executor::doit($sql);
 	}
 
