@@ -774,7 +774,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
               <div class="form-group has-feedback has-warning">
                 <label for="inputEmail1" class="col-sm-3 control-label">Departamento:</label>
                 <div class="col-sm-9">
-                  <select name="dpt_id" id="dpt_id" onchange="buscard()" class="form-control">
+                    <select name="dpt_id" id="dpt_id" onchange="buscarDistritos()"  class="form-control">
                     <?php
                     $dpts = DptData::getAll();
                     foreach ($dpts as $dpt):
@@ -790,7 +790,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
               <div class="form-group has-feedback has-warning">
                 <label for="inputEmail1" class="col-sm-3 control-label">Distrito:</label>
                 <div class="col-sm-9">
-                  <select onchange="buscaCiudad()" name="distrito" id="ciudades" class="form-control">
+                     <select onchange="buscaCiudad()" name="distrito" id="distritos" class="form-control">
                   </select>
                 </div>
               </div>
@@ -2314,30 +2314,27 @@ console.log('bb',tablab)
       buscarCiudad($("#dpt_id").val());
     }
 
-    function buscaCiudad() {
-      console.log('12313123', $("#ciudades").val());
-      //  ciudades(595);
-      $.ajax({
-        url: "index.php?action=buscarciudades",
-        type: "GET",
-        data: {
-          dist: $("#ciudades").val(),
-        },
-        cache: false,
-        success: function (dataResult) {
-          console.log(dataResult)
-          ciudades = "";
+       function buscaCiudad() {
+          $.ajax({
+            url: "index.php?action=buscarciudades",
+            type: "GET",
+            data: {
+              dist: $("#distritos").val(),
+            },
+            cache: false,
+            success: function (dataResult) {
+              console.log(dataResult)
+              ciudades = "";
 
-          var result = JSON.parse(dataResult);
-          //  ciudades = `<option selected value="${result[0].id_distrito}">${result[0].descripcion}</option>`;
-          for (const [id, data_1] of Object.entries(result)) {
-            ciudades += `<option selected value="${data_1.codigo}">${data_1.descripcion}</option>`;
-          }
-          $("#ciudad").html(ciudades);
+              var result = JSON.parse(dataResult);
+              for (const [id, data_1] of Object.entries(result)) {
+
+                ciudades += `<option  value="${data_1.codigo}">${data_1.descripcion}</option>`;
+              }
+              $("#ciudad").html(ciudades);
+            }
+          });
         }
-      });
-    }
-
     function buscarCiudad(distrito) {
       $.ajax({
         url: "index.php?action=buscarendistrito",
@@ -2392,4 +2389,24 @@ console.log('bb',tablab)
                 </nav>`;
       $("#paginacion").html(paginacion);
     }
+            function buscarDistritos() {
+          $.ajax({
+            url: "index.php?action=buscardistritos",
+            type: "GET",
+            data: {
+              dpt: $("#dpt_id").val(),
+            },
+            cache: false,
+            success: function (dataResult) {
+              distritos = "";
+
+              var result = JSON.parse(dataResult);
+              for (const [id, data_1] of Object.entries(result)) {
+                distritos += `<option  value="${data_1.codigo}">${data_1.descripcion}</option>`;
+              }
+              $("#distritos").html(distritos);
+              buscaCiudad()
+            }
+          });
+        }
   </script>

@@ -8,6 +8,8 @@ class VehiculoData
     public ?string $rua_nro = "";
     public ?string $marca = "";
     public ?string $modelo = "";
+    public ?string $fecha = "";
+
     public ?string $anio = "";
     public ?string $color = "";
     public ?string $tipo = "";

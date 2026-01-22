@@ -9,8 +9,8 @@ class CobroDetalleData
     public ?int $creditoDetalle = 0;
 
     public ?int $CLIENTE_ID = 0;
-    public ?int $IMPORTE_COBRO = 0;
-    public ?int $IMPORTE_CREDITO = 0;
+    public ?float $IMPORTE_COBRO = 0;
+    public ?float $IMPORTE_CREDITO = 0;
     public ?int $SUCURSAL_ID = 0;
     public ?int $venta = 0;
     public ?string $tipo = "";

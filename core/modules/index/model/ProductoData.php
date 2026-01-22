@@ -7,6 +7,8 @@ class ProductoData
 	public ?int $id_producto = null;
 	public ?int $usuario_id = 0;
 	public ?int $id_grupo = 0;
+	public ?int $MONEDA_ID = 0;
+
 	public ?int $sucursal_id = 0;
 
 

@@ -462,7 +462,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                   $('#formNuevoCliente')[0].reset();
 
                   // Recargar página o actualizar lista de clientes si es necesario
-                  // location.reload();
+                  window.location.reload();
                 });
               } else {
                 Swal.fire({
