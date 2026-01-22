@@ -17,7 +17,7 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
               <?php
               $users = VentaData::versucursaltipoventasremiexp($sucursales->id_sucursal);
               if (count($users) > 0) {
-              ?>
+                ?>
                 <table id="example1" class="table table-bordered table-dark" style="width:100%">
                   <thead>
                     <th></th>
@@ -39,7 +39,7 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                   <tbody>
                     <?php
                     foreach ($users as $sell) {
-                    ?>
+                      ?>
                       <tr>
                         <?php
                         $operations = OperationData::getAllProductsBySellIddd($sell->id_venta);
@@ -48,12 +48,16 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                         ?>
 
                         <td style="width:30px;">
-                          <a href="index.php?view=detalleventaproductoremision&id_venta=<?php echo $sell->id_venta; ?>" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open" style="color: orange;"></i></a>
+                          <a href="index.php?view=detalleventaproductoremision&id_venta=<?php echo $sell->id_venta; ?>"
+                            class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open"
+                              style="color: orange;"></i></a>
                         </td>
 
                         <td style="width:30px;">
                           <abbr title="Cancelar facturacion de Remision">
-                            <button onclick="anular2(<?php echo $sucursales->id_sucursal; ?>,<?php echo $sell->id_venta; ?>)" class="btn btn-warning btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
+                            <button
+                              onclick="anular2(<?php echo $sucursales->id_sucursal; ?>,<?php echo $sell->id_venta; ?>)"
+                              class="btn btn-warning btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
                           <!-- <a href="index.php?action=eliminarcompra&id_sucursal=<?php echo $sucursales->id_sucursal; ?>&id_venta=<?php echo $sell->id_venta; ?>" class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i> </a> -->
                         </td>
 
@@ -61,8 +65,8 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 
                         <td><?php echo $sell->id_venta; ?></td>
                         <td class="width:30px;">
-                          <?php if ($sell->tipo_venta == "4") : ?> <?php echo $sell->factura; ?>
-                          <?php else : ?>
+                          <?php if ($sell->tipo_venta == "4"): ?>       <?php echo $sell->factura; ?>
+                          <?php else: ?>
                             <?php echo count($operations) ?>
                           <?php endif ?>
                         </td>
@@ -79,26 +83,26 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                             $cliente = $sell->getCliente()->nombre . " " . $sell->getCliente()->apellido;
 
                             echo $cliente;
-                          }                                                ?>
+                          } ?>
 
 
                         </td>
 
                         <td><?php
-                            $total = $sell->total - $sell->descuento;
-                            echo "<b> " . number_format($total, 2, ',', '.') . "</b>";
-                            ?></td>
+                        $total = $sell->total - $sell->descuento;
+                        echo "<b> " . number_format($total, 2, ',', '.') . "</b>";
+                        ?></td>
                         <td><?php echo $sell->metodopago ?></td>
                         <td><?php echo $sell->fecha; ?></td>
                         <td><?php if ($sell->tipomoneda_id == "") {
-                              echo "--";
-                            } else {
-                              if ($sell->VerTipoModena()->simbolo == "US$") {
-                                echo  $sell->cambio2;
-                              } else {
-                                echo  1;
-                              }
-                            } ?></td>
+                          echo "--";
+                        } else {
+                          if ($sell->VerTipoModena()->simbolo == "US$") {
+                            echo $sell->cambio2;
+                          } else {
+                            echo 1;
+                          }
+                        } ?></td>
                         <td style="width:200px;">
                           <?php if ($sell->tipomoneda_id == "") {
                             echo "--";
@@ -106,16 +110,18 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                             echo $sell->VerTipoModena()->nombre;
                           } ?>
                         </td>
-                        <td><a href="index.php?view=venderexport&id_sucursal=<?php echo $_GET["id_sucursal"]; ?>&tid=<?= $sell->id_venta; ?>" class="btn btn-xs btn-default"><i class="fa fa-share" style="color: orange;"></i></a></td>
+                        <td><a
+                            href="index.php?view=venderexport&id_sucursal=<?php echo $_GET["id_sucursal"]; ?>&tid=<?= $sell->id_venta; ?>"
+                            class="btn btn-xs btn-default"><i class="fa fa-share" style="color: orange;"></i></a></td>
                       </tr>
-                  <?php
+                      <?php
                     }
-                  } else {
-                    echo "<p class='alert alert-danger'>No hay remision Registrada</p>";
-                  }
-                  ?>
-                  </tbody>
-                </table>
+              } else {
+                echo "<p class='alert alert-danger'>No hay remision Registrada</p>";
+              }
+              ?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -125,7 +131,6 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   function anular2(sucursal, venta) {
     Swal.fire({
@@ -137,7 +142,7 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         window.location.href = `./index.php?action=actualizar_estado_venta5&id_sucursal=${sucursal}&id_venta=${venta}`;
-      } else {}
+      } else { }
     })
 
   }

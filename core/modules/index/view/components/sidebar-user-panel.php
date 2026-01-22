@@ -6,21 +6,6 @@
 ?>
 <div class="user-panel modern-user-panel">
     <div class="image-container">
-        <?php
-        $config = ConfigData::getAll();
-        if (count($config) > 0) {
-            foreach ($config as $configuracion) {
-                $url = "storage/sis/admin/" . $configuracion->logo;
-                ?>
-                <?php if ($configuracion->logo != "" && file_exists($url)): ?>
-                    <img src="<?php echo $url; ?>" class="img-circle modern-sidebar-logo" alt="System Logo">
-                <?php else: ?>
-
-                <?php endif; ?>
-                <?php
-            }
-        }
-        ?>
 
         <style>
             .mod ern-user-panel {

@@ -1,13 +1,14 @@
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
+<link rel='stylesheet prefetch'
+  href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <?php
 $u = null;
 $tipo = 0;
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
   $u = UserData::getById($_SESSION["admin_id"]);
-  if ($u->is_empleado) :
+  if ($u->is_empleado):
     $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
-?>
+    ?>
     <div class="content-wrapper">
       <section class="content-header">
         <h1><i class='fa fa-gift' style="color: orange;"></i>
@@ -24,10 +25,10 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                 <?php
                 $cotizacion = CotizacionData::versucursalcotizacion($sucursales->id_sucursal);
                 $cajas = CajaData::vercajapersonal($u->id_usuario);
-                if (count($cajas) > 0 and  count($cotizacion) > 0) {
+                if (count($cajas) > 0 and count($cotizacion) > 0) {
                   foreach ($cotizacion as $moneda) {
                     $mon = MonedaData::cboObtenerValorPorSucursal2($sucursales->id_sucursal, $moneda->id_tipomoneda);
-                    foreach ($mon as $mo) :
+                    foreach ($mon as $mo):
                       $nombre = $mo->nombre;
                       $fechacotiz = $mo->fecha_cotizacion;
                     endforeach;
@@ -43,7 +44,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                   } else {
                     Core::alert("Atención debe de actualizar la moneda a la cotización del día...en Configuraciones/Cotizacion/Nuevo!");
                   }
-                ?>
+                  ?>
 
                 <?php } else {
                   echo "<p class='alert alert-danger'>Debe iniciar Caja, o No hay Cotización registrada!</p>";
@@ -52,10 +53,11 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                 <!-- <form method="post" class="form-horizontal" id="processsell" action="index.php?action=procesoventaproducto1"> -->
 
                 <?php $configmasiva = ConfiguracionMasivaData::vercamasivaactivosucursal($sucursales->id_sucursal);
-                if (count($configmasiva) > 0) :
-                  foreach ($configmasiva as $masivas) : ?>
-                    <input type="hidden" name="cantidaconfigmasiva" id="cantidaconfigmasiva" value="<?php echo $masivas->cantidad; ?>">
-                <?php endforeach;
+                if (count($configmasiva) > 0):
+                  foreach ($configmasiva as $masivas): ?>
+                    <input type="hidden" name="cantidaconfigmasiva" id="cantidaconfigmasiva"
+                      value="<?php echo $masivas->cantidad; ?>">
+                  <?php endforeach;
                 endif ?>
                 <div class="form-group">
                   <label for="inputEmail1" class="col-lg-1 control-label">Tipo Doc.:</label>
@@ -68,10 +70,11 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
 
                       <?php
                       $i = 0;
-                      foreach ($clients as $client) : ?>
+                      foreach ($clients as $client): ?>
                         <option <?php if ($client->comprobante1 == "Factura") {
-                                  echo "selected";
-                                } ?> <?php if ($client->diferencia == -1) : ?>disabled="" <?php else : ?><?php endif ?> value="<?php echo $client->id_configfactura; ?>"><?php echo $client->comprobante1; ?></option>
+                          echo "selected";
+                        } ?>       <?php if ($client->diferencia == -1): ?>disabled="" <?php else: ?><?php endif ?>
+                          value="<?php echo $client->id_configfactura; ?>"><?php echo $client->comprobante1; ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -91,10 +94,12 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                     <?php
                     $monedas = MonedaData::cboObtenerValorPorSucursal($sucursales->id_sucursal);
                     ?>
-                    <select name="tipomoneda_id" id="tipomoneda_id" id1="valor" class="form-control" onchange="tipocambio()">
+                    <select name="tipomoneda_id" id="tipomoneda_id" id1="valor" class="form-control"
+                      onchange="tipocambio()">
                       <!-- <option value="0">Seleccionar</option> -->
-                      <?php foreach ($monedas as $moneda) : ?>
-                        <option value="<?php echo $moneda->simbolo; ?>"><?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                      <?php foreach ($monedas as $moneda): ?>
+                        <option value="<?php echo $moneda->simbolo; ?>">
+                          <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -112,8 +117,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                       $valores = 0;
                       foreach ($cotizacion as $moneda) {
                         $mon = MonedaData::cboObtenerValorPorSucursal3($sucursales->id_sucursal);
-                      ?>
-                        <?php foreach ($mon as $mo) : ?>
+                        ?>
+                        <?php foreach ($mon as $mo): ?>
                           <?php
                           $nombre = $mo->nombre;
                           $fechacotiz = $mo->fecha_cotizacion;
@@ -121,13 +126,15 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                           $simbolo2 = $mo->simbolo;
                           ?>
                         <?php endforeach; ?>
-                    <?php
+                        <?php
                       }
                     }
 
                     ?>
-                    <input type="text" disabled="" name="cambio2" id="cambio2" value="<?php echo $valores; ?>" class="form-control">
-                    <input type="hidden" name="simbolo2" id="simbolo2" value="<?php echo $simbolo2; ?>" class="form-control">
+                    <input type="text" disabled="" name="cambio2" id="cambio2" value="<?php echo $valores; ?>"
+                      class="form-control">
+                    <input type="hidden" name="simbolo2" id="simbolo2" value="<?php echo $simbolo2; ?>"
+                      class="form-control">
                     <input type="hidden" name="idtipomoneda" id="idtipomoneda" class="form-control">
                   </div>
                 </div>
@@ -148,16 +155,19 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                   <div class="col-md-4 " style="margin-top: 15px;">
                     <label for="inputEmail1" class="col-lg-2 control-label">Cliente:</label>
                     <div class="col-lg-9">
-                      <select name="cliente_id" onchange="clienteTipo()" class="selectpicker show-menu-arrow" data-style="form-control" data-live-search="true" id="cliente_id" class="form-control">
+                      <select name="cliente_id" onchange="clienteTipo()" class="selectpicker show-menu-arrow"
+                        data-style="form-control" data-live-search="true" id="cliente_id" class="form-control">
                         <option value="">SELECCIONAR CLIENTE</option>
 
                         <?php
                         $clients = ClienteData::verclientessucursal($sucursales->id_sucursal);
-                        foreach ($clients as $client) :
+                        foreach ($clients as $client):
                           // $tipocliente = ProductoData::listar_tipo_precio($client->id_precio);
-
-                        ?>
-                          <option value="<?php echo $client->id_cliente; ?>"><?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?></option>
+                    
+                          ?>
+                          <option value="<?php echo $client->id_cliente; ?>">
+                            <?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?>
+                          </option>
                         <?php endforeach;
 
                         ?>
@@ -176,7 +186,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                     ?>
                     <select name="agente" id="agente" id1="valor" class="form-control">
                       <!-- <option value="0">Seleccionar</option> -->
-                      <?php foreach ($agentes as $agente) : ?>
+                      <?php foreach ($agentes as $agente): ?>
                         <option value="<?php echo $agente->id_agente; ?>"><?php echo $agente->nombre_agente ?></option>
                       <?php endforeach; ?>
                     </select>
@@ -188,8 +198,9 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                     ?>
                     <select name="fletera" id="fletera" id1="valor" class="form-control">
                       <!-- <option value="0">Seleccionar</option> -->
-                      <?php foreach ($agentes as $agente) : ?>
-                        <option value="<?php echo $agente->id_empresa_flete; ?>"><?php echo $agente->nombre_empresa ?></option>
+                      <?php foreach ($agentes as $agente): ?>
+                        <option value="<?php echo $agente->id_empresa_flete; ?>"><?php echo $agente->nombre_empresa ?>
+                        </option>
                       <?php endforeach; ?>
                     </select>
 
@@ -200,9 +211,12 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                         <div class="form-group">
                           <label for="inputEmail1" class="col-lg-3 control-label">Forma de Pago:</label>
                           <div class="col-lg-9">
-                            <input name="formapago" autofocus="autofocus" value="Efectivo" checked type="radio" name="" onclick="Ocultar1();"> Efectivo
-                            <input name="formapago" value="Targeta de Debito" type="radio" name="" onclick="Mostrar1();"> Targeta de Debito
-                            <input name="formapago" value="Targeta de Credito" type="radio" name="" onclick="Mostrar1();"> Targeta de Credito
+                            <input name="formapago" autofocus="autofocus" value="Efectivo" checked type="radio" name=""
+                              onclick="Ocultar1();"> Efectivo
+                            <input name="formapago" value="Targeta de Debito" type="radio" name="" onclick="Mostrar1();">
+                            Targeta de Debito
+                            <input name="formapago" value="Targeta de Credito" type="radio" name="" onclick="Mostrar1();">
+                            Targeta de Credito
                             <input name="formapago" value="Giro" type="radio" name="" onclick="Ocultar1();"> Giro
                           </div>
                         </div>
@@ -239,7 +253,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                       <div class="form-group">
                         <label for="inputEmail1" class="col-lg-2 control-label">Fecha Venta:</label>
                         <div class="col-lg-4">
-                          <input type="date" name="fecha" class="form-control" value="<?php echo date("Y-m-d"); ?>" id="fecha" placeholder="Efectivo">
+                          <input type="date" name="fecha" class="form-control" value="<?php echo date("Y-m-d"); ?>"
+                            id="fecha" placeholder="Efectivo">
                         </div>
                       </div>
 
@@ -250,13 +265,14 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="inputEmail1" class="col-lg-2 control-label">Deposito:</label>
-                      <select onchange="" class="selectpicker show-menu-arrow" data-style="form-control" data-live-search="true" id="deposito" name="deposito" class="form-control">
+                      <select onchange="" class="selectpicker show-menu-arrow" data-style="form-control"
+                        data-live-search="true" id="deposito" name="deposito" class="form-control">
                         <?php
                         $deps = ProductoData::verdeposito($sucursales->id_sucursal);
-                        foreach ($deps as $dep) :
+                        foreach ($deps as $dep):
                           // $tipocliente = ProductoData::listar_tipo_precio($client->id_precio);
-
-                        ?>
+                    
+                          ?>
                           <option value="<?php echo $dep->DEPOSITO_ID; ?>"><?php echo $dep->NOMBRE_DEPOSITO; ?></option>
                         <?php endforeach;
 
@@ -313,7 +329,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
               <br>
               <div class="box-header">
                 <i class="fa fa-laptop" style="color: orange;"></i> INGRESAR PRODUCTOS.
-                <input type="text" class="form-control" placeholder="Buscar" onchange="buscar()" onclick="buscar()" id="buscarProducto">
+                <input type="text" class="form-control" placeholder="Buscar" onchange="buscar()" onclick="buscar()"
+                  id="buscarProducto">
               </div>
               <table class="table table-bordered table-hover">
                 <thead>
@@ -425,14 +442,15 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
 
 
                           ?>
-                          <select required="" onselect="tipo()" onchange="tipo()" name="tipopago_id" id="tipopago_id" id1="valor" class="form-control">
+                          <select required="" onselect="tipo()" onchange="tipo()" name="tipopago_id" id="tipopago_id"
+                            id1="valor" class="form-control">
                             <!-- <option value="0">Seleccionar</option> -->
-                            <?php foreach ($tipos as $tipo) :
+                            <?php foreach ($tipos as $tipo):
                               if ($tipo->id_tipo != 5) {
-                            ?>
+                                ?>
 
                                 <option value="<?php echo $tipo->id_tipo ?>"><?= $tipo->nombre ?></option>
-                            <?php
+                                <?php
                               }
                             endforeach; ?>
                           </select>
@@ -456,21 +474,24 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                             $cambio = $cambio2;
 
                             ?>
-                            <select required="" name="tipomoneda_id2" id="tipomoneda_id2" id1="valor" class="form-control" oninput="tipocambio()">
+                            <select required="" name="tipomoneda_id2" id="tipomoneda_id2" id1="valor" class="form-control"
+                              oninput="tipocambio()">
                               <?php
                               $i = 0;
-                              foreach ($monedas as $moneda) : ?>
+                              foreach ($monedas as $moneda): ?>
                                 <?php
                                 $valocito = null;
                                 $i++;
                                 if ($i == 1) {
-                                ?>
-                                  <option selected value="<?php echo $moneda->id_tipomoneda; ?>"><?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                  ?>
+                                  <option selected value="<?php echo $moneda->id_tipomoneda; ?>">
+                                    <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
                                 <?php } else {
 
-                                ?>
-                                  <option value="<?php echo $moneda->id_tipomoneda; ?>"><?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
-                              <?php
+                                  ?>
+                                  <option value="<?php echo $moneda->id_tipomoneda; ?>">
+                                    <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                  <?php
                                 }
 
                               endforeach; ?>
@@ -489,7 +510,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                         // $cobro = $cobros->getCobro($_GET['id_cobro']);
                         // $cobror = $cobro->TOTAL_COBRO;
                         // $cliente = $cobro->CLIENTE_ID;
-
+                    
                         // var_dump($cobro);
                         ?>
                         <table class="table table-bordered table-hover">
@@ -532,11 +553,15 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                 <div class="col-lg-offset-2">
                   <div class="checkbox">
                     <label>
-                      <input type="hidden" name="sucursal_id" id="sucursal_id" value="<?php echo $sucursales->id_sucursal; ?>">
+                      <input type="hidden" name="sucursal_id" id="sucursal_id"
+                        value="<?php echo $sucursales->id_sucursal; ?>">
                       <!-- <input type="hidden" value="<?php echo $q1; ?>" id="stock_trans" name="stock_trans" /> -->
-                      <input type="hidden" name="id_sucursal" id="id_sucursal" value="<?php echo $sucursales->id_sucursal; ?>">
-                      <a href="index.php?action=eliminarcompraproductos1&id_sucursal=<?php echo $sucursales->id_sucursal; ?>" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i> Cancelar</a>
-                      <button id="accion" class="btn btn-lg btn-warning" onclick="accion()"><b></b> Finalizar Venta</button></label>
+                      <input type="hidden" name="id_sucursal" id="id_sucursal"
+                        value="<?php echo $sucursales->id_sucursal; ?>">
+                      <a href="index.php?action=eliminarcompraproductos1&id_sucursal=<?php echo $sucursales->id_sucursal; ?>"
+                        class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i> Cancelar</a>
+                      <button id="accion" class="btn btn-lg btn-warning" onclick="accion()"><b></b> Finalizar
+                        Venta</button></label>
                   </div>
                 </div>
               </div>
@@ -576,7 +601,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <?php endif;
 endif;
 
@@ -592,7 +616,7 @@ if (isset($_GET['tid'])) { ?>
         sucursal: "<?php $_GET['id_sucursal']; ?>"
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         console.log("222", json);
         $("#cliente_id").val(json[0]["cliente"]);
 
@@ -607,7 +631,7 @@ if (isset($_GET['tid'])) { ?>
 
         }
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
@@ -619,22 +643,23 @@ if (isset($_GET['tid'])) { ?>
         sucursal: "<?php $_GET['id_sucursal']; ?>"
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         console.log("222", json);
 
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
   </script>
-<?php
+  <?php
 } else { ?>
   <script type="text/javascript">
     $("#remision_id").val(0);
   </script>
-<?php
-};
+  <?php
+}
+;
 ?>
 
 <script>
@@ -696,12 +721,12 @@ if (isset($_GET['tid'])) { ?>
 
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
 
         // window.location.href = "impresioncobro.php?cobro=" + cobroId;
 
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error." + JSON.stringify(xhr));
       }
     });
@@ -825,7 +850,7 @@ if (isset($_GET['tid'])) { ?>
         type: 'GET',
         data: {},
         dataType: 'json',
-        success: function(json) {
+        success: function (json) {
           console.log(json)
           for (var i = 0; i < json.length; i++) {
             select += `<option value="${json[i].id_procesadora}">${json[i].nombre}</option> `
@@ -834,7 +859,7 @@ if (isset($_GET['tid'])) { ?>
           }
           $("#tipopago").html(select);
         },
-        error: function(xhr, status) {
+        error: function (xhr, status) {
           console.log("Ha ocurrido un error.");
         }
       });
@@ -869,11 +894,11 @@ if (isset($_GET['tid'])) { ?>
       type: 'GET',
       data: {},
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         cobroId = json
 
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
@@ -891,7 +916,7 @@ if (isset($_GET['tid'])) { ?>
         type: 'GET',
         data: {},
         dataType: 'json',
-        success: function(json) {
+        success: function (json) {
           console.log(json)
           for (var i = 0; i < json.length; i++) {
             select += `<option value="${json[i].id_procesadora}">${json[i].nombre}</option> `
@@ -900,7 +925,7 @@ if (isset($_GET['tid'])) { ?>
           }
           $("#tipopago").html(select);
         },
-        error: function(xhr, status) {
+        error: function (xhr, status) {
           console.log("Ha ocurrido un error.");
         }
       });
@@ -925,7 +950,7 @@ if (isset($_GET['tid'])) { ?>
       var isRemision = "";
       if ($("#remision_id").val() != 0) {
         isRemision = ", Remision # " + $("#remision_id").val();
-      } else {}
+      } else { }
       $("#cliente_select").html(`<h4>Cliente: ${$('select[name="cliente_id"] option:selected').text()} </h4><h4>Moneda: ${$('select[name="tipomoneda_id"] option:selected').text()} </h4><h4>tipo de venta: ${$('input[name="metodopago"]:checked').val()} </h4><h4> ${$('select[name="configfactura_id"] option:selected').text()} ${isRemision}</h4>`)
     }
     clienteTipo()
@@ -944,14 +969,14 @@ if (isset($_GET['tid'])) { ?>
           accion: "obtenerCambioPorSimbolo"
         },
         dataType: 'json',
-        success: function(json) {
+        success: function (json) {
           $("#cambio").val(json[0].valor);
 
           valor_dolar_global = json[0].valor;
           ajaxConfigMasiva("₲");
 
         },
-        error: function(xhr, status) {
+        error: function (xhr, status) {
           console.log("Ha ocurrido un error.");
         }
       });
@@ -969,13 +994,13 @@ if (isset($_GET['tid'])) { ?>
           accion: "obtenerCambioPorSimbolo"
         },
         dataType: 'json',
-        success: function(json) {
+        success: function (json) {
           valor_guaranies_global = json[0].valor;
           // idtipomoneda = json[0].id_tipomoneda;
           $("#cambio").val(json[0].valor);
           ajaxConfigMasiva("US$");
         },
-        error: function(xhr, status) {
+        error: function (xhr, status) {
           console.log("Ha ocurrido un error.");
         }
       });
@@ -1043,14 +1068,14 @@ if (isset($_GET['tid'])) { ?>
         id: $("#cliente_id").val()
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         console.log(json)
         tipocliente = json.id_precio;
         console.log(tipocliente)
         // carrito = []
         actualizarTabla()
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
@@ -1065,7 +1090,7 @@ if (isset($_GET['tid'])) { ?>
         confiFactura: Number(document.getElementById("configfactura_id").value)
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         document.getElementById('num1').value = json[0].numeroactual1;
         document.getElementById('numinicio').value = json[0].numeracion_inicial;
         numeracion_final = json[0].numeracion_final;
@@ -1088,7 +1113,7 @@ if (isset($_GET['tid'])) { ?>
         }
         $("#facturan").val(serie1 + '-' + factura_no);
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
@@ -1207,7 +1232,7 @@ if (isset($_GET['tid'])) { ?>
         agente: $("#agente").val(),
         fletera: $("#fletera").val()
       },
-      success: function(dataResult) {
+      success: function (dataResult) {
         console.log(dataResult[0]);
         console.log(dataResult[0].success);
         if (dataResult.includes("<")) {
@@ -1373,7 +1398,7 @@ if (isset($_GET['tid'])) { ?>
         moneda: idtipomoneda,
       },
       cache: false,
-      success: function(dataResult) {
+      success: function (dataResult) {
         var result = JSON.parse(dataResult);
         for (const [id, data_1] of Object.entries(result)) {
           if (data_1["producto"]['activo'] == 1) {
@@ -1565,12 +1590,12 @@ if (isset($_GET['tid'])) { ?>
         id: id, //simbolo
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         console.log("212121212", json['simbolo']);
         $("#tipomoneda_id").val(json['simbolo'])
 
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
@@ -1588,7 +1613,7 @@ if (isset($_GET['tid'])) { ?>
         accion: "obtenerCambioPorSimbolo"
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         const cambio_valor = json[0].valor;
         idtipomoneda = json[0].id_tipomoneda;
         simbolo = simbolo$;
@@ -1598,7 +1623,7 @@ if (isset($_GET['tid'])) { ?>
 
 
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });
@@ -1616,7 +1641,7 @@ if (isset($_GET['tid'])) { ?>
         accion: "obtenerCambioPorSimbolo"
       },
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         const cambio_valor = json[0].valor2;
         if (moneda_principal_global == "US$") { //dolar como moneda principal
           if (moneda_seleccionada == "₲") {
@@ -1636,7 +1661,7 @@ if (isset($_GET['tid'])) { ?>
           }
         }
       },
-      error: function(xhr, status) {
+      error: function (xhr, status) {
         console.log("Ha ocurrido un error.");
       }
     });

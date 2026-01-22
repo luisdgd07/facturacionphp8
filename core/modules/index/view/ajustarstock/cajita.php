@@ -1,9 +1,9 @@
 <?php
 $u = null;
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
   $u = UserData::getById($_SESSION["admin_id"]);
-?>
-  <?php if ($u->is_empleado) : ?>
+  ?>
+  <?php if ($u->is_empleado): ?>
 
     <?php
     $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
@@ -26,18 +26,21 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                   </div>
                   <div class="box-header">
 
-                    <div class="col-md-6" style="    margin-top: 5px;"> <i class="fa fa-laptop" style="color: orange;"></i> INGRESAR PRODUCTOS.
-                      <input type="text" class="form-control" placeholder="Buscar" onchange="buscar()" onclick="buscar()" id="buscarProducto">
+                    <div class="col-md-6" style="    margin-top: 5px;"> <i class="fa fa-laptop" style="color: orange;"></i>
+                      INGRESAR PRODUCTOS.
+                      <input type="text" class="form-control" placeholder="Buscar" onchange="buscar()" onclick="buscar()"
+                        id="buscarProducto">
                     </div>
                     <div class="col-md-6"> <label for="inputEmail1" class="control-label">Depósito:</label>
                       <div class="">
                         <?php
                         $deposito = ProductoData::verdeposito($_GET['id_sucursal']);
-                        if (count($deposito) > 0) : ?>
+                        if (count($deposito) > 0): ?>
                           <select name="id_deposito" onchange="buscar()" id="id_deposito" required class="form-control">
 
-                            <?php foreach ($deposito as $depositos) : ?>
-                              <option value="<?php echo $depositos->DEPOSITO_ID; ?>" style="color: orange;"><i class="fa fa-gg"></i><?php echo $depositos->NOMBRE_DEPOSITO; ?></option>
+                            <?php foreach ($deposito as $depositos): ?>
+                              <option value="<?php echo $depositos->DEPOSITO_ID; ?>" style="color: orange;"><i
+                                  class="fa fa-gg"></i><?php echo $depositos->NOMBRE_DEPOSITO; ?></option>
                             <?php endforeach; ?>
                           </select>
                         <?php endif; ?>
@@ -65,8 +68,9 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                     $clients = ProveedorData::verproveedorssucursal($_GET["id_sucursal"]);
                     ?>
                     <select id="cliente_id" class="form-control" required>
-                      <?php foreach ($clients as $client) : ?>
-                        <option value="<?php echo $client->id_cliente; ?>"><?php echo $client->nombre . " " . $client->apellido; ?></option>
+                      <?php foreach ($clients as $client): ?>
+                        <option value="<?php echo $client->id_cliente; ?>">
+                          <?php echo $client->nombre . " " . $client->apellido; ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -89,11 +93,13 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                 <div class="form-group">
                   <label for="comprobante2" class="col-lg-2 control-label">N° Comprobante:</label>
                   <div class="col-lg-2">
-                    <input type="text" name="comprobante2" minlength="15" class="form-control" placeholder="Numero de factura" id="comprobante2" required onpaste="return true" maxlength="15">
+                    <input type="text" name="comprobante2" minlength="15" class="form-control"
+                      placeholder="Numero de factura" id="comprobante2" required onpaste="return true" maxlength="15">
                   </div>
                   <label for="timbrado2" class="col-lg-2 control-label">Timbrado:</label>
                   <div class="col-lg-2">
-                    <input type="text" name="timbrado2" minlength="8" class="form-control" id="timbrado2" placeholder="Timbrado" required onpaste="return true" maxlength="8">
+                    <input type="text" name="timbrado2" minlength="8" class="form-control" id="timbrado2"
+                      placeholder="Timbrado" required onpaste="return true" maxlength="8">
                   </div>
                   <div id=ocultar1>
                   </div>
@@ -121,12 +127,14 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                     <?php
                     $monedas = MonedaData::cboObtenerValorPorSucursal($sucursales->id_sucursal);
                     ?>
-                    <select required="" name="tipomoneda_id" id="tipomoneda_id" id1="valor2" class="form-control" oninput="tipocambio()">
-                      <?php foreach ($monedas as $moneda) : ?>
+                    <select required="" name="tipomoneda_id" id="tipomoneda_id" id1="valor2" class="form-control"
+                      oninput="tipocambio()">
+                      <?php foreach ($monedas as $moneda): ?>
                         <?php
                         $valocito = null;
                         ?>
-                        <option value="<?php echo $moneda->simbolo; ?>"><?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                        <option value="<?php echo $moneda->simbolo; ?>">
+                          <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
 
                         <script type="text/javascript">
                           function tipocambio() {
@@ -149,7 +157,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                       $valores = 0;
                       foreach ($cotizacion as $moneda) {
                         $mon = MonedaData::cboObtenerValorPorSucursal3($_GET["id_sucursal"]);
-                        foreach ($mon as $mo) :
+                        foreach ($mon as $mo):
                           $nombre = $mo->nombre;
                           $fechacotiz = $mo->fecha_cotizacion;
                           $valores = $mo->valor2;
@@ -161,7 +169,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                     ?>
 
                     <input type="hidden" name="cambio2" id="cambio2" value="<?php echo $valores; ?>" class="form-control">
-                    <input type="hidden" name="simbolo2" id="simbolo2" value="<?php echo $simbolo2; ?>" class="form-control">
+                    <input type="hidden" name="simbolo2" id="simbolo2" value="<?php echo $simbolo2; ?>"
+                      class="form-control">
 
 
 
@@ -200,7 +209,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                           <p>IVA 10%</p>
                         </td>
                         <td>
-                          <p><b> <input type="text" class="form-control" id="iva10" value="<?php echo ($totaliva10); ?>" readonly=""></b></p>
+                          <p><b> <input type="text" class="form-control" id="iva10" value="<?php echo ($totaliva10); ?>"
+                                readonly=""></b></p>
                         </td>
                       </tr>
                       <tr>
@@ -230,7 +240,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                           <p>Total</p>
                         </td>
                         <td>
-                          <p><b> <input type="text" class="form-control" id="txtTotalVentas" name="money" readonly=""></b></p>
+                          <p><b> <input type="text" class="form-control" id="txtTotalVentas" name="money" readonly=""></b>
+                          </p>
                         </td>
                       </tr>
 
@@ -248,10 +259,13 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                       <div class="col-lg-offset-2 col-lg-10">
                         <div class="checkbox">
                           <label>
-                            <input type="hidden" name="sucursal_id" id="sucursal_id" value="<?php echo $sucursales->id_sucursal; ?>">
+                            <input type="hidden" name="sucursal_id" id="sucursal_id"
+                              value="<?php echo $sucursales->id_sucursal; ?>">
                             <input type="hidden" value="<?php echo $q1; ?>" id="stock_trans" name="stock_trans" />
-                            <input type="hidden" name="id_sucursal" id="id_sucursal" value="<?php echo $sucursales->id_sucursal; ?>">
-                            <button class="btn btn-lg btn-warning" onclick="accion()"><i class="fa fa-refresh"></i> Finalizar Compra</button>
+                            <input type="hidden" name="id_sucursal" id="id_sucursal"
+                              value="<?php echo $sucursales->id_sucursal; ?>">
+                            <button class="btn btn-lg btn-warning" onclick="accion()"><i class="fa fa-refresh"></i>
+                              Finalizar Compra</button>
                           </label>
                         </div>
                       </div>
@@ -267,7 +281,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
     </div>
   <?php endif ?>
 <?php endif ?>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   var carrito = [];
   var precioE = 0;
@@ -331,7 +344,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
         // precio_comp: 0
       },
       cache: false,
-      success: function(dataResult) {
+      success: function (dataResult) {
         if (dataResult == 1) {
           Swal.fire({
             title: "Transacción exitosa",
@@ -484,7 +497,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
 
       },
       cache: false,
-      success: function(dataResult) {
+      success: function (dataResult) {
         var result = JSON.parse(dataResult);
         for (const [id, data_1] of Object.entries(result)) {
           if (data_1.tipo != 'Servicio') {

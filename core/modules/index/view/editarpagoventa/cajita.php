@@ -12,27 +12,27 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
 }
 ?>
 <?= $rucEmisor = $ventas->verSocursal()->ruc ?>
-<?= $telefonoEmisor =  $ventas->verSocursal()->telefono ?>
+<?= $telefonoEmisor = $ventas->verSocursal()->telefono ?>
 <?= $ventas->VerConfiFactura()->timbrado1 ?>
 
-<?php if ($ventas->numerocorraltivo >= 1 & $ventas->numerocorraltivo < 10) : ?>
-    <?= $facturaN =    "000000" . $ventas->numerocorraltivo ?>
-<?php else : ?>
-    <?php if ($ventas->numerocorraltivo >= 10 & $ventas->numerocorraltivo < 100) : ?>
+<?php if ($ventas->numerocorraltivo >= 1 & $ventas->numerocorraltivo < 10): ?>
+    <?= $facturaN = "000000" . $ventas->numerocorraltivo ?>
+<?php else: ?>
+    <?php if ($ventas->numerocorraltivo >= 10 & $ventas->numerocorraltivo < 100): ?>
         <?= $facturaN = "00000" . $ventas->numerocorraltivo ?>
-    <?php else : ?>
-        <?php if ($ventas->numerocorraltivo >= 100 & $ventas->numerocorraltivo < 1000) : ?>
-            <?= $facturaN =  "0000" . $ventas->numerocorraltivo ?>
-        <?php else : ?>
-            <?php if ($ventas->numerocorraltivo >= 1000 & $ventas->numerocorraltivo < 10000) : ?>
+    <?php else: ?>
+        <?php if ($ventas->numerocorraltivo >= 100 & $ventas->numerocorraltivo < 1000): ?>
+            <?= $facturaN = "0000" . $ventas->numerocorraltivo ?>
+        <?php else: ?>
+            <?php if ($ventas->numerocorraltivo >= 1000 & $ventas->numerocorraltivo < 10000): ?>
                 <?= $facturaN = "000" . $ventas->numerocorraltivo ?>
-            <?php else : ?>
-                <?php if ($ventas->numerocorraltivo >= 100000 & $ventas->numerocorraltivo < 1000000) : ?>
+            <?php else: ?>
+                <?php if ($ventas->numerocorraltivo >= 100000 & $ventas->numerocorraltivo < 1000000): ?>
                     <?= $facturaN = "00" . $ventas->numerocorraltivo ?>
-                <?php else : ?>
-                    <?php if ($ventas->numerocorraltivo >= 1000000 & $ventas->numerocorraltivo < 10000000) : ?>
+                <?php else: ?>
+                    <?php if ($ventas->numerocorraltivo >= 1000000 & $ventas->numerocorraltivo < 10000000): ?>
                         <?= $facturaN = "0" . $ventas->numerocorraltivo ?>
-                    <?php else : ?>
+                    <?php else: ?>
                         SIN ACCION
                     <?php endif ?>
                 <?php endif ?>
@@ -59,12 +59,12 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
 
-        <form class="form-horizontal" role="form" method="post" hidden name="facturacion" action="index.php?action=agregarenvio" enctype="multipart/form-data">
+        <form class="form-horizontal" role="form" method="post" hidden name="facturacion"
+            action="index.php?action=agregarenvio" enctype="multipart/form-data">
             <input type="text" name="venta" id="venta" value="<?php echo $_GET['id_venta'] ?>">
             <input type="text" name="estado" id="estado" value="">
             <input type="text" name="cdc" id="cdc" value="">
@@ -84,7 +84,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                     <div class="box-body">
                         <input type="hidden" name="xml_string" id="xml_string">
                         <input type="hidden" name="certandkey" id="certandkey">
-                        <?php if (isset($_GET["id_venta"]) && $_GET["id_venta"] != "") : ?>
+                        <?php if (isset($_GET["id_venta"]) && $_GET["id_venta"] != ""): ?>
                             <?php
 
                             $sell = VentaData::getById($_GET["id_venta"]);
@@ -92,8 +92,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                             $total = 0;
                             ?>
 
-                            <?php if ($sell->numerocorraltivo == "") : ?>
-                            <?php else : ?>
+                            <?php if ($sell->numerocorraltivo == ""): ?>
+                            <?php else: ?>
                                 <table class="table table-bordered">
                                     <tr>
                                         <th style="color: blue;">Factura N°:</th>
@@ -126,9 +126,9 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                             <?php endif ?>
                             <br>
                             <table class="table table-bordered">
-                                <?php if ($sell->cliente_id != "") :
+                                <?php if ($sell->cliente_id != ""):
                                     $client = $sell->getCliente();
-                                ?>
+                                    ?>
 
                                     <td class="alert alert-warning"><b>CLIENTE:</b></td>
 
@@ -139,9 +139,9 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                         $dptClient = $client->departamento_id;
                                         $distClient = $client->distrito_id;
                                         if ($client->tipo_doc == "SIN NOMBRE") {
-                                            echo  $client->tipo_doc;
+                                            echo $client->tipo_doc;
                                         } else {
-                                            echo  $client->nombre . " " . $client->apellido;
+                                            echo $client->nombre . " " . $client->apellido;
                                         } ?>
 
                                         <?php
@@ -151,9 +151,9 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                     </td>
 
                                 <?php endif; ?>
-                                <?php if ($sell->usuario_id != "") :
+                                <?php if ($sell->usuario_id != ""):
                                     $user = $sell->getUser();
-                                ?>
+                                    ?>
 
                                     <td class="alert alert-warning"><b>USUARIO:</b></td>
                                     <td class="alert alert-warning"><?php echo $user->nombre . " " . $user->apellido; ?></td>
@@ -175,11 +175,11 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                 $total3 = 0;
                                 $total4 = 0;
                                 $cant = 0;
-                                $productosItem  = array();
+                                $productosItem = array();
                                 $tipo = ProductoData::verinsumo($operations[0]->sucursal_id);
                                 $insumo = $tipo->ID_TIPO_PROD;
                                 foreach ($operations as $operation) {
-                                    $product  = $operation->getProducto();
+                                    $product = $operation->getProducto();
                                     if ($product->ID_TIPO_PROD == $insumo) {
                                     } else {
 
@@ -187,7 +187,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                             $cant = $operation->precio3;
                                         } else {
                                             $cant = $operation->q;
-                                        };
+                                        }
+                                        ;
 
                                         array_push($productosItem, json_encode(array(
                                             "codigo" => $product->codigo,
@@ -207,7 +208,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                         )));
 
 
-                                ?>
+                                        ?>
                                         <tr>
                                             <td><?php echo $product->codigo; ?></td>
                                             <td><?php echo $cant; ?></td>
@@ -224,7 +225,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                             <td><?php echo number_format(($operation->precio * $cant), 2, ",", "."); ?></td>
                                             </b></td>
                                         </tr>
-                                <?php
+                                        <?php
                                     }
                                 }
                                 ?>
@@ -250,7 +251,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                             </td>
                                             <td>
                                                 <h4><?php echo number_format($sell->total, 2, ",", ".");
-                                                    ?></h4>
+                                                ?></h4>
                                             </td>
 
                                             </td>
@@ -266,7 +267,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                 $valores = 0;
                                 foreach ($cotizacion as $moneda) {
                                     $mon = MonedaData::cboObtenerValorPorSucursal3($_GET['id_sucursal']);
-                                    foreach ($mon as $mo) :
+                                    foreach ($mon as $mo):
                                         $nombre = $mo->nombre;
                                         $fechacotiz = $mo->fecha_cotizacion;
                                         $valores = $mo->valor;
@@ -276,7 +277,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                             }
 
                             ?>
-                            <input type="hidden" name="cambio2" id="cambio2" value="<?php echo $valores; ?>" class="form-control">
+                            <input type="hidden" name="cambio2" id="cambio2" value="<?php echo $valores; ?>"
+                                class="form-control">
                             <div class="box">
 
                                 <div class="box-body">
@@ -287,18 +289,20 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                             <?php
                                             $tipos = CajaTipo::vercajatipo2();
                                             ?>
-                                            <select required="" onselect="tipo()" onchange="tipo()" name="tipopago_id" id="tipopago_id" id1="valor" class="form-control">
-                                                <?php foreach ($tipos as $tipo) :
-                                                ?>
+                                            <select required="" onselect="tipo()" onchange="tipo()" name="tipopago_id"
+                                                id="tipopago_id" id1="valor" class="form-control">
+                                                <?php foreach ($tipos as $tipo):
+                                                    ?>
 
                                                     <option value="<?php echo $tipo->id_tipo ?>"><?= $tipo->nombre ?></option>
-                                                <?php
+                                                    <?php
                                                 endforeach; ?>
                                             </select>
                                             <div id="tarjeta">
                                                 <select required="" id="tipopago" class="form-control">
                                                 </select>
-                                                <input type="text" name="" class="form-control" placeholder="Vaucher" id="vaucher">
+                                                <input type="text" name="" class="form-control" placeholder="Vaucher"
+                                                    id="vaucher">
                                                 <label for="tarjeta">Tipo:</label>
                                                 <select id="tarjeta_id" class="form-control" name="tarjeta">
                                                     <option value="1">Visa</option>
@@ -328,21 +332,24 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                                 $cambio = $cambio2;
 
                                                 ?>
-                                                <select required="" name="tipomoneda_id2" id="tipomoneda_id2" id1="valor" class="form-control" oninput="tipocambio()">
+                                                <select required="" name="tipomoneda_id2" id="tipomoneda_id2" id1="valor"
+                                                    class="form-control" oninput="tipocambio()">
                                                     <?php
                                                     $i = 0;
-                                                    foreach ($monedas as $moneda) : ?>
+                                                    foreach ($monedas as $moneda): ?>
                                                         <?php
                                                         $valocito = null;
                                                         $i++;
                                                         if ($i == 1) {
-                                                        ?>
-                                                            <option selected value="<?php echo $moneda->id_tipomoneda; ?>"><?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                                            ?>
+                                                            <option selected value="<?php echo $moneda->id_tipomoneda; ?>">
+                                                                <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
                                                         <?php } else {
 
-                                                        ?>
-                                                            <option value="<?php echo $moneda->id_tipomoneda; ?>"><?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
-                                                    <?php
+                                                            ?>
+                                                            <option value="<?php echo $moneda->id_tipomoneda; ?>">
+                                                                <?php echo $moneda->nombre . "-" . $moneda->simbolo; ?></option>
+                                                            <?php
                                                         }
 
                                                     endforeach; ?>
@@ -350,7 +357,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                             </div>
                                         </div>
                                         <div class="col-md-2">Monto:</div>
-                                        <div class="col-md-2"><input type="number" name="" value="0" class="form-control" id="monto"></div>
+                                        <div class="col-md-2"><input type="number" name="" value="0" class="form-control"
+                                                id="monto"></div>
                                         <div class="" id="cheque">
                                             <div class="col-md-2">Banco:</div>
                                             <div class="col-md-2">
@@ -362,12 +370,14 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                                 <select id="banco_cheque" name="banco_cheque" class="form-control">
                                                     <?php foreach ($bancos as $banco) { ?>
                                                         <?php echo $banco->nombre_banco ?>
-                                                        <option value="<?php echo $banco->id_banco ?>" selected><?php echo $banco->nombre_banco ?></option>
+                                                        <option value="<?php echo $banco->id_banco ?>" selected>
+                                                            <?php echo $banco->nombre_banco ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">Cheque Nro:</div>
-                                            <div class="col-md-2"><input type="text" name="" class="form-control" id="nroCheque"></div>
+                                            <div class="col-md-2"><input type="text" name="" class="form-control"
+                                                    id="nroCheque"></div>
                                         </div>
                                         <div class="" id="transferencia">
                                             <div class="col-md-2">Banco:</div>
@@ -378,13 +388,15 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                                 <select id="banco_trans" name="banco_trans" class="form-control">
                                                     <?php foreach ($bancos as $banco) { ?>
                                                         <?php echo $banco->nombre_banco ?>
-                                                        <option value="<?php echo $banco->id_banco ?>" selected><?php echo $banco->nombre_banco ?></option>
+                                                        <option value="<?php echo $banco->id_banco ?>" selected>
+                                                            <?php echo $banco->nombre_banco ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-2">Recibo:</div>
-                                            <div class="col-md-2"><input type="text" name="" class="form-control" id="recibo"></div>
+                                            <div class="col-md-2"><input type="text" name="" class="form-control"
+                                                    id="recibo"></div>
 
                                         </div>
                                         <?php
@@ -396,7 +408,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
 
                                             $cobroId = (!empty($cajas) && isset($cajas[0]->COBRO_ID)) ? $cajas[0]->COBRO_ID : null;
                                             if ($cajas && !empty($cajas)) {
-                                                foreach ($cajas  as $caja) {
+                                                foreach ($cajas as $caja) {
                                                     if ($sell->VerTipoModena()->simbolo == "₲") {
                                                         $moneda = 'GUARANIES-₲';
                                                     } else {
@@ -560,7 +572,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                             }
                                         }
                                         ?>
-                                        <div class="col-md-2"><button class="btn btn-info" onclick="agregarPago()">Agregar</button></div>
+                                        <div class="col-md-2"><button class="btn btn-info"
+                                                onclick="agregarPago()">Agregar</button></div>
 
                                         <div class="row">
                                             <?php
@@ -599,10 +612,11 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                                     </div>
                                 </div>
                                 <br>
-                                <div class="col-md-2"><button class="btn btn-success" onclick="pagar()">Guardar</button></div>
+                                <div class="col-md-2"><button class="btn btn-success" onclick="pagar()">Guardar</button>
+                                </div>
                             </div>
-                        <?php
-                        else : ?>
+                            <?php
+                        else: ?>
                             501 Internal Error
                         <?php endif; ?>
                     </div>
@@ -681,7 +695,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                 type: 'GET',
                 data: {},
                 dataType: 'json',
-                success: function(json) {
+                success: function (json) {
                     console.log(json)
                     for (var i = 0; i < json.length; i++) {
                         select += `<option value="${json[i].id_procesadora}">${json[i].nombre}</option> `
@@ -690,7 +704,7 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                     }
                     $("#tipopago").html(select);
                 },
-                error: function(xhr, status) {
+                error: function (xhr, status) {
                     console.log("Ha ocurrido un error.");
                 }
             });
@@ -822,8 +836,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
             }
 
             if ($('select[name="tipomoneda_id2"] option:selected').text().includes('$')) {
-                    totalCobrar += parseFloat($('#monto').val());
-         
+                totalCobrar += parseFloat($('#monto').val());
+
                 pagos.push({
                     "tipo_id": $('#tipopago_id').val(),
                     "cambio": cambio,
@@ -842,8 +856,8 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                     "tarjeta_text": ''
                 });
             } else {
-                    totalCobrar += parseFloat($('#monto').val()) * cambio;
-         
+                totalCobrar += parseFloat($('#monto').val()) * cambio;
+
                 pagos.push({
                     "tipo_id": $('#tipopago_id').val(),
                     "cambio": '1',
@@ -901,11 +915,11 @@ if ($ventas->VerTipoModena()->simbolo == "₲") {
                 cobro: <?php echo $cobroId; ?>
 
             },
-            success: function(json) {
+            success: function (json) {
                 alert('pago editado')
                 window.location.reload()
             },
-            error: function(xhr, status) {
+            error: function (xhr, status) {
                 alert('pago editado')
                 window.location.reload()
             }

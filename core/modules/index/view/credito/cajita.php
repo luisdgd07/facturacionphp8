@@ -1,11 +1,11 @@
 <?php
 $u = null;
 
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     $u = UserData::getById($_SESSION["admin_id"]);
     require 'core/modules/index/components/kudes.php';
 
-?>
+    ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -47,7 +47,9 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                             <td><?= $caja->concepto ?></td>
                                             <td>
                                                 <abbr title="Anular cobro">
-                                                    <button onclick="eliminar(<?= $caja->COBRO_ID ?>)" class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
+                                                    <button onclick="eliminar(<?= $caja->COBRO_ID ?>)"
+                                                        class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i>
+                                                    </button></abbr>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -64,7 +66,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
     </div>
 <?php endif ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function eliminar(venta) {
@@ -78,7 +79,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=eliminarcobro&id_sucursal=<?= $_GET['id_sucursal'] ?>&id=${venta}`;
 
-            } else {}
+            } else { }
         })
     }
 </script>

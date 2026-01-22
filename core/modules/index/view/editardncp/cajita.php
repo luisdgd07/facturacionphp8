@@ -1,7 +1,8 @@
 <?php
 $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 ?>
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
+<link rel='stylesheet prefetch'
+  href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <div class="content-wrapper">
@@ -33,11 +34,13 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 
                       <label class="col-lg-2 control-label">Modalidad:</label>
                       <div class="col-lg-4">
-                        <input type="text" name="modalidad" class="form-control" id="descripcion" maxlength="800" value="<?= $dncp->modalidad ?>">
+                        <input type="text" name="modalidad" class="form-control" id="descripcion" maxlength="800"
+                          value="<?= $dncp->modalidad ?>">
                       </div>
                       <label class="col-lg-2 control-label">Entidad</label>
                       <div class="col-lg-4">
-                        <input type="text" name="entidad" class="form-control" id="monto" maxlength="800" required value="<?= $dncp->entidad ?>">
+                        <input type="text" name="entidad" class="form-control" id="monto" maxlength="800" required
+                          value="<?= $dncp->entidad ?>">
                       </div>
 
                     </div>
@@ -45,12 +48,14 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 
                       <label for="cuota" class="col-lg-2 control-label">Fecha</label>
                       <div class="col-lg-4">
-                        <input type="date" name="fecha" class="form-control" id="cuota" required value="<?= $dncp->fecha ?>">
+                        <input type="date" name="fecha" class="form-control" id="cuota" required
+                          value="<?= $dncp->fecha ?>">
                         <span class="fa fa-barcode form-control-feedback"></span>
                       </div>
                       <label class="col-lg-2 control-label">Secuencia</label>
                       <div class="col-lg-4">
-                        <input type="text" name="secuencia" class="form-control" id="monto" maxlength="800" required value="<?= $dncp->secuencia ?>">
+                        <input type="text" name="secuencia" class="form-control" id="monto" maxlength="800" required
+                          value="<?= $dncp->secuencia ?>">
                       </div>
 
 
@@ -61,19 +66,24 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 
                       <label for="cuota" class="col-lg-2 control-label">Cliente</label>
                       <div class="col-lg-4">
-                        <?php  ?>
-                        <select name="cliente_id" class="selectpicker show-menu-arrow" data-style="form-control" data-live-search="true" id="cliente_id" class="form-control">
+                        <?php ?>
+                        <select name="cliente_id" class="selectpicker show-menu-arrow" data-style="form-control"
+                          data-live-search="true" id="cliente_id" class="form-control">
                           <option value="">SELECCIONAR CLIENTE</option>
                           <?php
                           $clients = ClienteData::verclientessucursal($sucursales->id_sucursal);
-                          foreach ($clients as $client) :
+                          foreach ($clients as $client):
                             if ($client->id_cliente == $dncp->cliente_id) { ?>
-                              <option selected value="<?php echo $client->id_cliente; ?>"><?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?></option>
-                            <?php
+                              <option selected value="<?php echo $client->id_cliente; ?>">
+                                <?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?>
+                              </option>
+                              <?php
                             } else {
-                            ?>
-                              <option value="<?php echo $client->id_cliente; ?>"><?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?></option>
-                          <?php }
+                              ?>
+                              <option value="<?php echo $client->id_cliente; ?>">
+                                <?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?>
+                              </option>
+                            <?php }
                           endforeach;
 
                           ?>
@@ -85,10 +95,13 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                       </div>
                       <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
-                          <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $sucursales->id_sucursal; ?>">
-                          <input type="hidden" name="sucursal_id" id="sucursal_id" value="<?php echo $sucursales->id_sucursal; ?>">
+                          <input type="hidden" name="sucursal" id="sucursal"
+                            value="<?php echo $sucursales->id_sucursal; ?>">
+                          <input type="hidden" name="sucursal_id" id="sucursal_id"
+                            value="<?php echo $sucursales->id_sucursal; ?>">
                           <input type="hidden" name="id" value="<?= $dncp->id ?>">
-                          <button type="submit" class="btn btn-warning btn-flat" name="add"><i class="fa fa-save"></i> Guardar</button>
+                          <button type="submit" class="btn btn-warning btn-flat" name="add"><i class="fa fa-save"></i>
+                            Guardar</button>
                         </div>
                       </div>
                     </div>
@@ -103,6 +116,3 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
     </div>
   </section>
 </div>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-</script>

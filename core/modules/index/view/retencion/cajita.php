@@ -1,11 +1,11 @@
 <?php
 $u = null;
 
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     $u = UserData::getById($_SESSION["admin_id"]);
     require 'core/modules/index/components/kudes.php';
 
-?>
+    ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -47,18 +47,20 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                     <?php foreach ($retenciones as $retencion): ?>
                                         <tr>
                                             <td><?php
-                                                echo $retencion->id ?></td>
+                                            echo $retencion->id ?></td>
                                             <td><?php
 
-                                                echo ClienteData::getById($retencion->cliente_id)->nombre;
-                                                ?></td>
+                                            echo ClienteData::getById($retencion->cliente_id)->nombre;
+                                            ?></td>
                                             <td><?php
-                                                echo $retencion->factura ?></td>
+                                            echo $retencion->factura ?></td>
                                             <td><?php echo number_format($retencion->importe, 2, ',', '.') ?></td>
                                             <td><?php echo $retencion->fecha_auditoria ?></td>
                                             <td>
                                                 <abbr title="Anular retencion">
-                                                    <button onclick="eliminar(<?php echo $retencion->id ?>)" class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
+                                                    <button onclick="eliminar(<?php echo $retencion->id ?>)"
+                                                        class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i>
+                                                    </button></abbr>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -75,7 +77,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
     </div>
 <?php endif ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function eliminar(venta) {
@@ -89,7 +90,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=eliminarretencion&id_sucursal=<?= $_GET['id_sucursal'] ?>&id=${venta}`;
 
-            } else {}
+            } else { }
         })
     }
 </script>

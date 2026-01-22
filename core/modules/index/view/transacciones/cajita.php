@@ -143,7 +143,6 @@
       </div>
     <?php endif ?>
   <?php endif ?>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     var carrito = [];
     var precioE = 0;

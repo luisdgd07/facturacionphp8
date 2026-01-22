@@ -2,7 +2,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 
-        <form class="form-horizontal" role="form" method="post" hidden name="facturacion" action="index.php?action=agregarenvio" enctype="multipart/form-data">
+        <form class="form-horizontal" role="form" method="post" hidden name="facturacion"
+            action="index.php?action=agregarenvio" enctype="multipart/form-data">
             <input type="text" name="venta" id="venta" value="<?php echo $_GET['id_venta'] ?>">
             <input type="text" name="estado" id="estado" value="">
             <input type="text" name="cdc" id="cdc" value="">
@@ -19,8 +20,8 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body">
-                        <?php if (true) :
-                        ?>
+                        <?php if (true):
+                            ?>
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="box">
@@ -32,7 +33,7 @@
                                             $sucursalDatos = $sucursal->VerId($_GET['id_sucursal']);
                                             if (count($products) > 0) {
 
-                                            ?>
+                                                ?>
                                                 <table id="example1" class="table table-bordered table-hover  ">
                                                     <thead>
                                                         <th></th>
@@ -52,9 +53,9 @@
 
                                                     <?php
                                                     $int = 0;
-                                                    foreach ($products as $sell) :
+                                                    foreach ($products as $sell):
                                                         $int++;
-                                                    ?>
+                                                        ?>
                                                         <tr>
                                                             <?php
                                                             $operations = OperationData::getAllProductsBySellIddd($sell->id_venta);
@@ -65,7 +66,10 @@
 
 
                                                             <td style="width:30px;">
-                                                                <a href="index.php?view=detalleventaproducto&id_venta=<?php echo $sell->id_venta; ?>" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open" style="color: orange;"></i></a>
+                                                                <a href="index.php?view=detalleventaproducto&id_venta=<?php echo $sell->id_venta; ?>"
+                                                                    class="btn btn-xs btn-default"><i
+                                                                        class="glyphicon glyphicon-eye-open"
+                                                                        style="color: orange;"></i></a>
                                                             </td>
 
                                                             <td style="width:30px;">
@@ -73,10 +77,10 @@
                                                             </td>
 
                                                             <td class="width:30px;">
-                                                                <?php if ($sell->tipo_venta == "1"  or $sell->tipo_venta == "0") : ?>
+                                                                <?php if ($sell->tipo_venta == "1" or $sell->tipo_venta == "0"): ?>
 
                                                                     <?php echo $sell->factura; ?>
-                                                                <?php else : ?>
+                                                                <?php else: ?>
                                                                     <?php echo count($operations) ?>
                                                                 <?php endif ?>
                                                             </td>
@@ -95,9 +99,9 @@
 
                                                             <td class="">
                                                                 <?php if ($sell->VerTipoModena()->simbolo == "US$") {
-                                                                    echo  $sell->cambio2;
+                                                                    echo $sell->cambio2;
                                                                 } else {
-                                                                    echo  1;
+                                                                    echo 1;
                                                                 } ?>
 
                                                             </td>
@@ -112,15 +116,19 @@
                                                                     <button class="btn btn-warning" onclick="enviar()">Cancelar</button>
                                                                     <!-- <a class="btn btn-primary" href="<?php echo $GLOBALS['URL'] ?>/downloadxml/<?php echo $sell->xml; ?>">Descargar XMl</a> -->
 
-                                                                    <a class="btn btn-primary" href="http://18.208.224.72:3000/downloadxml/<?php echo $sell->xml; ?>">Descargar XML</a>
+                                                                    <a class="btn btn-primary"
+                                                                        href="http://18.208.224.72:3000/downloadxml/<?php echo $sell->xml; ?>">Descargar
+                                                                        XML</a>
                                                                 <?php } else if ($sell->enviado == "Aprobado") {
-                                                                ?>
-                                                                    <button class="btn btn-warning" onclick="enviar()">Cancelar</button>
-                                                                    <a class="btn btn-primary" href="http://18.208.224.72:3000/downloadxml/<?php echo $sell->xml; ?>">Descargar XML</a>
-                                                                    <!-- <a class="btn btn-primary" href="<?php echo $GLOBALS['URL'] ?>/downloadxml/<?php echo $sell->xml; ?>">Descargar XMl</a> -->
+                                                                    ?>
+                                                                        <button class="btn btn-warning" onclick="enviar()">Cancelar</button>
+                                                                        <a class="btn btn-primary"
+                                                                            href="http://18.208.224.72:3000/downloadxml/<?php echo $sell->xml; ?>">Descargar
+                                                                            XML</a>
+                                                                        <!-- <a class="btn btn-primary" href="<?php echo $GLOBALS['URL'] ?>/downloadxml/<?php echo $sell->xml; ?>">Descargar XMl</a> -->
 
 
-                                                                <?php
+                                                                    <?php
                                                                 } else {
 
                                                                     echo "No enviado";
@@ -130,18 +138,22 @@
                                                             <td>
 
                                                                 <?php if ($sell->enviado == "Rechazado") { ?>
-                                                                    <a class="btn btn-primary" href="./impresionkude.php?id_venta=<?php echo $sell->id_venta; ?>">Descargar Kude</a>
+                                                                    <a class="btn btn-primary"
+                                                                        href="./impresionkude.php?id_venta=<?php echo $sell->id_venta; ?>">Descargar
+                                                                        Kude</a>
                                                                     <!-- <a class="btn btn-primary" href="http://18.208.224.72:3000/downloadkude/<?php echo $sell->kude; ?>">Descargar Kude</a> -->
                                                                     <!-- <a class="btn btn-primary" href="<?php echo $GLOBALS['URL'] ?>/downloadkude/<?php echo $sell->kude; ?>">Descargar Kude</a> -->
                                                                 <?php } else if ($sell->enviado == "Aprobado") {
-                                                                ?>
-                                                                    <button onclick="kude(<?php echo $sell->kude; ?>)"></button>
-                                                                    <button class="btn btn-warning" onclick="enviar()">Cancelar</button>
-                                                                    <!-- ./impresionkude.php?id_venta=<?php echo $sell->id_venta; ?> -->
-                                                                    <!-- <a class="btn btn-primary" href="http://18.208.224.72:3000/downloadkude/<?php echo $sell->kude; ?>">Descargar Kude</a> -->
-                                                                    <a class="btn btn-primary" href="./impresionkude.php?id_venta=<?php echo $sell->id_venta; ?>">Descargar Kude</a>
+                                                                    ?>
+                                                                        <button onclick="kude(<?php echo $sell->kude; ?>)"></button>
+                                                                        <button class="btn btn-warning" onclick="enviar()">Cancelar</button>
+                                                                        <!-- ./impresionkude.php?id_venta=<?php echo $sell->id_venta; ?> -->
+                                                                        <!-- <a class="btn btn-primary" href="http://18.208.224.72:3000/downloadkude/<?php echo $sell->kude; ?>">Descargar Kude</a> -->
+                                                                        <a class="btn btn-primary"
+                                                                            href="./impresionkude.php?id_venta=<?php echo $sell->id_venta; ?>">Descargar
+                                                                            Kude</a>
 
-                                                                <?php
+                                                                    <?php
                                                                 } else {
 
                                                                     echo "No enviado";
@@ -150,20 +162,20 @@
                                                             </td>
                                                         </tr>
 
-                                                    <?php
+                                                        <?php
                                                     endforeach; ?>
 
                                                 </table>
                                                 <div class="clearfix"></div>
 
-                                            <?php
+                                                <?php
                                             } else {
-                                            ?>
+                                                ?>
                                                 <div class="jumbotron">
                                                     <h2>No hay ventas</h2>
                                                     <p>No se ha realizado ninguna venta.</p>
                                                 </div>
-                                            <?php
+                                                <?php
                                             }
 
                                             ?>
@@ -171,7 +183,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php else : ?>
+                        <?php else: ?>
                             501 Internal Error
                         <?php endif; ?>
                     </div>
@@ -182,7 +194,6 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var datos = [];
     var ventas = [];
@@ -244,7 +255,7 @@
             actividadesEconomicas: [{
                 codigo: "<?php echo $sucursalDatos->codigo_act ?>",
                 descripcion: "<?php echo $sucursalDatos->actividad ?>",
-            }, ],
+            },],
             timbradoNumero: "<?php echo $sucursalDatos->timbrado ?>",
             timbradoFecha: "<?php echo $sucursalDatos->fecha_tim ?>T00:00:00",
             tipoContribuyente: 2,
@@ -264,7 +275,7 @@
                 telefono: "<?php echo $sucursalDatos->telefono ?>",
                 email: "<?php echo $sucursalDatos->email ?>",
                 denominacion: "<?php echo $sucursalDatos->denominacion ?>",
-            }, ],
+            },],
         }
         // let cert = '<?php echo $GLOBALS['CERT'] ?><?php echo $sucursalDatos->certificado_url ?>';
         let cert = '.<?php echo $sucursalDatos->certificado_url ?>';
@@ -294,7 +305,7 @@
 
             },
 
-            success: function(dataResult) {
+            success: function (dataResult) {
                 try {
 
                     // let data = JSON.parse(
@@ -311,7 +322,7 @@
                         title: `Lote: ${lote} enviado, espere un momento estamos obteniendo resultados`,
                         icon: 'info',
                     })
-                    setTimeout(function() {
+                    setTimeout(function () {
                         consultaLote(lote);
                     }, 20000);
 

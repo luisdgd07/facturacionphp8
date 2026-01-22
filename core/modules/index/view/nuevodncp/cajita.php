@@ -1,7 +1,8 @@
 <?php
 $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 ?>
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
+<link rel='stylesheet prefetch'
+  href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 
@@ -62,14 +63,17 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                       <label for="cuota" class="col-lg-2 control-label">Cliente</label>
                       <div class="col-lg-2">
 
-                        <select name="cliente_id" class="selectpicker show-menu-arrow" data-style="form-control" data-live-search="true" id="cliente_id" class="form-control">
+                        <select name="cliente_id" class="selectpicker show-menu-arrow" data-style="form-control"
+                          data-live-search="true" id="cliente_id" class="form-control">
                           <option value="">SELECCIONAR CLIENTE</option>
 
                           <?php
                           $clients = ClienteData::verclientessucursalB2G($sucursales->id_sucursal);
-                          foreach ($clients as $client) :
-                          ?>
-                            <option value="<?php echo $client->id_cliente; ?>"><?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?></option>
+                          foreach ($clients as $client):
+                            ?>
+                            <option value="<?php echo $client->id_cliente; ?>">
+                              <?php echo $client->dni . " - " . $client->nombre . " " . $client->apellido . " - " . $client->tipo_doc; ?>
+                            </option>
                           <?php endforeach;
 
                           ?>
@@ -83,9 +87,12 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                   </div>
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                      <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $sucursales->id_sucursal; ?>">
-                      <input type="hidden" name="sucursal_id" id="sucursal_id" value="<?php echo $sucursales->id_sucursal; ?>">
-                      <button type="submit" class="btn btn-warning btn-flat" name="add"><i class="fa fa-save"></i> Guardar</button>
+                      <input type="hidden" name="sucursal" id="sucursal"
+                        value="<?php echo $sucursales->id_sucursal; ?>">
+                      <input type="hidden" name="sucursal_id" id="sucursal_id"
+                        value="<?php echo $sucursales->id_sucursal; ?>">
+                      <button type="submit" class="btn btn-warning btn-flat" name="add"><i class="fa fa-save"></i>
+                        Guardar</button>
                     </div>
                   </div>
                 </div>
@@ -100,6 +107,5 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 </div>
 </section>
 </div>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 </script>

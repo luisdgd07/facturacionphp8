@@ -8,7 +8,8 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
 
-    <form class="form-horizontal" role="form" method="post" hidden name="facturacion" action="index.php?action=agregarenvio" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" method="post" hidden name="facturacion"
+      action="index.php?action=agregarenvio" enctype="multipart/form-data">
       <input type="text" name="venta" id="venta" value="<?php echo $_GET['id_venta'] ?>">
       <input type="text" name="estado" id="estado" value="">
       <input type="text" name="cdc" id="cdc" value="">
@@ -44,35 +45,37 @@
               foreach ($users as $sell) {
                 $placas = PlacaDetalleData::obtener($sell->id_venta);
 
-              ?>
+                ?>
                 <tr>
                   <td class="width:30px;">
-                    <?php if ($sell->tipo_venta == "4") : ?> <?php echo $sell->factura; ?>
-                    <?php else : ?>
+                    <?php if ($sell->tipo_venta == "4"): ?>     <?php echo $sell->factura; ?>
+                    <?php else: ?>
                       <?php echo count($operations) ?>
                     <?php endif ?>
                   </td>
                   <td><?php if (isset($placas[0])) {
-                        echo $placas[0]->registro_serie;
-                      }  ?></td>
+                    echo $placas[0]->registro_serie;
+                  } ?></td>
                   <td><?php
-                      if (isset($placas[0])) {
-                        echo $placas[0]->numero_placa_ini;
-                      }  ?></td>
+                  if (isset($placas[0])) {
+                    echo $placas[0]->numero_placa_ini;
+                  } ?></td>
                   <td><?php
-                      if (isset($placas[0])) {
-                        echo $placas[0]->numero_placa_fin;
-                      }  ?></td>
+                  if (isset($placas[0])) {
+                    echo $placas[0]->numero_placa_fin;
+                  } ?></td>
                   <td><?php
-                      if (isset($placas[0])) {
-                        echo $placas[0]->cantidad;
-                      }  ?></td>
+                  if (isset($placas[0])) {
+                    echo $placas[0]->cantidad;
+                  } ?></td>
                   <td></td>
                   <td style="width:30px;">
-                    <a href="index.php?view=placadetalle&id_sucursal=<?php echo $_GET['id_sucursal'] ?>&id=<?php echo $sell->id_venta ?>" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open" style="color: orange;"></i></a>
+                    <a href="index.php?view=placadetalle&id_sucursal=<?php echo $_GET['id_sucursal'] ?>&id=<?php echo $sell->id_venta ?>"
+                      class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open"
+                        style="color: orange;"></i></a>
                   </td>
                 </tr>
-              <?php
+                <?php
               } ?>
           </div>
           <!-- <div class="box-body">
@@ -89,9 +92,9 @@
                   <th>Fecha</th>
                   <th>Detalle</th>
                 </thead>
-                <?php foreach ($placas as $placa) :
+                <?php foreach ($placas as $placa):
                   $venta = VentaData::getById($placa->id_venta);
-                ?>
+                  ?>
                   <tr>
                     <td>
                       <?php echo $venta->factura ?> </td>
@@ -100,7 +103,7 @@
 
                     <td><?php echo $placa->nro_fin ?> </td>
                     <td><?php echo $placa->cantidad_total ?> </td>
-                    <td><?php echo $venta->fecha  ?> </td>
+                    <td><?php echo $venta->fecha ?> </td>
                     <td style="width:30px;">
                       <a href="index.php?view=placadetalle&id_sucursal=<?php echo $_GET['id_sucursal'] ?>&id=<?php echo $placa->id_venta ?>" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open" style="color: orange;"></i></a>
                     </td>
@@ -116,4 +119,3 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

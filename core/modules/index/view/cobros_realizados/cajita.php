@@ -18,7 +18,7 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
               $users = CobroCabecera::totalcobros3($sucursales->id_sucursal);
 
               //if(count($users)>0){
-
+              
 
               ?>
               <table id="example1" class="table table-bordered table-dark" style="width:100%">
@@ -45,21 +45,23 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                   <?php
                   foreach ($users as $sell) {
                     if ($sell) {
-                  ?>
+                      ?>
                       <tr>
                         <?php
                         // $operations = CobroDetalleData::totalcobrosdet($sell->COBRO_ID );
                         //count($operations);
-
+                    
                         ?>
 
                         <td style="width:30px;">
-                          <a href="index.php?view=detallecobros&COBRO_ID=<?php echo $sell->COBRO_ID; ?>" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open" style="color: orange;"></i></a>
+                          <a href="index.php?view=detallecobros&COBRO_ID=<?php echo $sell->COBRO_ID; ?>"
+                            class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open"
+                              style="color: orange;"></i></a>
                         </td>
                         <td><?php
-                            echo $sell->COBRO_ID;
+                        echo $sell->COBRO_ID;
 
-                            ?>
+                        ?>
 
                         </td>
                         <td class="width:30px;">
@@ -84,7 +86,7 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                             $cliente = $sell->getCliente()->nombre . " " . $sell->getCliente()->apellido;
 
                             echo $cliente;
-                          }                                                ?>
+                          } ?>
 
 
                         </td>
@@ -95,8 +97,8 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 
 
                         <td><?php
-                            echo number_format($sell->TOTAL_COBRO, 0, '.', '.')
-                            ?></td>
+                        echo number_format($sell->TOTAL_COBRO, 0, '.', '.')
+                          ?></td>
                         <td>
 
                           <?php
@@ -167,21 +169,23 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 
                         <td><?php echo $conceptos; ?></td>
                         <td><?php
-                            if ($sell->anulado == 1) {
-                              echo '<p class="bg-danger text-white text-center">Anulado</p>';
-                            } else {
-                              echo '<p class="bg-success text-white text-center">Activo</p>';
-                            } ?></td>
+                        if ($sell->anulado == 1) {
+                          echo '<p class="bg-danger text-white text-center">Anulado</p>';
+                        } else {
+                          echo '<p class="bg-success text-white text-center">Activo</p>';
+                        } ?></td>
                         <td style="width:30px;">
                           <abbr title="Anular registro de cobro">
-                            <button onclick="anular2(<?php echo $sell->COBRO_ID; ?>,<?php echo $cuota; ?>,<?php echo $cred; ?>)" class="btn btn-warning btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
+                            <button
+                              onclick="anular2(<?php echo $sell->COBRO_ID; ?>,<?php echo $cuota; ?>,<?php echo $cred; ?>)"
+                              class="btn btn-warning btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
                           <!-- <a href="index.php?action=eliminarcompra&id_sucursal=<?php echo $sucursales->id_sucursal; ?>&id_venta=<?php echo $sell->id_venta; ?>" class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i> </a> -->
                         </td>
 
 
 
                       </tr>
-                  <?php
+                      <?php
                     }
                   }
                   // }else{
@@ -198,7 +202,6 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
   </section>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   function anular2(venta, cuota, cred) {
     Swal.fire({
@@ -210,7 +213,7 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         window.location.href = `./index.php?action=anular_cobro&id_sucursal=<?php echo $_GET['id_sucursal'] ?>&id=${venta}&cuota=${cuota}&cred=${cred}`;
-      } else {}
+      } else { }
     })
 
   }

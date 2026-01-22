@@ -61,9 +61,12 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
                   </div>
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                      <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $sucursales->id_sucursal; ?>">
-                      <input type="hidden" name="sucursal_id" id="sucursal_id" value="<?php echo $sucursales->id_sucursal; ?>">
-                      <button type="submit" class="btn btn-warning btn-flat" name="add"><i class="fa fa-save"></i> Guardar</button>
+                      <input type="hidden" name="sucursal" id="sucursal"
+                        value="<?php echo $sucursales->id_sucursal; ?>">
+                      <input type="hidden" name="sucursal_id" id="sucursal_id"
+                        value="<?php echo $sucursales->id_sucursal; ?>">
+                      <button type="submit" class="btn btn-warning btn-flat" name="add"><i class="fa fa-save"></i>
+                        Guardar</button>
                     </div>
                   </div>
                   <div id="insumos"></div>
@@ -79,6 +82,5 @@ $sucursales = SuccursalData::VerId($_GET["id_sucursal"]);
 </div>
 </section>
 </div>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 </script>

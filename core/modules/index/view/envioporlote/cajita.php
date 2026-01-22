@@ -119,7 +119,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     </div>
 <?php endif ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php
 require 'core/modules/index/components/kudes.php';
 
@@ -218,7 +217,7 @@ require 'core/modules/index/components/kudes.php';
 
                     if (venta.envio != 'No enviado') {
                         let textoEnvio = venta.emailEnviado && venta.emailEnviado == 1 ? 'Reenviar' : 'Enviar';
-                        tablab += `<button class="btn btn-primary" onclick='generarKude(${JSON.stringify(venta.kude)},true)'>${textoEnvio}</button>`
+                        tablab += `<button class="btn btn-primary" onclick='enviarCorreoPHP(${venta.id})'>${textoEnvio}</button>`
                     }
 
 
@@ -402,6 +401,50 @@ require 'core/modules/index/components/kudes.php';
 
             },
 
+        });
+    }
+</script>
+<script>
+    function enviarCorreoPHP(id_venta) {
+        Swal.fire({
+            title: 'Enviando correo...',
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
+        $.ajax({
+            url: "index.php?action=send_email_php",
+            type: "POST",
+            data: {
+                id_venta: id_venta
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: 'Correo Enviado',
+                        text: response.message,
+                        icon: 'success'
+                    }).then(() => {
+                        buscar(); // Recargar la tabla
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                Swal.fire({
+                    title: 'Error de servidor',
+                    text: 'No se pudo enviar el correo. Verifique la consola para detalles.',
+                    icon: 'error'
+                });
+            }
         });
     }
 </script>

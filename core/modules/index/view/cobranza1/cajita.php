@@ -1084,6 +1084,5 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
       </script>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <?php endif ?>
 <?php endif ?>

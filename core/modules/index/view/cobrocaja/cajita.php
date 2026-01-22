@@ -1,11 +1,11 @@
 <?php
 $u = null;
 
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     $u = UserData::getById($_SESSION["admin_id"]);
     require 'core/modules/index/components/kudes.php';
 
-?>
+    ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -49,62 +49,64 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                             <td><?= $caja->ID ?></td>
                                             <td><?php
 
-                                                $cabecera = CajaCabecera::obtenerCobroId($caja->COBRO_ID);
-                                                if (isset($cabecera)) {
-                                                    echo ClienteData::getById($cabecera->ID_CLIENTE)->nombre;
-                                                }
-                                                // var_dump($cabecera);
-                                                // ClienteData::getById($cabecera->ID_CLIENTE)->nombre 
-                                                ?>
+                                            $cabecera = CajaCabecera::obtenerCobroId($caja->COBRO_ID);
+                                            if (isset($cabecera)) {
+                                                echo ClienteData::getById($cabecera->ID_CLIENTE)->nombre;
+                                            }
+                                            // var_dump($cabecera);
+                                            // ClienteData::getById($cabecera->ID_CLIENTE)->nombre 
+                                            ?>
                                             </td>
                                             <td><?php
 
-                                                if (isset($cabecera)) {
-                                                    echo  $cabecera->FECHA;
-                                                }
-                                                ?></td>
+                                            if (isset($cabecera)) {
+                                                echo $cabecera->FECHA;
+                                            }
+                                            ?></td>
                                             <td><?php
-                                                if (isset($cabecera)) {
-                                                    echo $cabecera->concepto;
-                                                }
-                                                ?>
+                                            if (isset($cabecera)) {
+                                                echo $cabecera->concepto;
+                                            }
+                                            ?>
                                             </td>
-                                            <td><?= number_format($caja->IMPORTE, 2, ',', '.')  ?></td>
-                                            <td><?= number_format($caja->CAMBIO, 2, ',', '.')   ?></td>
+                                            <td><?= number_format($caja->IMPORTE, 2, ',', '.') ?></td>
+                                            <td><?= number_format($caja->CAMBIO, 2, ',', '.') ?></td>
                                             <td><?php
-                                                if (isset($caja->id_venta)) {
-                                                    $venta = VentaData::getById($caja->id_venta);
-                                                    if (isset($venta->tipomoneda_id)) {
-                                                        echo MonedaData::VerId($venta->tipomoneda_id, $_GET['id_sucursal'])->nombre;
-                                                    }
+                                            if (isset($caja->id_venta)) {
+                                                $venta = VentaData::getById($caja->id_venta);
+                                                if (isset($venta->tipomoneda_id)) {
+                                                    echo MonedaData::VerId($venta->tipomoneda_id, $_GET['id_sucursal'])->nombre;
                                                 }
-                                                ?></td>
+                                            }
+                                            ?></td>
 
                                             <td><?php
-                                                $cod = $caja->CAJA;
-                                                if ($cod == 1) {
-                                                    echo "Efectivo";
-                                                }
-                                                if ($cod == 2) {
-                                                    echo "Tarjeta de credito";
-                                                }
-                                                if ($cod == 3) {
+                                            $cod = $caja->CAJA;
+                                            if ($cod == 1) {
+                                                echo "Efectivo";
+                                            }
+                                            if ($cod == 2) {
+                                                echo "Tarjeta de credito";
+                                            }
+                                            if ($cod == 3) {
 
-                                                    echo "Tarjeta de debito";
-                                                }
-                                                if ($cod == 4) {
-                                                    echo "Transferencia";
-                                                }
-                                                if ($cod == 5) {
-                                                    echo "cheque";
-                                                }
-                                                if ($cod == 6) {
-                                                    echo "Otro";
-                                                }
-                                                ?></td>
+                                                echo "Tarjeta de debito";
+                                            }
+                                            if ($cod == 4) {
+                                                echo "Transferencia";
+                                            }
+                                            if ($cod == 5) {
+                                                echo "cheque";
+                                            }
+                                            if ($cod == 6) {
+                                                echo "Otro";
+                                            }
+                                            ?></td>
                                             <td>
                                                 <abbr title="Anular cobro">
-                                                    <button onclick="eliminar(<?= $caja->COBRO_ID ?>)" class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
+                                                    <button onclick="eliminar(<?= $caja->COBRO_ID ?>)"
+                                                        class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i>
+                                                    </button></abbr>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -121,9 +123,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
     </div>
 <?php endif ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
+<script >
     function eliminar(venta) {
         Swal.fire({
             title: 'Desea eliminar caja?',

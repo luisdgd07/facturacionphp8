@@ -1,11 +1,11 @@
 <?php
 $u = null;
 
-if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
+if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
     $u = UserData::getById($_SESSION["admin_id"]);
     require 'core/modules/index/components/kudes.php';
 
-?>
+    ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -54,19 +54,19 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                             <td><?= $c->fecha ?></td>
                                             <td><?php
 
-                                                $cabecera = CreditoData::getById($c->credito_id);
-                                                echo  $cabecera->vencimiento ?></td>
+                                            $cabecera = CreditoData::getById($c->credito_id);
+                                            echo $cabecera->vencimiento ?></td>
                                             <td><?= $cabecera->concepto ?></td>
                                             <td><?= $cabecera->credito ?></td>
 
 
 
                                             <td>
-                                                <?= number_format($c->saldo_credito, 2, ',', '.')  ?>
+                                                <?= number_format($c->saldo_credito, 2, ',', '.') ?>
                                             </td>
                                             <td><?php
-                                                echo MonedaData::VerId($c->moneda_id, $_GET['id_sucursal'])->nombre;
-                                                ?>
+                                            echo MonedaData::VerId($c->moneda_id, $_GET['id_sucursal'])->nombre;
+                                            ?>
                                             </td>
                                             <td>
                                                 <?= ClienteData::getById($c->cliente_id)->nombre ?>
@@ -76,7 +76,9 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
                                             </td>
                                             <td>
                                                 <abbr title="Anular cobro">
-                                                    <button onclick="eliminar(<?= $c->credito_id ?>)" class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i> </button></abbr>
+                                                    <button onclick="eliminar(<?= $c->credito_id ?>)"
+                                                        class="btn btn-danger btn-sm btn-flat"><i class='fa fa-trash'></i>
+                                                    </button></abbr>
                                             </td>
 
                                         </tr>
@@ -94,7 +96,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
     </div>
 <?php endif ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function eliminar(venta) {
@@ -108,7 +109,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != "") :
             if (result.isConfirmed) {
                 window.location.href = `./index.php?action=eliminarcredito&id_sucursal=<?= $_GET['id_sucursal'] ?>&id=${venta}`;
 
-            } else {}
+            } else { }
         })
     }
 </script>
