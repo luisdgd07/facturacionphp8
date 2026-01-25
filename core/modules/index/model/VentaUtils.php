@@ -180,7 +180,7 @@ class VentaUtils
         $venta->numerocorraltivo = self::calcularNumeracion($params);
         $venta->sucursal_id = $params["sucursal_id"];
         $dncp = $params["dncp"] && $params["dncp"] != "" ? $params["dncp"] : null;
-        $venta->dncp = $dncp;
+        $venta->dncp = $dncp !== null ? (int) $dncp : null;
         $venta->fecha = $params["fecha"];
         $venta->transaccion = $params["transaccion"];
         $venta->cantidaconfigmasiva = $params["cantidaconfigmasiva"];

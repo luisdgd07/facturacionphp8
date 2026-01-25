@@ -8,7 +8,7 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 
 // Function to convert numbers to words in Spanish
-function numeroALetras($numero)
+function numeroALetras($numero, $isGuaranies)
 {
     $unidades = ['', 'UNO', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE'];
     $decenas = ['', 'DIEZ', 'VEINTE', 'TREINTA', 'CUARENTA', 'CINCUENTA', 'SESENTA', 'SETENTA', 'OCHENTA', 'NOVENTA'];
@@ -52,7 +52,9 @@ function numeroALetras($numero)
     if ($entero > 0) {
         $resultado .= convertirGrupo($entero, $unidades, $decenas, $especiales, $centenas);
     }
-
+    if ($isGuaranies) {
+        return trim($resultado);
+    }
     return trim($resultado) . ' CON ' . $decimal . '/100';
 }
 
@@ -98,7 +100,6 @@ $options = new Options();
 $options->set('isHtml5ParserEnabled', true);
 $options->set('isRemoteEnabled', true);
 $options->set('defaultFont', 'Arial');
-
 // Create an instance of the Dompdf class
 $dompdf = new Dompdf($options);
 
@@ -147,7 +148,7 @@ $html = '
         }
         .company-info {
             width: 40%;
-            margin-left: 100px;
+            margin-left: 280px;
         }
         .logo-img{
            position: absolute;
@@ -159,10 +160,17 @@ $html = '
             font-weight: bold;
             margin-bottom: 3px;
         }
+        .border{
+          position: absolute;
+          left:75%;
+          top: 20px;
+          height: 114px;
+          width: 1px;
+          border-left: 1px solid #000;
+        }
         .invoice-info {
             position: absolute;
             left:75%;
-            border-left:1px solid #000;
             top: 20px;
             font-size: 9px;
             padding: 10px;
@@ -248,6 +256,13 @@ ob_start();
 include 'cabecera.php';
 $html = $html . ob_get_clean();
 $tipo = "Factura Electrónica";
+$textoMoneda = "GS";
+$cambio = 1;
+if ($moneda->simbolo === 'US$') {
+    $tipo = "Factura Electrónica Moneda Extranjera";
+    $textoMoneda = "US$";
+    $cambio = $venta->cambio;
+}
 // $html = $html . var_dump($venta);
 $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none;">
     <tr>
@@ -260,13 +275,13 @@ $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none
         <td style="width: 30px; border: none;"><strong>RUC:</strong></td>
         <td style="border: none;">' . $cliente->dni . '</td>
         <td style="border: none;"><strong>Tipo Cambio:</strong></td>
-        <td style="border: none;">' . $venta->cambio . '</td>
+        <td style="border: none;">' . $cambio . '</td>
     </tr>
     <tr>
         <td style="border: none;"><strong>Razón Social:</strong></td>
         <td style="border: none;">' . $cliente->nombre . ' ' . $cliente->apellido . '</td>
         <td style="border: none;"><strong>Moneda:</strong></td>
-        <td style="border: none;">' . $moneda->simbolo . '</td>
+        <td style="border: none;">' . $textoMoneda . '</td>
     </tr>
     <tr>
         <td style="border: none;"><strong>Dirección:</strong></td>
@@ -337,13 +352,12 @@ foreach ($operaciones as $operacion) {
         $totalexenta += $operacion->precio * $operacion->q;
     }
     if ($producto->impuesto == 5) {
-        $iva5 = $operacion->precio * $operacion->q;
-        $totalIva5 += $operacion->precio * $operacion->q;
+        $iva5 = ($operacion->precio * $operacion->q) / 21;
+        $totalIva5 += $iva5;
     }
     if ($producto->impuesto == 10) {
-        $totalIva10 += $operacion->precio * $operacion->q;
-
-        $iva10 = $operacion->precio * $operacion->q;
+        $iva10 = ($operacion->precio * $operacion->q) / 11;
+        $totalIva10 += $iva10;
     }
     $unidad = UnidadesData::getById($producto->presentacion);
     $html = $html . '<tr>
@@ -351,13 +365,20 @@ foreach ($operaciones as $operacion) {
                 <td>' . $producto->descripcion . '</td>
                 <td class="text-center">' . $unidad->nombre . '</td>
                 <td class="text-center">' . $operacion->q . '</td>
-                <td class="text-right"> ' . $operacion->precio . '</td>
+                <td class="text-right"> ' . number_format($operacion->precio, 2, ',', '.') . '</td>
                 <td class="text-right">0</td>
-                <td class="text-right">' . $exenta . '</td>
-                <td class="text-right">' . $iva5 . '</td>
-                <td class="text-right">' . $iva10 . '</td>
+                <td class="text-right">' . number_format($exenta, 2, ',', '.') . '</td>
+                <td class="text-right">' . number_format($iva5, 2, ',', '.') . '</td>
+                <td class="text-right">' . number_format($iva10, 2, ',', '.') . '</td>
             </tr>';
 }
+$totalMonedaExtranjera = 0;
+$totalGuaranies = $total;
+if ($moneda->simbolo == 'US$') {
+    $totalMonedaExtranjera = $total;
+    $totalGuaranies = $total * $venta->cambio;
+}
+
 if (isset($_GET['remision'])) {
     $html = $html . '</tbody>
     </table>';
@@ -371,23 +392,23 @@ if (isset($_GET['remision'])) {
         <table style="width: 100%; margin-top: 10px; font-size: 9px; border: none;">
             <tr>
                 <td style="width: 30%; border: none;"><strong>SUBTOTAL:</strong></td>
-                <td style="width: 70%; text-align: right; border: none;">' . $total . '</td>
+                <td style="width: 70%; text-align: right; border: none;">' . number_format($total, 2, ',', '.') . '</td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
-                <td style="text-align: right; border: none;">' . $total . '</td>
+                <td style="text-align: right; border: none;">' . number_format($totalMonedaExtranjera, 2, ',', '.') . '</td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>TOTAL EN GUARANIES:</strong></td>
-                <td style="text-align: right; border: none;">' . $total * $venta->cambio . '</td>
+                <td style="text-align: right; border: none;">' . number_format($totalGuaranies, 2, ',', '.') . '</td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
-                 <td style="text-align: right; border: none;"><strong>(5%) ' . $totalIva5 . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . $totalIva10 . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . $totalIva5 + $totalIva10 . '</strong></td>
+                 <td style="text-align: right; border: none;"><strong>(5%) ' . number_format($totalIva5, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . number_format($totalIva10, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . number_format($totalIva5 + $totalIva10, 2, ',', '.') . '</strong></td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>TOTAL EN LETRAS:</strong></td>
-                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total) . '</td>
+                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total, $cambio == 1) . '</td>
             </tr>
         </table>
 ';
@@ -398,23 +419,23 @@ if (isset($_GET['remision'])) {
         <table style="width: 100%; margin-top: 10px; font-size: 9px; border: none;">
             <tr>
                 <td style="width: 30%; border: none;"><strong>SUBTOTAL:</strong></td>
-                <td style="width: 70%; text-align: right; border: none;">' . $total . '</td>
+                <td style="width: 70%; text-align: right; border: none;">' . number_format($total, 2, ',', '.') . '</td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
-                <td style="text-align: right; border: none;">' . $total . '</td>
+                <td style="text-align: right; border: none;">' . number_format($totalMonedaExtranjera, 2, ',', '.') . '</td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>TOTAL EN GUARANIES:</strong></td>
-                <td style="text-align: right; border: none;">' . $total * $venta->cambio . '</td>
+                <td style="text-align: right; border: none;">' . number_format($total * $cambio, 2, ',', '.') . '</td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
-                 <td style="text-align: right; border: none;"><strong>(5%) ' . $totalIva5 . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . $totalIva10 . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . $totalIva5 + $totalIva10 . '</strong></td>
+                 <td style="text-align: right; border: none;"><strong>(5%) ' . number_format($totalIva5, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . number_format($totalIva10, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . number_format($totalIva5 + $totalIva10, 2, ',', '.') . '</strong></td>
             </tr>
             <tr>
                 <td style="border: none;"><strong>TOTAL EN LETRAS:</strong></td>
-                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total) . '</td>
+                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total, $cambio == 1) . '</td>
             </tr>
         </table>
 ';

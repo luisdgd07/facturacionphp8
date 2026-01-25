@@ -459,7 +459,6 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                   $('#addnew').modal('hide');
 
                   // Limpiar formulario
-                  $('#formNuevoCliente')[0].reset();
 
                   // Recargar página o actualizar lista de clientes si es necesario
                   window.location.reload();

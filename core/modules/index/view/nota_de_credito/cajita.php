@@ -264,9 +264,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                         `</td>
                             <td >`;
 
-                    if (venta.envio != 'No enviado') {
-                        tablab += `<button class="btn btn-primary" onclick='generarKude(${JSON.stringify(venta.kude)},false)'>Descargar</button>`
-                    }
+                    let textoEnvio = venta.emailEnviado && venta.emailEnviado == 1 ? 'Reenviar' : 'Enviar';
+                    tablab += `<button class="btn btn-primary" onclick='enviarCorreoPHP(${venta.id})'>${textoEnvio}</button>`
                     tablab +=
                         `</td>
                             <td >`;
@@ -427,6 +426,46 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
 
             },
 
+        });
+    }
+    function enviarCorreoPHP(id_venta) {
+        Swal.fire({
+            title: 'Enviando correo...',
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
+        $.ajax({
+            url: `index.php?action=send_email_php&notacredito=${id_venta}&sucursal=<?php echo $_GET['id_sucursal'] ?>`,
+            type: "POST",
+            data: {},
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: 'Correo Enviado',
+                        text: response.message,
+                        icon: 'success'
+                    }).then(() => {
+                        buscar(); // Recargar la tabla
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                Swal.fire({
+                    title: 'Error de servidor',
+                    text: 'No se pudo enviar el correo. Verifique la consola para detalles.',
+                    icon: 'error'
+                });
+            }
         });
     }
 </script>

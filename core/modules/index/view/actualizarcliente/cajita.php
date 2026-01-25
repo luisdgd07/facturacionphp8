@@ -321,7 +321,7 @@
 
               var result = JSON.parse(dataResult);
               for (const [id, data_1] of Object.entries(result)) {
-                if ('<?php echo $ciudadcli ?>' == data_1.codigo) {
+                if ('<?php echo $cliente->distrito_id ?>' == data_1.codigo) {
                   distritos += `<option selected value="${data_1.codigo}">${data_1.descripcion}</option>`;
                 } else {
                   distritos += `<option  value="${data_1.codigo}">${data_1.descripcion}</option>`;
@@ -332,7 +332,6 @@
             }
           });
         }
-
         function buscaCiudad() {
           $.ajax({
             url: "index.php?action=buscarciudades",

@@ -51,8 +51,8 @@ class ProductoData
 	public ?int $ID_TIPO_PROD = 0;
 	public ?int $total_registros = 0;
 	public ?string $NOMBRE_PRECIO = "";
-
-
+	public ?string $NOMBRE_MONEDA = "";
+	public ?int $PRODUCTO_ID = 0;
 	public function tipoproducto()
 	{
 		return TipoProductoData::VerId($this->ID_TIPO_PROD);

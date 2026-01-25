@@ -5,19 +5,20 @@ require_once __DIR__ . '/../../../../../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Verificar que se haya enviado el ID de venta
-if (!isset($_GET['venta'])) {
-    die(json_encode(['success' => false, 'message' => 'Faltan parámetros requeridos (venta)']));
+if (isset($_GET['venta'])) {
+    $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
+} else if (isset($_GET['remision'])) {
+    $venta = VentaData::getByIdInTable($_GET['remision'], "remision");
+} else if (isset($_GET['notacredito'])) {
+    $venta = VentaData::getByIdInTable($_GET['notacredito'], "nota_credito_venta");
+} else {
 }
-
-$ventaId = $_GET['venta'];
-$venta = VentaData::getByIdInTable($ventaId, "venta");
 $cliente = ClienteData::getById($venta->cliente_id);
 $emailDestino = $cliente->email;
 

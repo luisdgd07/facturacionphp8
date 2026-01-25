@@ -289,9 +289,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                     tablab +=
                         `</td>
                         <td >`
-                    if (venta.envio != 'No enviado') {
-                        tablab += `<button class="btn btn-primary" onclick='generarKude(${JSON.stringify(venta.kude)},true)'>Enviar</button>`
-                    }
+                    let textoEnvio = venta.emailEnviado && venta.emailEnviado == 1 ? 'Reenviar' : 'Enviar';
+                    tablab += `<button class="btn btn-primary" onclick='enviarCorreoPHP(${venta.id})'>${textoEnvio}</button>`
                     if (venta.emailEnviado != '0') {
                         tablab += `<p>Enviado</p>`
                     } else {

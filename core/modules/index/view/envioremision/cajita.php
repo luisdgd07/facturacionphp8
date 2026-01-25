@@ -286,9 +286,8 @@ require 'core/modules/index/components/kudes.php';
                     tablab +=
                         `</td>
                         <td >`
-                    if (venta.envio != 'No enviado') {
-                        tablab += `<button class="btn btn-primary" onclick='generarKude(${JSON.stringify(venta.kude)},true)'>Enviar</button>`
-                    }
+                    let textoEnvio = venta.emailEnviado && venta.emailEnviado == 1 ? 'Reenviar' : 'Enviar';
+                    tablab += `<button class="btn btn-primary" onclick='enviarCorreoPHP(${venta.id})'>${textoEnvio}</button>`
                     tablab += `</td>
                         <td>`
                     if (venta.envio == 'Aprobado') {
@@ -447,7 +446,46 @@ require 'core/modules/index/components/kudes.php';
 
         });
     }
+    function enviarCorreoPHP(id_venta) {
+        Swal.fire({
+            title: 'Enviando correo...',
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
 
+        $.ajax({
+            url: `index.php?action=send_email_php&remision=${id_venta}&sucursal=<?php echo $_GET['id_sucursal'] ?>`,
+            type: "POST",
+            data: {},
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: 'Correo Enviado',
+                        text: response.message,
+                        icon: 'success'
+                    }).then(() => {
+                        buscar(); // Recargar la tabla
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                Swal.fire({
+                    title: 'Error de servidor',
+                    text: 'No se pudo enviar el correo. Verifique la consola para detalles.',
+                    icon: 'error'
+                });
+            }
+        });
+    }
     function xml(xml) {
         window.open(`http://18.208.224.72:3000/downloadxml/${xml}`)
 

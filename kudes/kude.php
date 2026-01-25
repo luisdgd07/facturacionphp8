@@ -15,8 +15,9 @@ include __DIR__ . "/../core/modules/index/model/ChoferData.php";
 include __DIR__ . "/../core/modules/index/model/PaisData.php";
 include __DIR__ . "/../core/modules/index/model/UnidadesData.php";
 include __DIR__ . "/../core/modules/index/model/SuccursalData.php";
-include "kude_formato.php";
 session_start();
+
+include "kude_formato.php";
 
 // Load HTML content
 $dompdf->loadHtml($html, 'UTF-8');

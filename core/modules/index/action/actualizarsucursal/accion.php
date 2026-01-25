@@ -13,6 +13,10 @@ try {
 
     $client->telefono = $_POST["telefono"];
 
+    $client->cod_depart = $_POST["cod_depart"];
+
+    $client->distrito_id = $_POST["distrito_id"];
+
     $client->representante = $_POST["representante"];
     $client->direccion = $_POST["direccion"];
 
@@ -30,11 +34,11 @@ try {
     $client->fecha_firma = $_POST["fecha_firma"];
     $client->razon_social = $_POST["razon_social"];
     $client->nombre_fantasia = $_POST["nombre_fantasia"];
-    $client->codigo_act  = $_POST["codigo_act"];
+    $client->codigo_act = $_POST["codigo_act"];
     $client->actividad = $_POST["actividad"];
     $client->fecha_tim = $_POST["fecha_tim"];
     $client->numero_casa = $_POST["numero_casa"];
-    $client->com_dir  = $_POST["com_dir"];
+    $client->com_dir = $_POST["com_dir"];
     $client->com_dir2 = $_POST["com_dir2"];
     $client->departamento_descripcion = $_POST["departamento_descripcion"];
     $client->distrito_descripcion = $_POST["distrito_descripcion"];

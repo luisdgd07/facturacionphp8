@@ -215,10 +215,8 @@ require 'core/modules/index/components/kudes.php';
 
 
 
-                    if (venta.envio != 'No enviado') {
-                        let textoEnvio = venta.emailEnviado && venta.emailEnviado == 1 ? 'Reenviar' : 'Enviar';
-                        tablab += `<button class="btn btn-primary" onclick='enviarCorreoPHP(${venta.id})'>${textoEnvio}</button>`
-                    }
+                    let textoEnvio = venta.emailEnviado && venta.emailEnviado == 1 ? 'Reenviar' : 'Enviar';
+                    tablab += `<button class="btn btn-primary" onclick='enviarCorreoPHP(${venta.id})'>${textoEnvio}</button>`
 
 
 
@@ -230,9 +228,7 @@ require 'core/modules/index/components/kudes.php';
                     tablab +=
                         `</td>
                             <td >`;
-                    if (venta.envio != 'No enviado') {
-                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
-                    }
+                    tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
                     tablab +=
                         `</td>
                             <td >`;
@@ -403,8 +399,7 @@ require 'core/modules/index/components/kudes.php';
 
         });
     }
-</script>
-<script>
+
     function enviarCorreoPHP(id_venta) {
         Swal.fire({
             title: 'Enviando correo...',

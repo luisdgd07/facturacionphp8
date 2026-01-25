@@ -6,7 +6,8 @@
     // $user = $u->nombre." ".$u->apellido;
   } ?>
   <?php
-  $cliente = ProductoData::getById($_GET["id_producto"]);
+
+  $cliente = ProductoData::getById($_GET["id_producto"], "id_producto");
   // $url = "storage/plato/".$cliente->id_plato."/".$cliente->imagen;
   ?>
   <div class="content-wrapper">
@@ -132,7 +133,8 @@
                           if (count($unidades) > 0): ?>
                             <?php if (UnidadesData::getById_($cliente->presentacion)) { ?>
                               <option value="<?php echo $cliente->presentacion ?>">
-                                <?php echo UnidadesData::getById_($cliente->presentacion)->nombre ?></option>
+                                <?php echo UnidadesData::getById_($cliente->presentacion)->nombre ?>
+                              </option>
                             <?php } ?>
                             <?php foreach ($unidades as $unidad): ?>
                               <option value="<?php echo $unidad->id; ?>" style="color: orange;"><i
@@ -255,7 +257,8 @@
                           <select name="tipo_producto" id="tipo_producto" required class="form-control">
                             <?php if ($cliente->ID_TIPO_PROD) { ?>
                               <option value="<?php echo $cliente->ID_TIPO_PROD ?>">
-                                <?php echo ProductoData::vertipoproductoId($cliente->ID_TIPO_PROD)->TIPO_PRODUCTO ?></option>
+                                <?php echo ProductoData::vertipoproductoId($cliente->ID_TIPO_PROD)->TIPO_PRODUCTO ?>
+                              </option>
                             <?php } ?>
                             <?php foreach ($Tipoprod as $Tipoprods): ?>
                               <option value="<?php echo $Tipoprods->ID_TIPO_PROD; ?>" style="color: orange;"><i
@@ -304,22 +307,24 @@
                           $pais_t = ContratoData::getAll();
 
                           foreach ($pais_t as $dpt):
-                            if ($cliente->contrato_id == $dpt->id) {
-                              ?>
+                            if ($dpt->datos) {
+                              if ($cliente->contrato_id == $dpt->id) {
+                                ?>
 
-                              <option selected value="<?php echo $dpt->id;
-                              ?>"><?php echo $dpt->datos
-                                ?></option>
-                            <?php } else {
-                              ?>
-                              <option value="<?php echo $dpt->id;
-                              ?>"><?php echo $dpt->datos
-                                ?></option><?php
+                                <option selected value="<?php echo $dpt->id;
+                                ?>"><?php echo $dpt->datos
+                                  ?></option>
+                              <?php } else {
+                                ?>
+                                <option value="<?php echo $dpt->id;
+                                ?>"><?php echo $dpt->datos
+                                  ?></option><?php
+                              }
                             }
                           endforeach;
+
                           ?>
                         </select>
-
 
 
                       </div>

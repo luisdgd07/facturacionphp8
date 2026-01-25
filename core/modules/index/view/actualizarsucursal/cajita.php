@@ -65,13 +65,13 @@
                   <div class="form-group has-feedback has-warning">
                     <label for="inputEmail1" class="col-sm-3 control-label">Departamento:</label>
                     <div class="col-sm-9">
-                      <select name="departa" id="dpt_id" onchange="buscard()" class="form-control">
+                      <select name="departa" id="dpt_id" onchange="buscarDistritos()" class="form-control">
                         <?php
                         $dpts = DptData::getAll();
                         $distritocli = $cliente->distrito_id;
-                        $ciudadcli = $cliente->ciudad;
+                        $ciudadcli = $cliente->ciudad_id;
                         foreach ($dpts as $dpt):
-                          if ($cliente->departamento_id == $dpt->codigo) {
+                          if ($cliente->cod_depart == $dpt->codigo) {
                             ?>
 
                             <option selected value="<?php echo $dpt->codigo;
@@ -91,7 +91,7 @@
                   <div class="form-group has-feedback has-warning">
                     <label for="inputEmail1" class="col-sm-3 control-label">Distrito:</label>
                     <div class="col-sm-9">
-                      <select onchange="buscaCiudad()" onclick="buscaCiudad()" name="distrito" id="ciudades"
+                      <select onchange="buscaCiudad()" onclick="buscaCiudad()" name="distrito" id="distritos"
                         class="form-control">
                       </select>
                     </div>
@@ -399,7 +399,8 @@
         formData.append('distrito_descripcion', $('select[name="distrito"] option:selected').text());
         formData.append('ciudad_descripcion', $('select[name="ciudad"] option:selected').text());
         formData.append('id_ciudad', $('select[name="ciudad"] option:selected').val());
-
+        formData.append('distrito_id', $('select[name="distrito"] option:selected').val());
+        formData.append('cod_depart', $('select[name="departa"] option:selected').val());
         //  formData.append('ciudad_descripcion', $('select[name="ciudad"]:checked').val());
         //  $('input[name="metodopago"]:checked').val()
         $.ajax({
@@ -427,18 +428,19 @@
         });
       }
 
-      function buscard() {
-        buscarCiudad($("#dpt_id").val());
+
+
+      function ciudades(distrito) {
+        console.log('222222222', distrito)
+
       }
 
       function buscaCiudad() {
-        console.log('12313123', $("#ciudades").val());
-        //  ciudades(595);
         $.ajax({
           url: "index.php?action=buscarciudades",
           type: "GET",
           data: {
-            dist: $("#ciudades").val(),
+            dist: $("#distritos").val(),
           },
           cache: false,
           success: function (dataResult) {
@@ -446,9 +448,8 @@
             ciudades = "";
 
             var result = JSON.parse(dataResult);
-            //  ciudades = `<option selected value="${result[0].id_distrito}">${result[0].descripcion}</option>`;
             for (const [id, data_1] of Object.entries(result)) {
-              if ('<?php echo $distritocli ?>' == data_1.codigo) {
+              if ('<?= $cliente->id_ciudad ?>' == data_1.codigo) {
                 ciudades += `<option selected value="${data_1.codigo}">${data_1.descripcion}</option>`;
               } else {
                 ciudades += `<option  value="${data_1.codigo}">${data_1.descripcion}</option>`;
@@ -458,42 +459,32 @@
           }
         });
       }
-
-
-      function ciudades(distrito) {
-        console.log('222222222', distrito)
-
-      }
-
-      function buscarCiudad(distrito) {
+      function buscarDistritos() {
         $.ajax({
-          url: "index.php?action=buscarendistrito",
+          url: "index.php?action=buscardistritos",
           type: "GET",
           data: {
-            dpt: distrito,
+            dpt: $("#dpt_id").val(),
           },
           cache: false,
           success: function (dataResult) {
-            console.log('sasa', dataResult)
-            ciudades = "";
+            distritos = "";
 
             var result = JSON.parse(dataResult);
-            //  ciudades = `<option selected value="${result[0].id_distrito}">${result[0].descripcion}</option>`;
             for (const [id, data_1] of Object.entries(result)) {
-              if ('<?php echo $ciudadcli ?>' == data_1.codigo) {
-                ciudades += `<option selected value="${data_1.codigo}">${data_1.descripcion}</option>`;
+              if ('<?php echo $cliente->distrito_id ?>' == data_1.codigo) {
+                distritos += `<option selected value="${data_1.codigo}">${data_1.descripcion}</option>`;
               } else {
-                ciudades += `<option value="${data_1.codigo}">${data_1.descripcion}</option>`;
+                distritos += `<option  value="${data_1.codigo}">${data_1.descripcion}</option>`;
               }
             }
-            $("#ciudades").html(ciudades);
+            $("#distritos").html(distritos);
+            buscaCiudad()
           }
         });
       }
-      buscard()
-      buscaCiudad()
       setTimeout(() => {
-        buscaCiudad()
+        buscarDistritos()
 
       }, 500);
     </script>
