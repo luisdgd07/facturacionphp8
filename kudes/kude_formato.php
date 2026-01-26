@@ -103,6 +103,8 @@ $options->set('defaultFont', 'Arial');
 // Create an instance of the Dompdf class
 $dompdf = new Dompdf($options);
 
+
+
 if (isset($_GET['venta'])) {
     $venta = VentaData::getByIdInTable($_GET['venta'], "venta");
 } else if (isset($_GET['remision'])) {
@@ -112,6 +114,8 @@ if (isset($_GET['venta'])) {
 } else {
     die("No se encontro la venta");
 }
+$sucursal = SuccursalData::VerId($venta->sucursal_id);
+
 $cliente = ClienteData::getById($venta->cliente_id);
 
 $moneda = MonedaData::vermonedaid($venta->tipomoneda_id);
@@ -230,7 +234,6 @@ $html = '
             border: 1px solid #000;
         }
         .qr-code {
-            margin-left:85%;
             width: 100px;
         }
         .qr-code img {
@@ -255,11 +258,10 @@ $html = '
 ob_start();
 include 'cabecera.php';
 $html = $html . ob_get_clean();
-$tipo = "Factura Electrónica";
+$tipo = "Factura ";
 $textoMoneda = "GS";
 $cambio = 1;
 if ($moneda->simbolo === 'US$') {
-    $tipo = "Factura Electrónica Moneda Extranjera";
     $textoMoneda = "US$";
     $cambio = $venta->cambio;
 }
@@ -292,7 +294,7 @@ $html = $html . '<table style="margin-bottom: 10px; font-size: 9px; border: none
     <tr>
         <td style="border: none;"><strong>Tel:</strong></td>
         <td style="border: none;">' . $cliente->telefono . '</td>
-        <td style="border: none;"><b>Cdc asociado:</b></td>
+        <td style="border: none;"> ' . ($venta->cdc_fact != "" ? "<b>Cdc asociado:</b>" : "") . '</td>
         <td style="border: none;">' . $venta->cdc_fact . '</td>
     </tr>';
 if (isset($_GET['notacredito'])) {
@@ -333,6 +335,7 @@ if (isset($_GET['remision'])) {
 } else {
     $table = "operacion";
 }
+
 $operaciones = OperationData::getAllProductsBySellTable($venta->id_venta, $table);
 $total = 0;
 $totalIva5 = 0;
@@ -346,17 +349,23 @@ foreach ($operaciones as $operacion) {
     $fila = $operacion->is_sqlserver ? "id_sqlserver" : "id_producto";
     $producto = ProductoData::getById($operacion->producto_id, $fila);
     $total += $operacion->precio * $operacion->q;
-
+    $precio = $operacion->precio * $operacion->q;
+    $precioIva5 = 0;
+    $precioIva10 = 0;
+    $precioIva0 = 0;
     if ($producto->impuesto == 0) {
+        $precioIva0 = $operacion->precio * $operacion->q;
         $exenta = $operacion->precio * $operacion->q;
         $totalexenta += $operacion->precio * $operacion->q;
     }
     if ($producto->impuesto == 5) {
         $iva5 = ($operacion->precio * $operacion->q) / 21;
+        $precioIva5 = $operacion->precio * $operacion->q;
         $totalIva5 += $iva5;
     }
     if ($producto->impuesto == 10) {
         $iva10 = ($operacion->precio * $operacion->q) / 11;
+        $precioIva10 = $operacion->precio * $operacion->q;
         $totalIva10 += $iva10;
     }
     $unidad = UnidadesData::getById($producto->presentacion);
@@ -367,9 +376,9 @@ foreach ($operaciones as $operacion) {
                 <td class="text-center">' . $operacion->q . '</td>
                 <td class="text-right"> ' . number_format($operacion->precio, 2, ',', '.') . '</td>
                 <td class="text-right">0</td>
-                <td class="text-right">' . number_format($exenta, 2, ',', '.') . '</td>
-                <td class="text-right">' . number_format($iva5, 2, ',', '.') . '</td>
-                <td class="text-right">' . number_format($iva10, 2, ',', '.') . '</td>
+                <td class="text-right">' . number_format($precioIva0, 2, ',', '.') . '</td>
+                <td class="text-right">' . number_format($precioIva5, 2, ',', '.') . '</td>
+                <td class="text-right">' . number_format($precioIva10, 2, ',', '.') . '</td>
             </tr>';
 }
 $totalMonedaExtranjera = 0;
@@ -389,26 +398,30 @@ if (isset($_GET['remision'])) {
     $html = $html . '</tbody>
     </table>
 
-        <table style="width: 100%; margin-top: 10px; font-size: 9px; border: none;">
+        <table style="width: 100%; margin-top: -6px; font-size: 9px; ">
             <tr>
-                <td style="width: 30%; border: none;"><strong>SUBTOTAL:</strong></td>
-                <td style="width: 70%; text-align: right; border: none;">' . number_format($total, 2, ',', '.') . '</td>
+                <td style="width: 30%; border-right: none;"><strong>SUBTOTAL:</strong></td>
+                <td style="width: 70%; text-align: right; border-left: none;">' . number_format($total, 2, ',', '.') . '</td>
             </tr>
             <tr>
-                <td style="border: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
-                <td style="text-align: right; border: none;">' . number_format($totalMonedaExtranjera, 2, ',', '.') . '</td>
+                <td style="border-right: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
+                <td style="text-align: right; border-left: none;">' . number_format($totalMonedaExtranjera, 2, ',', '.') . '</td>
             </tr>
             <tr>
-                <td style="border: none;"><strong>TOTAL EN GUARANIES:</strong></td>
-                <td style="text-align: right; border: none;">' . number_format($totalGuaranies, 2, ',', '.') . '</td>
+                <td style="border-right: none;"><strong>TOTAL EN GUARANIES:</strong></td>
+                <td style="text-align: right; border-left: none;">' . number_format($total * $cambio, 2, ',', '.') . '</td>
             </tr>
             <tr>
-                <td style="border: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
-                 <td style="text-align: right; border: none;"><strong>(5%) ' . number_format($totalIva5, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . number_format($totalIva10, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . number_format($totalIva5 + $totalIva10, 2, ',', '.') . '</strong></td>
+                <td style="border-right: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
+                 <td style="text-align: right; border-left: none;"><strong>(5%) ' . number_format($totalIva5, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . number_format($totalIva10, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . number_format($totalIva5 + $totalIva10, 2, ',', '.') . '</strong></td>
             </tr>
+       
+        </table>
+        
+        <table style="width: 100%; margin-top: -6px; font-size: 9px; border: none;">
             <tr>
-                <td style="border: none;"><strong>TOTAL EN LETRAS:</strong></td>
-                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total, $cambio == 1) . '</td>
+                <td style="width: 15%;border-right: none;"><strong>TOTAL EN LETRAS:</strong></td>
+                <td style=" border-left: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total, $cambio == 1) . '</td>
             </tr>
         </table>
 ';
@@ -416,39 +429,54 @@ if (isset($_GET['remision'])) {
     $html = $html . '</tbody>
     </table>
 
-        <table style="width: 100%; margin-top: 10px; font-size: 9px; border: none;">
+        <table style="width: 100%; margin-top: -6px; font-size: 9px; ">
             <tr>
-                <td style="width: 30%; border: none;"><strong>SUBTOTAL:</strong></td>
-                <td style="width: 70%; text-align: right; border: none;">' . number_format($total, 2, ',', '.') . '</td>
+                <td style="width: 30%; border-right: none;"><strong>SUBTOTAL:</strong></td>
+                <td style="width: 70%; text-align: right; border-left: none;">' . number_format($total, 2, ',', '.') . '</td>
             </tr>
             <tr>
-                <td style="border: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
-                <td style="text-align: right; border: none;">' . number_format($totalMonedaExtranjera, 2, ',', '.') . '</td>
+                <td style="border-right: none;"><strong>TOTAL OPERACIÓN MONEDA EXTRANJERA:</strong></td>
+                <td style="text-align: right; border-left: none;">' . number_format($totalMonedaExtranjera, 2, ',', '.') . '</td>
             </tr>
             <tr>
-                <td style="border: none;"><strong>TOTAL EN GUARANIES:</strong></td>
-                <td style="text-align: right; border: none;">' . number_format($total * $cambio, 2, ',', '.') . '</td>
+                <td style="border-right: none;"><strong>TOTAL EN GUARANIES:</strong></td>
+                <td style="text-align: right; border-left: none;">' . number_format($total * $cambio, 2, ',', '.') . '</td>
             </tr>
             <tr>
-                <td style="border: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
-                 <td style="text-align: right; border: none;"><strong>(5%) ' . number_format($totalIva5, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . number_format($totalIva10, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . number_format($totalIva5 + $totalIva10, 2, ',', '.') . '</strong></td>
+                <td style="border-right: none;"><strong>LIQUIDACIÓN IVA:</strong></td>
+                 <td style="text-align: right; border-left: none;"><strong>(5%) ' . number_format($totalIva5, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(10%) ' . number_format($totalIva10, 2, ',', '.') . ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total IVA : ' . number_format($totalIva5 + $totalIva10, 2, ',', '.') . '</strong></td>
             </tr>
+       
+        </table>
+        
+        <table style="width: 100%; margin-top: -6px; font-size: 9px; border: none;">
             <tr>
-                <td style="border: none;"><strong>TOTAL EN LETRAS:</strong></td>
-                <td style="text-align: right; border: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total, $cambio == 1) . '</td>
+                <td style="width: 15%;border-right: none;"><strong>TOTAL EN LETRAS:</strong></td>
+                <td style=" border-left: none;">SON ' . strtoupper($moneda->nombre) . ', ' . numeroALetras($total, $cambio == 1) . '</td>
             </tr>
         </table>
 ';
 }
-$html = $html . '<div style="margin-top: 10px;"><strong>Observación:</strong></div>
+$html = $html . '<div style="margin-top: -5px;padding: 3px; border-bottom: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000;"><strong>Observación:</strong></div>';
+if ($sucursal->is_envia_factura == 1) {
+    $html = $html . ' <div class="footer">
+    <table>
+        <tr>
+            <td style="border: none;">
+            <strong>Consulte la validez de esta Factura Electrónica con el número de CDC https://ekuatia.set.gov.py/consultas</strong>
+            <div style="border: none;margin-top: 10px;"><strong>CDC:</strong> ' . $venta->cdc . '</div>
+            </td> 
+            <td style="border: none;">    
+                <div class="qr-code">
+                    <img src="' . $qrImageData . '" alt="QR Code">
+                </div>  
+            </td>
+        </tr>
 
-
-    <div class="footer">
-        <div>Consulte la validez de esta Factura Electrónica con el número de CDC https://ekuatia.set.gov.py/consultas</div>
-        <div>CDC: ' . $venta->cdc . '</div>
-        <div class="qr-code">
-            <img src="' . $qrImageData . '" alt="QR Code">
-        </div>
-    </div>
+    </table>
+   
+    </div>';
+}
+$html = $html . '
 </body>
 </html>';

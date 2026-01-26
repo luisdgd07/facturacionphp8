@@ -438,8 +438,10 @@ class VentaData
 	public function venta_producto_cliente1()
 	{
 		// Convertir dncp a NULL si es nulo para SQL
-		$dncpValue = $this->dncp !== null ? $this->dncp : 'NULL';
-
+		$dncpValue = $this->dncp !== null || $this->dncp !== "" ? $this->dncp : 'NULL';
+		if ($this->dncp == 0) {
+			$dncpValue = 'NULL';
+		}
 		$sql = "insert into " . self::$tablename . " (presupuesto,factura,configfactura_id,tipomoneda_id,cambio,cambio2,simbolo2,formapago,codigo,fechapago,metodopago,total10,iva10,total5,iva5,exenta,total,n,numerocorraltivo,sucursal_id,cliente_id,usuario_id,cantidaconfigmasiva,accion_id,fecha,REMISION_ID, estado,vendedor,transaccion,id_dncp	) ";
 		$sql .= "value ($this->presupuesto,\"$this->factura\",$this->configfactura_id,$this->tipomoneda_id,\"$this->cambio\",$this->cambio2,\"$this->simbolo2\",\"$this->formapago\",$this->codigo,\"$this->fechapago\",\"$this->metodopago\",\"$this->total10\",\"$this->iva10\",\"$this->total5\",\"$this->iva5\",\"$this->exenta\",\"$this->total\",$this->n,\"$this->numerocorraltivo\",$this->sucursal_id,$this->cliente_id,$this->usuario_id,\"$this->cantidaconfigmasiva\",2,\"$this->fecha\",$this->REMISION_ID,1,\"$this->vendedor\",\"$this->transaccion\",$dncpValue)";
 		return Executor::doit($sql);

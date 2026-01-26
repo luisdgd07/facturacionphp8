@@ -483,7 +483,7 @@ class ProductoData
 		return Model::one($query[0], "ProductoData");
 	}
 
-	public static function getById($id_producto, $fila)
+	public static function getById($id_producto, $fila = "id_producto")
 	{
 		$sql = "select * from " . self::$tablename . " where $fila=$id_producto";
 		$query = Executor::doit($sql);

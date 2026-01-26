@@ -21,6 +21,8 @@ class SuccursalData
 	public ?string $venta_de = null;
 	public ?string $timbrado = null;
 	public ?int $id_envio = null;
+	public ?int $is_envia_factura = null;
+
 	public ?string $establecimiento = null;
 	public ?string $fecha_firma = null;
 	public ?string $razon_social = null;

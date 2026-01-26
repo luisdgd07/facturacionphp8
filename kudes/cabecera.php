@@ -10,11 +10,15 @@ if (isset($_GET['venta'])) {
 }
 $sucursal = SuccursalData::VerId($venta->sucursal_id);
 if (isset($_GET['remision'])) {
-    $tipo = "Remisión Electrónica";
+    $tipo = "Remisión";
 } else if (isset($_GET['notacredito'])) {
-    $tipo = "Nota de Crédito Electrónica";
+    $tipo = "Nota de Crédito";
 } else {
-    $tipo = "Factura Electrónica";
+    $tipo = "Factura";
+}
+
+if ($sucursal->is_envia_factura == 1) {
+    $tipo .= " Electrónica";
 }
 ob_start();
 if ($sucursal->id_sucursal == 17) {

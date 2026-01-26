@@ -52,7 +52,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                                         if (count($clientes) > 0) {
                                             foreach ($clientes as $p): ?>
                                                 <option value="<?php echo $p->id_cliente; ?>">
-                                                    <?php echo $p->nombre . " " . $p->apellido; ?></option>
+                                                    <?php echo $p->nombre . " " . $p->apellido; ?>
+                                                </option>
                                             <?php endforeach;
                                         } ?>
                                     </select>
@@ -124,7 +125,8 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                                     <span>
                                         DESDE:
                                     </span>
-                                    <input type="date" name="sd" id="date1" value="<?php echo $_GET['sd'] ?>"
+                                    <input type="date" name="sd" id="date1"
+                                        value="<?php echo isset($_GET['sd']) ? $_GET['sd'] : date('Y-m-d') ?>"
                                         class="form-control">
 
 
@@ -137,7 +139,7 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
 
 
                                     <input type="date" name="ed" id="date2" class="form-control"
-                                        value="<?php echo $_GET['ed'] ?>">
+                                        value="<?php echo isset($_GET['ed']) ? $_GET['ed'] : date('Y-m-d') ?>">
 
                                     <input type="hidden" style="display: none;" name="id_sucursal" id="id_sucursal"
                                         value="<?php echo $sucursales->id_sucursal; ?>">

@@ -275,17 +275,11 @@ if (isset($_SESSION["admin_id"]) && $_SESSION["admin_id"] != ""):
                     tablab +=
                         `</td>
                         <td >`
-                    if (venta.envio != 'No enviado') {
-                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
-                    } else {
-                        tablab += `<p>No Enviado</p>`
-                    }
+                    tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
                     tablab +=
                         `</td>
                         <td >`
-                    if (venta.envio != 'No enviado') {
-                        tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
-                    }
+                    tablab += `<a class="btn btn-primary" href="./kudes/kude.php?venta=${venta.id}" target="_blank">Descargar</a>`
                     tablab +=
                         `</td>
                         <td >`
